@@ -20,13 +20,12 @@ export default function FoodCard(props) {
   const classes = useStyles();
   const theme = useTheme();
   const dispatch = useDispatch();
-  const { disabled, setDisabled } = useState(false);
   const tabletAndUp = useMediaQuery(theme.breakpoints.up("sm"));
   const [votes, setVotes] = useState(food.votes);
   const user = JSON.parse(localStorage.getItem("profile"));
   const userId = user?.result?._id;
 
-  const VoteText = () => {
+  const VoteCount = () => {
     if (votes <= 1) {
       return (
           <Typography variant="h5" color="textPrimary">
@@ -43,9 +42,27 @@ export default function FoodCard(props) {
     }
   };
 
+  const VoteButton = () => {
+    return votes.find((vote) => vote === userId) ? (
+      <Button
+        variant="outlined"
+        color="primary"
+      >
+        VOTED
+      </Button>
+    ) : (
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={vote}
+        >
+          VOTE
+        </Button>
+    );
+  };
+
   const vote = async () => {
     dispatch(voteFood(food._id));
-    setDisabled(true);
     console.log("Vote");
     setVotes([...food.votes, userId]);
   };
@@ -67,7 +84,7 @@ export default function FoodCard(props) {
               <Typography component="h5" variant="h5">
                 {food.foodName}
               </Typography>
-              <VoteText />
+              <VoteCount />
             </CardContent>
             <div className={classes.desc}>
               <Typography variant="body1" color="textSecondary">
@@ -78,14 +95,9 @@ export default function FoodCard(props) {
         </Card>
       </Grid>
       <Grid item>
-        <Button
-          variant="contained"
-          disabled={disabled}
-          color="primary"
-          onClick={vote}
-        >
-          {disabled ? "Voted" : "Vote"}
-        </Button>
+        {user?.result?.name && (
+          <VoteButton />
+        )}
       </Grid>
     </Grid>
   ) : (
@@ -107,16 +119,11 @@ export default function FoodCard(props) {
         </CardContent>
         <CardActions>
           <div className={classes.cardActionsContainer}>
-            <VoteText/>
+            <VoteCount />
             <Grid item>
-              <Button
-                variant="contained"
-                disabled={disabled}
-                color="primary"
-                onClick={vote}
-              >
-                {disabled ? "Voted" : "Vote"}
-              </Button>
+              {user?.result?.name && (
+                <VoteButton />
+              )}
             </Grid>
           </div>
         </CardActions>

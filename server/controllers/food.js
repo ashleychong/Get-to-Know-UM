@@ -73,14 +73,14 @@ export const voteFood = async (req, res) => {
     if (!mongoose.Types.ObjectId.isValid(id))
       return res.status(404).send(`No food with id: ${id}`);
 
-    const food = await Food.findById(id);
+  const food = await Food.findById(id);
 
     const index = food.votes.findIndex((id) => id === String(req.userId));
 
     if (index === -1) {
-      food.likes.push(req.userId);
+      food.votes.push(req.userId);
     } else {
-      food.likes = food.likes.filter((id) => id !== String(req.userId));
+      food.votes = food.votes.filter((id) => id !== String(req.userId));
     }
     const updatedFood = await Food.findByIdAndUpdate(id, food, {
       new: true,
