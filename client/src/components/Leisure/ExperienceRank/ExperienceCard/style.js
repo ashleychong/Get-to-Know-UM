@@ -9,7 +9,7 @@ export default makeStyles(() => ({
     flex: "1 0 auto",
   },
   img: {
-    height: 0,
+    height: "140px",
     paddingTop: "56.25%",
     backgroundColor: "rgba(0, 0, 0, 0.5)",
   },
