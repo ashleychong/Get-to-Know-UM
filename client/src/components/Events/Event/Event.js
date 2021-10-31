@@ -15,7 +15,7 @@ const Event = ({ event, setCurrentId }) => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const history = useHistory();
-  const openEvent = () => history.push(`/gtkum/event/${event._id}`);
+  const openEvent = () => history.push(`event/${event._id}`);
 
   return (
     <Card className={classes.card}>
@@ -30,6 +30,13 @@ const Event = ({ event, setCurrentId }) => {
             {moment(event.startDate).format("ddd DD/MM/YYYY h:mma")}
           </Typography>
         </div>
+        <Typography
+          className={classes.tags}
+          color="textSecondary"
+          variant="subtitle1"
+        >
+          {event.tags.map((tag) => `#${tag} `)}
+        </Typography>
         <Typography className={classes.title} variant="h6">
           {event.title}
         </Typography>

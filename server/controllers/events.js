@@ -28,12 +28,14 @@ export const getEvent = async (req, res) => {
 };
 
 export const getEventsBySearch = async (req, res) => {
-  const { searchQuery } = req.query;
+  const { searchQuery, tags } = req.query;
 
   try {
     const title = new RegExp(searchQuery, "i");
 
-    const events = await EventMessage.find({ title });
+    const events = await EventMessage.find({
+      $or: [{ title: title }, { tags: { $in: tags.split(",") } }],
+    });
 
     res.json({ data: events });
   } catch (error) {
@@ -42,10 +44,12 @@ export const getEventsBySearch = async (req, res) => {
 };
 
 export const addEvent = async (req, res) => {
-  const { title, about, startDate, endDate, venue, contact, img } = req.body;
+  const { title, tags, about, startDate, endDate, venue, contact, img } =
+    req.body;
 
   const newEvent = new EventMessage({
     title,
+    tags,
     about,
     startDate,
     endDate,
@@ -64,12 +68,14 @@ export const addEvent = async (req, res) => {
 
 export const updateEvent = async (req, res) => {
   const { id } = req.params;
-  const { title, about, startDate, endDate, venue, contact, img } = req.body;
+  const { title, tags, about, startDate, endDate, venue, contact, img } =
+    req.body;
 
   if (!mongoose.Types.ObjectId.isValid(id))
     return res.status(404).send(`No post with id: ${id}`);
   const updateEvent = {
     title,
+    tags,
     about,
     startDate,
     endDate,

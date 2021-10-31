@@ -10,6 +10,7 @@ const EventForm = ({ currentId, setCurrentId }) => {
   // const history = useHistory;
   const [eventData, setEventData] = useState({
     title: "",
+    tags: "",
     about: "",
     startDate: "",
     endDate: "",
@@ -33,6 +34,7 @@ const EventForm = ({ currentId, setCurrentId }) => {
     setCurrentId(null);
     setEventData({
       title: "",
+      tags: "",
       about: "",
       startDate: "",
       endDate: "",
@@ -68,6 +70,17 @@ const EventForm = ({ currentId, setCurrentId }) => {
             value={eventData.title}
             onChange={(e) =>
               setEventData({ ...eventData, title: e.target.value })
+            }
+          />
+          <TextField
+            name="tags"
+            variant="outlined"
+            label="Tags"
+            fullWidth
+            required
+            value={eventData.tags}
+            onChange={(e) =>
+              setEventData({ ...eventData, tags: e.target.value })
             }
           />
           <TextField

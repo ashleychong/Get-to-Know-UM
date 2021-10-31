@@ -24,7 +24,7 @@ export default makeStyles((theme) => ({
     [theme.breakpoints.down("sm")]: {
       marginLeft: 0,
     },
-    width: "40%",
+    width: "35%",
   },
   about: {
     textAlign: "justify",

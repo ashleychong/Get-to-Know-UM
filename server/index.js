@@ -11,6 +11,7 @@ import manageClubRoutes from "./routes/clubs.js";
 import manageLeisureRoutes from "./routes/experience.js";
 import foodNominationRoutes from "./routes/foodNominations.js";
 import foodRoutes from "./routes/food.js";
+import gpaRoutes from "./routes/gpa.js";
 
 dotenv.config();
 
@@ -23,6 +24,7 @@ app.use(cors());
 app.use("/user", userRoutes);
 app.use("/topics", topicRoutes);
 app.use("/courses", courseRoutes);
+app.use("/gpa", gpaRoutes);
 app.use("/event", manageEventRoutes);
 app.use("/club", manageClubRoutes);
 app.use("/leisure", manageLeisureRoutes);

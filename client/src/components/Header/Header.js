@@ -16,17 +16,15 @@ import { Link, useHistory, useLocation } from "react-router-dom";
 import * as actionType from "../../constants/actionTypes";
 import useStyles from "./styles";
 
-
 const sections = [
   { title: "Forum", url: "/forum" },
-  { title: "Club", url: "#" },
-  { title: "Event", url: "/gtkum/event" },
-  { title: "Leisure", url: "/gtkum/leisure" },
+  { title: "Club", url: "/event" },
+  { title: "Event", url: "/event" },
+  { title: "Leisure", url: "/leisure" },
   { title: "Food", url: "/food" },
   { title: "Course", url: "/courses" },
-  { title: "GPA Calculator", url: "#" },
+  { title: "GPA Calculator", url: "/gpa" },
 ];
-
 
 export default function Header(props) {
   // const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
@@ -39,7 +37,7 @@ export default function Header(props) {
   const { title } = props;
 
   let showNavLinks = true;
-  if (location.pathname === '/auth') {
+  if (location.pathname === "/auth") {
     showNavLinks = false;
   }
 
@@ -116,8 +114,8 @@ export default function Header(props) {
           ) : (
             <Button
               onClick={() => {
-                  history.push("/auth");
-                  console.log("sign in!")
+                history.push("/auth");
+                console.log("sign in!");
               }}
               color="primary"
               variant="contained"
