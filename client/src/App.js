@@ -18,6 +18,9 @@ import EventTab from "./components/manageEvent/EventTab/Tab";
 import Food from "./components/Food/Food";
 import AdminFoodNomination from "./components/Admin/Food/FoodNominationPage";
 import FoodNominationDetails from "./components/Admin/Food/FoodNominationDetails";
+import CafeHome from "./components/Admin/Cafe/CafeHome";
+import AdminCafeDetails from "./components/Admin/Cafe/CafeDetails/CafeDetails";
+import CafeDetails from "./components/Cafe/CafeDetails/CafeDetails";
 
 const theme = createMuiTheme({
   palette: {
@@ -82,6 +85,9 @@ function App() {
           <Route path="/gtkum/leisure" exact component={ExperienceRank} />
           <Route path="/admin/foodNomination" exact component={AdminFoodNomination} />
           <Route path="/admin/foodNomination/:foodNominationId" exact component={FoodNominationDetails} />
+          <Route path="/admin/cafe" exact component={CafeHome} />
+          <Route path="/admin/cafeDetails" exact component={AdminCafeDetails} />
+          <Route path="/cafeDetails" exact component={CafeDetails} />
         </Switch>
       </ThemeProvider>
     </BrowserRouter>
