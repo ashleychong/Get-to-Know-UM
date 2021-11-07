@@ -18,7 +18,7 @@ import useStyles from "./styles";
 
 const sections = [
   { title: "Forum", url: "/forum" },
-  { title: "Club", url: "/event" },
+  { title: "Club", url: "/club" },
   { title: "Event", url: "/event" },
   { title: "Leisure", url: "/leisure" },
   { title: "Food", url: "/food" },

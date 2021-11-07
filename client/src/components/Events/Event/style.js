@@ -22,16 +22,13 @@ export default makeStyles({
     display: "flex",
   },
   details: {
-    display: "flex",
-    justifyContent: "space-between",
-    margin: "16px",
+    fontWeight: "450",
   },
-  tags: {
-    paddingLeft: "16px",
-  },
+  tags: {},
   title: {
-    padding: "0 16px",
-    color: "#008394",
+    color: "#0097a7",
+    fontSize: "22px",
+    fontWeight: "bold",
   },
   cardAction: {
     display: "block",

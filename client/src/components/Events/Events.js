@@ -19,7 +19,7 @@ const Events = ({ setCurrentId }) => {
       <Search />
       <Grid container alignItems="stretch" style={{ paddingTop: "3vh" }}>
         {events.map((event) => (
-          <Grid key={event._id} item xs={12} sm={4} md={4} lg={2}>
+          <Grid key={event._id} item xs={12} sm={4} md={4} lg={3}>
             <Event event={event} setCurrentId={setCurrentId} />
           </Grid>
         ))}

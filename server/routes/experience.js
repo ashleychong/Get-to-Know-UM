@@ -2,6 +2,7 @@ import express from "express";
 import {
   getExpList,
   addExp,
+  likeExp,
   getLeisureList,
   getLeisure,
   addLeisure,
@@ -9,11 +10,13 @@ import {
   deleteLeisure,
   getLeisuresBySearch,
 } from "../controllers/experience.js";
+import auth from "../middleware/auth.js";
 
 const router = express.Router();
 
 router.get("/exp", getExpList);
-router.post("/exp", addExp);
+router.post("/exp", auth, addExp);
+router.patch("/:id/likeExp", auth, likeExp);
 
 router.get("/", getLeisureList);
 router.get("/:id", getLeisure);

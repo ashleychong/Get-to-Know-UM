@@ -17,4 +17,15 @@ export default makeStyles(() => ({
   card: {
     margin: "10px 0",
   },
+  paper: {
+    padding: "16px",
+  },
+  dialogWrapper: {
+    padding: "16px",
+    position: "absolute",
+    margin: "auto",
+  },
+  dialogTitle: {
+    paddingRight: "0px",
+  },
 }));

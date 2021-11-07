@@ -5,6 +5,7 @@ import {
   CardContent,
   CardMedia,
   Grid,
+  Box,
 } from "@material-ui/core/";
 import { useDispatch } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
@@ -15,9 +16,6 @@ export default function LeisureCard(leisure) {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  if (history.location.pathname.includes("inUM")) {
-  }
-
   return history.location.pathname.includes("inUM") &&
     leisure.leisure.category.includes("inUM") ? (
     <Grid className={classes.grid} container spacing={5}>
@@ -26,20 +24,22 @@ export default function LeisureCard(leisure) {
           <CardMedia
             className={classes.cover}
             image="https://source.unsplash.com/random"
-            title={leisure.leisure.title}
+            alt={leisure.leisure.title}
           />
-          <div className={classes.details}>
-            <CardContent className={classes.content}>
-              <Typography component="h5" variant="h5">
-                {leisure.leisure.title}
-              </Typography>
-            </CardContent>
-            <div className={classes.desc}>
-              <Typography variant="body1" color="textSecondary">
-                {leisure.leisure.details}
-              </Typography>
+          <Box className={classes.box}>
+            <div className={classes.details}>
+              <CardContent className={classes.content}>
+                <Typography component="h5" variant="h5">
+                  {leisure.leisure.title}
+                </Typography>
+              </CardContent>
+              <div className={classes.desc}>
+                <Typography variant="body1" color="textSecondary">
+                  {leisure.leisure.details}
+                </Typography>
+              </div>
             </div>
-          </div>
+          </Box>
         </Card>
       </Grid>
     </Grid>
@@ -51,20 +51,22 @@ export default function LeisureCard(leisure) {
           <CardMedia
             className={classes.cover}
             image="https://source.unsplash.com/random"
-            title={leisure.leisure.title}
+            alt={leisure.leisure.title}
           />
-          <div className={classes.details}>
-            <CardContent className={classes.content}>
-              <Typography component="h5" variant="h5">
-                {leisure.leisure.title}
-              </Typography>
-            </CardContent>
-            <div className={classes.desc}>
-              <Typography variant="body1" color="textSecondary">
-                {leisure.leisure.details}
-              </Typography>
+          <Box className={classes.box}>
+            <div className={classes.details}>
+              <CardContent className={classes.content}>
+                <Typography component="h5" variant="h5">
+                  {leisure.leisure.title}
+                </Typography>
+              </CardContent>
+              <div className={classes.desc}>
+                <Typography variant="body1" color="textSecondary">
+                  {leisure.leisure.details}
+                </Typography>
+              </div>
             </div>
-          </div>
+          </Box>
         </Card>
       </Grid>
     </Grid>

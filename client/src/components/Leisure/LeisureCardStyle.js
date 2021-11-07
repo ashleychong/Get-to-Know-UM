@@ -10,13 +10,16 @@ export default makeStyles((theme) => ({
     margin: "0 140px",
     height: "200px",
   },
+  box: {
+    width: "fit-content",
+  },
   details: {
     display: "flex",
     flexDirection: "column",
     flex: "1 1 auto",
   },
   cover: {
-    width: "350px",
+    width: "200px",
   },
   desc: {
     padding: theme.spacing(2),

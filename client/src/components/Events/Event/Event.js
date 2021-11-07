@@ -25,23 +25,19 @@ const Event = ({ event, setCurrentId }) => {
           image={event.img}
           title={event.title}
         />
-        <div className={classes.details}>
-          <Typography variant="body2" color="textSecondary">
+        <CardContent>
+          <Typography
+            className={classes.tags}
+            color="textSecondary"
+            variant="subtitle2"
+          >
+            {event.tags.map((tag) => `#${tag} `)}
+          </Typography>
+          <Typography variant="body2" className={classes.details}>
             {moment(event.startDate).format("ddd DD/MM/YYYY h:mma")}
           </Typography>
-        </div>
-        <Typography
-          className={classes.tags}
-          color="textSecondary"
-          variant="subtitle1"
-        >
-          {event.tags.map((tag) => `#${tag} `)}
-        </Typography>
-        <Typography className={classes.title} variant="h6">
-          {event.title}
-        </Typography>
-        <CardContent>
-          <Typography variant="body2" color="textSecondary">
+          <Typography className={classes.title}>{event.title}</Typography>
+          <Typography className={classes.details} variant="body2">
             {event.venue}
           </Typography>
         </CardContent>

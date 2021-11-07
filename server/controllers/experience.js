@@ -1,5 +1,5 @@
 import express from "express";
-
+import mongoose from "mongoose";
 import ExpMessage from "../models/experienceModal.js";
 import LeisureMessage from "../models/leisureModel.js";
 
@@ -14,13 +14,9 @@ export const getExpList = async (req, res) => {
   }
 };
 export const addExp = async (req, res) => {
-  const { title, description, img } = req.body;
+  const exp = req.body;
 
-  const newExp = new ExpMessage({
-    title,
-    description,
-    img,
-  });
+  const newExp = new ExpMessage({ ...exp, creator: req.userId });
 
   try {
     await newExp.save();
@@ -28,6 +24,29 @@ export const addExp = async (req, res) => {
   } catch (error) {
     res.status(409).json({ message: error.message });
   }
+};
+
+export const likeExp = async (req, res) => {
+  const { id } = req.params;
+
+  if (!req.userId) {
+    return res.json({ message: "Unauthenticated" });
+  }
+
+  if (!mongoose.Types.ObjectId.isValid(id))
+    return res.status(404).send(`No exp with id: ${id}`);
+
+  const exp = await ExpMessage.findById(id);
+
+  const index = exp.likes.findIndex((id) => id === String(req.userId));
+
+  if (index === -1) {
+    exp.likes.push(req.userId);
+  } else {
+    exp.likes = exp.likes.filter((id) => id !== String(req.userId));
+  }
+  const updatedExp = await ExpMessage.findByIdAndUpdate(id, exp, { new: true });
+  res.status(200).json(updatedExp);
 };
 
 export const getLeisureList = async (req, res) => {
@@ -85,7 +104,7 @@ export const updateLeisure = async (req, res) => {
   const { title, details, category } = req.body;
 
   if (!mongoose.Types.ObjectId.isValid(id))
-    return res.status(404).send(`No post with id: ${id}`);
+    return res.status(404).send(`No exp with id: ${id}`);
   const updateLeisure = {
     title,
     details,
@@ -99,7 +118,7 @@ export const updateLeisure = async (req, res) => {
 export const deleteLeisure = async (req, res) => {
   const { id } = req.params;
   if (!mongoose.Types.ObjectId.isValid(id))
-    return res.status(404).send(`No post with id: ${id}`);
+    return res.status(404).send(`No exp with id: ${id}`);
   await LeisureMessage.findByIdAndRemove(id);
   res.json({ message: "Deleted successfully." });
 };
