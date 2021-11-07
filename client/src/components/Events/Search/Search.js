@@ -41,22 +41,16 @@ const Search = () => {
   };
 
   return (
-    <>
-      <AppBar
-        className={classes.appBarSearch}
-        position="static"
-        color="inherit"
-      >
-        <TextField
-          onKeyDown={handleKeyPress}
-          name="search"
-          variant="outlined"
-          label="Search"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-      </AppBar>
-    </>
+    <div className={classes.appBarSearch}>
+      <TextField
+        onKeyDown={handleKeyPress}
+        name="search"
+        variant="outlined"
+        label="Search"
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+      />
+    </div>
   );
 };
 
