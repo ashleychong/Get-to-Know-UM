@@ -1,38 +1,53 @@
 import React, { useEffect } from "react";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import Paper from "@material-ui/core/Paper";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  IconButton,
+  TablePagination,
+} from "@material-ui/core";
 import useStyles from "./style";
 import { useDispatch, useSelector } from "react-redux";
 import { getClubs } from "../../../actions/clubs";
 import { Button } from "@material-ui/core";
 import { deleteClub } from "../../../actions/clubs";
+import EditIcon from "@material-ui/icons/Edit";
+import DeleteIcon from "@material-ui/icons/Delete";
+import moment from "moment";
 
-const ClubTable = ({ setCurrentId }) => {
+const ClubTable = (props) => {
   const dispatch = useDispatch();
-
+  const pages = 8;
+  const [page, setPage] = React.useState(0);
+  const { club, editInPopup } = props;
   const classes = useStyles();
+  const [rowsPerPage, setRowsPerPage] = React.useState(pages);
 
   useEffect(() => {
     dispatch(getClubs());
-  }, []);
+    console.log(clubs);
+  }, [dispatch]);
 
-  const clubs = useSelector((state) => state.clubs);
+  const { clubs, isLoading } = useSelector((state) => state.clubs);
+
+  if (!clubs.length && !isLoading) return "No clubs";
+
+  const handleChangePage = (e, newPage) => {
+    setPage(newPage);
+  };
+
   return (
     <Paper className={classes.paper}>
       <TableContainer>
         <Table>
-          <TableHead className={classes.head}>
-            <TableRow>
-              <TableCell className={classes.cell}>Title</TableCell>
-              <TableCell className={classes.cell}>Contact</TableCell>
-              <TableCell className={classes.cell} align="right">
-                Action
-              </TableCell>
+          <TableHead>
+            <TableRow className={classes.row}>
+              <TableCell>Title</TableCell>
+              <TableCell>Action</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -41,18 +56,38 @@ const ClubTable = ({ setCurrentId }) => {
                 <TableCell component="th" scope="row">
                   {club.title}
                 </TableCell>
-                <TableCell>{club.contact}</TableCell>
-                <TableCell align="right">
-                  <Button onClick={() => setCurrentId(club._id)}>Edit</Button> |{" "}
-                  <Button onClick={() => dispatch(deleteClub(club._id))}>
-                    Delete
-                  </Button>
+                <TableCell>
+                  <IconButton
+                    size="small"
+                    color="primary"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      editInPopup(club);
+                    }}
+                  >
+                    <EditIcon fontSize="small" />
+                  </IconButton>
+                  <IconButton
+                    size="small"
+                    color="secondary"
+                    onClick={() => dispatch(deleteClub(club._id))}
+                  >
+                    <DeleteIcon fontSize="small" />
+                  </IconButton>
                 </TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
+      <TablePagination
+        rowsPerPageOptions={[8]}
+        component="div"
+        count={clubs.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handleChangePage}
+      />
     </Paper>
   );
 };

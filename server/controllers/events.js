@@ -8,9 +8,31 @@ const router = express.Router();
 //retrieving data takes time so async
 //if successful return status 200 and json
 export const getEventList = async (req, res) => {
+  const { page } = req.query;
   try {
-    const events = await EventMessage.find();
-    res.status(200).json(events);
+    const LIMIT = 8;
+    const startIndex = (Number(page) - 1) * LIMIT; // get the starting index of every page
+    const total = await EventMessage.countDocuments({});
+    const events = await EventMessage.find()
+      .sort({ _id: -1 })
+      .limit(LIMIT)
+      .skip(startIndex);
+
+    res.json({
+      data: events,
+      currentPage: Number(page),
+      numberOfPages: Math.ceil(total / LIMIT),
+    });
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+//for admin portal table
+export const getEventTable = async (req, res) => {
+  try {
+    const eventTable = await EventMessage.find();
+    console.log(eventTable);
+    res.status(200).json(eventTable);
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
@@ -91,7 +113,7 @@ export const updateEvent = async (req, res) => {
 export const deleteEvent = async (req, res) => {
   const { id } = req.params;
   if (!mongoose.Types.ObjectId.isValid(id))
-    return res.status(404).send(`No post with id: ${id}`);
+    return res.status(404).send(`No event with id: ${id}`);
   await EventMessage.findByIdAndRemove(id);
   res.json({ message: "Deleted successfully." });
 };

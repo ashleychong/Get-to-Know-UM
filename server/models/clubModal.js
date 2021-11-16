@@ -6,6 +6,7 @@ const clubSchema = mongoose.Schema({
   event: String,
   contact: String,
   img: String,
+  clublink: String,
 });
 
 const Club = mongoose.model("Club", clubSchema);

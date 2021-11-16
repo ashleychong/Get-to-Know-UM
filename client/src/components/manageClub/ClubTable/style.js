@@ -5,10 +5,8 @@ export default makeStyles((theme) => ({
   paper: {
     marginTop: "25px",
   },
-  head: {
-    backgroundColor: "#008394",
-  },
-  cell: {
-    color: "white",
+  row: {
+    backgroundColor: "#eceff1",
+    textTransform: "uppercase",
   },
 }));

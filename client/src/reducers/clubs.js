@@ -1,18 +1,46 @@
-import { FETCH_ALL, CREATE, UPDATE, DELETE } from "../constants/actionTypes";
+import {
+  FETCH_CLUBS,
+  CREATE_CLUB,
+  UPDATE_CLUB,
+  DELETE_CLUB,
+  FETCH_CLUB,
+  FETCH_BY_SEARCH_CLUB,
+  START_LOADING,
+  END_LOADING,
+} from "../constants/actionTypes";
 
-export default (clubs = [], action) => {
+export default (state = { isLoading: true, clubs: [] }, action) => {
   switch (action.type) {
-    case FETCH_ALL:
-      return action.payload;
-    case CREATE:
-      return [...clubs, action.payload];
-    case UPDATE:
-      return clubs.map((club) =>
-        club._id === action.payload._id ? action.payload : club
-      );
-    case DELETE:
-      return clubs.filter((club) => club._id !== action.payload);
+    case START_LOADING:
+      return { ...state, isLoading: true };
+    case END_LOADING:
+      return { ...state, isLoading: false };
+    case FETCH_CLUBS:
+      return {
+        ...state,
+        clubs: action.payload.data,
+        currentPage: action.payload.currentPage,
+        numberOfPages: action.payload.numberOfPages,
+      };
+    case FETCH_BY_SEARCH_CLUB:
+      return { ...state, clubs: action.payload };
+    case FETCH_CLUB:
+      return { ...state, club: action.payload.club };
+    case CREATE_CLUB:
+      return { ...state, clubs: [...state.clubs, action.payload] };
+    case UPDATE_CLUB:
+      return {
+        ...state,
+        clubs: state.clubs.map((club) =>
+          club._id === action.payload._id ? action.payload : club
+        ),
+      };
+    case DELETE_CLUB:
+      return {
+        ...state,
+        clubs: state.clubs.filter((club) => club._id !== action.payload),
+      };
     default:
-      return clubs;
+      return state;
   }
 };
