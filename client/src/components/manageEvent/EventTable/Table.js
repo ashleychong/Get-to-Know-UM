@@ -1,101 +1,134 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
-  Table,
   TableBody,
   TableCell,
-  TableContainer,
-  TableHead,
   TableRow,
   Paper,
   IconButton,
-  TablePagination,
+  Toolbar,
+  InputAdornment,
+  Chip,
 } from "@material-ui/core";
 import useStyles from "./style";
 import { useDispatch, useSelector } from "react-redux";
-import { getEvents, getEventTable } from "../../../actions/events";
-import { Button } from "@material-ui/core";
+import { getEventTable } from "../../../actions/events";
 import { deleteEvent } from "../../../actions/events";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import moment from "moment";
+import { Search } from "@material-ui/icons";
+import Input from "../../Custom/Input";
+import useTable from "../../Custom/useTable";
 
 const EventTable = (props) => {
   const dispatch = useDispatch();
-  const pages = 8;
-  const [page, setPage] = React.useState(0);
   const { event, editInPopup } = props;
   const classes = useStyles();
-  const [rowsPerPage, setRowsPerPage] = React.useState(pages);
+  const user = JSON.parse(localStorage.getItem("profile"));
+  const { events, isLoading } = useSelector((state) => state.events);
+  const headCells = [
+    { id: "title", label: "Title" },
+    { id: "date", label: "Date", disableSorting: "true" },
+    { id: "venue", label: "Venue", disableSorting: "true" },
+    { id: "status", label: "Status", disableSorting: "true" },
+    { id: "action", label: "Action", disableSorting: "true" },
+  ];
+  const [filterFn, setFilterFn] = useState({
+    fn: (items) => {
+      return items;
+    },
+  });
+  const { TblContainer, TblHead, TblPagination, recordsAfterPagingAndSorting } =
+    useTable(events, headCells, filterFn);
 
   useEffect(() => {
-    console.log(events);
-    dispatch(getEventTable());
+    dispatch(getEventTable(user.result.role));
   }, []);
-
-  const { events, isLoading } = useSelector((state) => state.events);
 
   if (!events.length && !isLoading) return "No events";
 
-  const handleChangePage = (e, newPage) => {
-    setPage(newPage);
+  const handleSearch = (e) => {
+    let target = e.target;
+    setFilterFn({
+      fn: (items) => {
+        if (target.value == "") return items;
+        else
+          return items.filter((x) =>
+            x.title.toLowerCase().includes(target.value.toLowerCase())
+          );
+      },
+    });
   };
 
   return (
     <Paper className={classes.paper}>
-      <TableContainer>
-        <Table>
-          <TableHead>
-            <TableRow className={classes.row}>
-              <TableCell>Title</TableCell>
-              <TableCell>Date</TableCell>
-              <TableCell>Venue</TableCell>
-              <TableCell>Action</TableCell>
+      <Toolbar>
+        <Input
+          label="Search Event"
+          className={classes.searchInput}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <Search />
+              </InputAdornment>
+            ),
+          }}
+          onChange={handleSearch}
+        />
+      </Toolbar>
+      <TblContainer>
+        <TblHead className={classes.row} />
+        <TableBody>
+          {recordsAfterPagingAndSorting().map((event) => (
+            <TableRow key={event._id}>
+              <TableCell component="th" scope="row">
+                {event.title}
+              </TableCell>
+              <TableCell>
+                {moment(event.startDate).format("DD/MM/YY h:mma")}
+                <br />
+                {moment(event.endDate).format("DD/MM/YY h:mma")}
+              </TableCell>
+              <TableCell>{event.venue}</TableCell>
+              <TableCell>
+                {event.startDate && event.endDate < new Date().toISOString() ? (
+                  <Chip
+                    label="Expired"
+                    className={classes.statusExpired}
+                    size="small"
+                  />
+                ) : (
+                  <Chip
+                    label="Upcoming"
+                    className={classes.statusUpcoming}
+                    size="small"
+                  />
+                )}
+              </TableCell>
+              <TableCell>
+                <IconButton
+                  size="small"
+                  color="primary"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    editInPopup(event);
+                  }}
+                >
+                  <EditIcon fontSize="small" />
+                </IconButton>
+                <IconButton
+                  size="small"
+                  color="secondary"
+                  onClick={() => dispatch(deleteEvent(event._id))}
+                >
+                  <DeleteIcon fontSize="small" />
+                </IconButton>
+              </TableCell>
             </TableRow>
-          </TableHead>
-          <TableBody>
-            {events.map((event) => (
-              <TableRow key={event._id}>
-                <TableCell component="th" scope="row">
-                  {event.title}
-                </TableCell>
-                <TableCell>
-                  {moment(event.startDate).format("DD/MM/YY h:mma")}
-                  <br />
-                  {moment(event.endDate).format("DD/MM/YY h:mma")}
-                </TableCell>
-                <TableCell>{event.venue}</TableCell>
-                <TableCell>
-                  <IconButton
-                    size="small"
-                    color="primary"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      editInPopup(event);
-                    }}
-                  >
-                    <EditIcon fontSize="small" />
-                  </IconButton>
-                  <IconButton
-                    size="small"
-                    color="secondary"
-                    onClick={() => dispatch(deleteEvent(event._id))}
-                  >
-                    <DeleteIcon fontSize="small" />
-                  </IconButton>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <TablePagination
-        rowsPerPageOptions={[8]}
-        component="div"
-        count={events.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-      />
+          ))}
+        </TableBody>
+      </TblContainer>
+      <TblPagination />
     </Paper>
   );
 };

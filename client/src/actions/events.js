@@ -26,10 +26,9 @@ export const getEvents = (page) => async (dispatch) => {
   }
 };
 
-export const getEventTable = () => async (dispatch) => {
+export const getEventTable = (user) => async (dispatch) => {
   try {
-    const { data } = await api.fetchEventTable();
-    console.log(data);
+    const { data } = await api.fetchEventTable(user);
     dispatch({ type: FETCH_EVENT_TABLE, payload: data });
   } catch (error) {
     console.log(error.response);

@@ -42,7 +42,7 @@ const ClubTable = (props) => {
 
   return (
     <Paper className={classes.paper}>
-      <TableContainer>
+      <TableContainer className={classes.container}>
         <Table>
           <TableHead>
             <TableRow className={classes.row}>

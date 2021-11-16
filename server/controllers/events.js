@@ -29,9 +29,9 @@ export const getEventList = async (req, res) => {
 };
 //for admin portal table
 export const getEventTable = async (req, res) => {
+  const { user } = req.params;
   try {
     const eventTable = await EventMessage.find();
-    console.log(eventTable);
     res.status(200).json(eventTable);
   } catch (error) {
     res.status(404).json({ message: error.message });

@@ -43,6 +43,11 @@ export default (state = { isLoading: true, events: [] }, action) => {
         ...state,
         events: state.events.filter((event) => event._id !== action.payload),
       };
+    case FETCH_EVENT_TABLE:
+      return {
+        ...state,
+        events: action.payload,
+      };
     default:
       return state;
   }

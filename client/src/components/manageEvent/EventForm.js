@@ -45,15 +45,19 @@ const EventForm = ({ currentId, setCurrentId, setOpenPopup }) => {
     if ("title" in fieldValues)
       temp.title = fieldValues.title ? "" : "This field is required.";
     if ("tags" in fieldValues)
-      temp.courseCode = fieldValues.courseCode ? "" : "This field is required.";
+      temp.tags = fieldValues.tags ? "" : "This field is required.";
     if ("about" in fieldValues)
-      temp.description = fieldValues.description
+      temp.about = fieldValues.about ? "" : "This field is required.";
+    if ("startDate" in fieldValues)
+      temp.startDate = fieldValues.startDate ? "" : "This field is required.";
+    if ("endDate" in fieldValues)
+      temp.endDate = fieldValues.endDate ? "" : "This field is required.";
+    if ("venue" in fieldValues)
+      temp.venue = fieldValues.venue ? "" : "This field is required.";
+    if ("contact" in fieldValues)
+      temp.contact = fieldValues.contact.length
         ? ""
         : "This field is required.";
-    // if ("message" in fieldValues)
-    //     temp.message = fieldValues.message ? "" : "This field is required.";
-    // if ("message" in fieldValues)
-    //   temp.message = fieldValues.message ? "" : "This field is required.";
     setErrors({
       ...temp,
     });
@@ -101,7 +105,7 @@ const EventForm = ({ currentId, setCurrentId, setOpenPopup }) => {
           label="Tags"
           value={values.tags}
           onChange={handleInputChange}
-          error={errors.courseCode}
+          error={errors.tags}
           required
         />
         <Custom.Input
@@ -109,7 +113,7 @@ const EventForm = ({ currentId, setCurrentId, setOpenPopup }) => {
           label="About"
           value={values.about}
           onChange={handleInputChange}
-          error={errors.description}
+          error={errors.about}
           multiline
           minRows={5}
           maxRows={10}
@@ -121,8 +125,11 @@ const EventForm = ({ currentId, setCurrentId, setOpenPopup }) => {
           value={values.startDate}
           type="datetime-local"
           onChange={handleInputChange}
-          error={errors.description}
+          error={errors.startDate}
           required
+          inputProps={{
+            min: new Date().toISOString().slice(0, 16),
+          }}
           InputLabelProps={{
             shrink: true,
           }}
@@ -133,8 +140,11 @@ const EventForm = ({ currentId, setCurrentId, setOpenPopup }) => {
           value={values.endDate}
           type="datetime-local"
           onChange={handleInputChange}
-          error={errors.description}
+          error={errors.endDate}
           required
+          inputProps={{
+            min: new Date().toISOString().slice(0, 16),
+          }}
           InputLabelProps={{
             shrink: true,
           }}
@@ -144,7 +154,7 @@ const EventForm = ({ currentId, setCurrentId, setOpenPopup }) => {
           label="Venue"
           value={values.venue}
           onChange={handleInputChange}
-          error={errors.description}
+          error={errors.venue}
           multiline
           required
         />
@@ -153,8 +163,7 @@ const EventForm = ({ currentId, setCurrentId, setOpenPopup }) => {
           label="Contact"
           value={values.contact}
           onChange={handleInputChange}
-          error={errors.description}
-          multiline
+          error={errors.contact}
           required
         />
         <div className={classes.fileInput}>

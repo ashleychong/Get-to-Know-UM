@@ -18,4 +18,4 @@ export const createEvents = (newEvent) => axios.post(url, newEvent);
 export const updateEvent = (id, updatedEvent) =>
   axios.patch(`${url}/${id}`, updatedEvent);
 export const deleteEvent = (id) => axios.delete(`${url}/${id}`);
-export const fetchEventTable = () => axios.get(`${url}/admin`);
+export const fetchEventTable = (user) => axios.get(`${url}/${user}`);
