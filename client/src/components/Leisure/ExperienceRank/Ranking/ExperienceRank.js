@@ -53,14 +53,6 @@ const ExperienceRank = () => {
       img: "",
     });
   };
-  const ascExp = []
-    .concat(experience)
-    .sort((a, b) => (a.likes.length > b.likes.length ? 1 : -1))
-    .map((exp, index) => (
-      <Grid item key={exp._id} xs={12} className={classes.card}>
-        <ExperienceCard exp={exp} index={index + 1} />
-      </Grid>
-    ));
 
   return (
     <>

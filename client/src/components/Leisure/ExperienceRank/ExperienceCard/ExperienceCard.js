@@ -17,7 +17,6 @@ import { likeExp } from "../../../../actions/experience";
 
 const ExperienceCard = (props) => {
   const { exp, index } = props;
-  // const [likes, setlikes] = useState(exp.exp.likeCount);
   const dispatch = useDispatch();
   const classes = useStyles();
   const user = JSON.parse(localStorage.getItem("profile"));
@@ -86,24 +85,6 @@ const ExperienceCard = (props) => {
           </Card>
         </Grid>
       </Grid>
-      {/* <Card className={classes.card}>
-        <div className={classes.info}>
-          <CardMedia
-            component="img"
-            alt={exp.exp.title}
-            height="140"
-            image={exp.exp.img}
-          />
-          <CardContent className={classes.content}>
-            <Typography component="h5" variant="h5">
-              {exp.exp.title}
-            </Typography>
-            <Typography variant="subtitle1" color="textSecondary">
-              {exp.exp.description}
-            </Typography>
-          </CardContent>
-        </div>
-      </Card> */}
     </>
   );
 };

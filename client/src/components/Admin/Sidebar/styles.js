@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/core/styles";
 
-const drawerWidth = 240;
+const drawerWidth = 256;
 
 export default makeStyles((theme) => ({
   header: {
@@ -25,11 +25,11 @@ export default makeStyles((theme) => ({
   },
   drawerPaper: {
     width: drawerWidth,
-    backgroundColor: "#008394",
+    backgroundColor: "#263238",
   },
 
   list: {
-    color: "#FFFFFF",
+    color: "#D1D5DB",
   },
   profile: {
     width: 100,
@@ -39,10 +39,11 @@ export default makeStyles((theme) => ({
     padding: "0 72px",
   },
   icon: {
+    size: "20px",
     color: "#FFFFFF",
   },
   active: {
-    background: "#2CB5D2",
+    background: "#607d8b",
   },
   logoutDiv: {
     display: "flex",

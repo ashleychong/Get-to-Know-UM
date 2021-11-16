@@ -1,10 +1,26 @@
 import React, { useEffect } from "react";
 import decode from "jwt-decode";
-import { Button, Drawer, List, Divider, ListItem, ListItemText, ListItemIcon, Typography, Avatar } from "@material-ui/core";
-import { DashboardOutlined, EventAvailableOutlined, LocalCafeOutlined, LocalLibraryOutlined, DirectionsRunOutlined, PeopleAltOutlined } from "@material-ui/icons";
+import {
+  Button,
+  Drawer,
+  List,
+  Divider,
+  ListItem,
+  ListItemText,
+  ListItemIcon,
+  Typography,
+  Avatar,
+} from "@material-ui/core";
+import {
+  DashboardOutlined,
+  EventAvailableOutlined,
+  LocalCafeOutlined,
+  LocalLibraryOutlined,
+  DirectionsRunOutlined,
+  PeopleAltOutlined,
+} from "@material-ui/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
-
 
 import useStyles from "./styles";
 import * as actionType from "../../../constants/actionTypes";
@@ -16,8 +32,6 @@ const SideBar = () => {
   const location = useLocation();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.authData);
-
-  console.log(user);
 
   const logout = () => {
     console.log("Logged out");
@@ -52,7 +66,7 @@ const SideBar = () => {
     {
       text: "Club",
       icon: <PeopleAltOutlined />,
-      path: "/club",
+      path: "/admin/club",
     },
     {
       text: "Elective Course",
@@ -62,7 +76,7 @@ const SideBar = () => {
     {
       text: "Event",
       icon: <EventAvailableOutlined />,
-      path: "/event",
+      path: "/admin/event",
     },
     {
       text: "Leisure",

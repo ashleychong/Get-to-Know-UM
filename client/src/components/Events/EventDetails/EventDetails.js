@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
-import { Paper, Typography, Divider } from "@material-ui/core";
+import { Paper, Typography, Divider, Grid } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useHistory } from "react-router";
 import useStyles from "./style";
 import { getEvent, getEventsBySearch } from "../../../actions/events";
 import moment from "moment";
+import RecommendEvent from "../RecommendEvent/RecommendEvent";
 
 const EventDetails = () => {
   const { event, events } = useSelector((state) => state.events);
@@ -22,18 +23,17 @@ const EventDetails = () => {
       dispatch(
         getEventsBySearch({ search: "none", tags: event?.tags.join(",") })
       ); // getting null smtg wrong with search
-      console.log(
-        getEventsBySearch({ search: "none", tags: event?.tags.join(",") })
-      );
     }
   }, [event]);
 
+  console.log(event);
+
   if (!event) return null;
 
-  const openEvent = (_id) => history.push(`gtkum/event/${_id}`);
-
-  // const recommendedEvents = events.filter(({ _id }) => _id !== event._id);
-
+  const recommendedEvents = events
+    .filter(({ _id }) => _id !== event._id)
+    .slice(0, 6);
+  const openEvent = (_id) => history.push(`${_id}`);
   return (
     <Paper style={{ padding: "20px", borderRadius: "15px" }} elevation={6}>
       <div className={classes.card}>
@@ -75,6 +75,26 @@ const EventDetails = () => {
           />
         </div>
       </div>
+      {!!recommendedEvents.length && (
+        <div className={classes.section}>
+          <Typography gutterBottom variant="h5">
+            You might also like:
+          </Typography>
+          <Divider />
+          <Grid container alignItems="stretch" style={{ paddingTop: "1vh" }}>
+            {recommendedEvents.map((event) => (
+              <Grid
+                item
+                lg={2}
+                style={{ cursor: "pointer" }}
+                onClick={() => openEvent(event._id)}
+              >
+                <RecommendEvent event={event} />
+              </Grid>
+            ))}
+          </Grid>
+        </div>
+      )}
     </Paper>
   );
 };

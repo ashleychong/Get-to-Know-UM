@@ -1,13 +1,46 @@
 import * as api from "../api/clubs";
-import { FETCH_ALL, CREATE, UPDATE, DELETE } from "../constants/actionTypes";
+import {
+  FETCH_CLUBS,
+  FETCH_BY_SEARCH_CLUB,
+  CREATE_CLUB,
+  UPDATE_CLUB,
+  DELETE_CLUB,
+  FETCH_CLUB,
+  START_LOADING,
+  END_LOADING,
+} from "../constants/actionTypes";
 
-//Action Creators are function that return an action
-//action is an obj that hv type and payload
-//redux thunk to deal with async
-export const getClubs = () => async (dispatch) => {
+export const getClubs = (page) => async (dispatch) => {
   try {
-    const { data } = await api.fetchClubs();
-    dispatch({ type: FETCH_ALL, payload: data });
+    dispatch({ type: START_LOADING });
+    const { data } = await api.fetchClubs(page);
+    console.log(data);
+    dispatch({ type: FETCH_CLUBS, payload: data });
+    dispatch({ type: END_LOADING });
+  } catch (error) {
+    console.log(error.response);
+  }
+};
+
+export const getClub = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: START_LOADING });
+    const { data } = await api.fetchClub(id);
+    dispatch({ type: FETCH_CLUB, payload: { club: data } });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const getClubsBySearch = (searchQuery) => async (dispatch) => {
+  try {
+    dispatch({ type: START_LOADING });
+    const {
+      data: { data },
+    } = await api.fetchClubsBySearch(searchQuery);
+    console.log(data);
+    dispatch({ type: FETCH_BY_SEARCH_CLUB, payload: { data } });
+    dispatch({ type: END_LOADING });
   } catch (error) {
     console.log(error.message);
   }
@@ -15,8 +48,9 @@ export const getClubs = () => async (dispatch) => {
 
 export const createClub = (club) => async (dispatch) => {
   try {
+    dispatch({ type: START_LOADING });
     const { data } = await api.createClubs(club);
-    dispatch({ type: CREATE, payload: data });
+    dispatch({ type: CREATE_CLUB, payload: data });
   } catch (error) {
     console.log(error.message);
   }
@@ -25,7 +59,7 @@ export const createClub = (club) => async (dispatch) => {
 export const updateClub = (id, club) => async (dispatch) => {
   try {
     const { data } = await api.updateClub(id, club);
-    dispatch({ type: UPDATE, payload: data });
+    dispatch({ type: UPDATE_CLUB, payload: data });
   } catch (error) {
     console.log(error.message);
   }
@@ -34,7 +68,7 @@ export const updateClub = (id, club) => async (dispatch) => {
 export const deleteClub = (id) => async (dispatch) => {
   try {
     await api.deleteClub(id);
-    dispatch({ type: DELETE, payload: id });
+    dispatch({ type: DELETE_CLUB, payload: id });
   } catch (error) {
     console.log(error.message);
   }
