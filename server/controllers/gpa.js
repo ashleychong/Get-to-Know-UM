@@ -13,4 +13,20 @@ export const getGpa = async (req, res) => {
   }
 };
 
+export const addCourse = async (req, res) => {
+  const { name, credithr } = req.body;
+
+  const newCourse = new GpaMessage({
+    name,
+    credithr,
+  });
+
+  try {
+    await newCourse.save();
+    res.status(201).json(newCourse);
+  } catch (error) {
+    res.status(409).json({ message: error.message });
+  }
+};
+
 export default router;

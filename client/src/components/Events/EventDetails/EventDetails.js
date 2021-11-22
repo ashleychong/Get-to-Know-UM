@@ -8,7 +8,7 @@ import moment from "moment";
 import RecommendEvent from "../RecommendEvent/RecommendEvent";
 
 const EventDetails = () => {
-  const { event, events } = useSelector((state) => state.events);
+  const { event, events, isLoading } = useSelector((state) => state.events);
   const dispatch = useDispatch();
   const classes = useStyles();
   const history = useHistory();
@@ -20,20 +20,18 @@ const EventDetails = () => {
 
   useEffect(() => {
     if (event) {
-      dispatch(
-        getEventsBySearch({ search: "none", tags: event?.tags.join(",") })
-      ); // getting null smtg wrong with search
+      // dispatch(getEventsBySearch({ search: "none", tags: event?.tags })); // getting null smtg wrong with search
     }
   }, [event]);
-
-  console.log(event);
 
   if (!event) return null;
 
   const recommendedEvents = events
     .filter(({ _id }) => _id !== event._id)
     .slice(0, 6);
+
   const openEvent = (_id) => history.push(`${_id}`);
+
   return (
     <Paper style={{ padding: "20px", borderRadius: "15px" }} elevation={6}>
       <div className={classes.card}>
@@ -48,7 +46,8 @@ const EventDetails = () => {
             variant="body1"
             component="p"
           >
-            {event.tags.map((tag) => `#${tag} `)}
+            {/* {event.tags.map((tag) => `#${tag} `)} */}
+            {event.tags}
           </Typography>
           <Typography
             className={classes.about}
@@ -84,6 +83,7 @@ const EventDetails = () => {
           <Grid container alignItems="stretch" style={{ paddingTop: "1vh" }}>
             {recommendedEvents.map((event) => (
               <Grid
+                key={event._id}
                 item
                 lg={2}
                 style={{ cursor: "pointer" }}

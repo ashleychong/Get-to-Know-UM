@@ -7,7 +7,7 @@ const url = "http://localhost:5000/event";
 //make axios.get call to url
 // url return all the posts we currently have
 export const fetchEvents = (page) => axios.get(`${url}?page=${page}`);
-export const fetchEvent = (id) => axios.get(`${url}/${id}`);
+export const fetchEvent = (id) => axios.get(`${url}/detail/${id}`);
 export const fetchEventsBySearch = (searchQuery) =>
   axios.get(
     `${url}/search?searchQuery=${searchQuery.search || "none"}&tags=${

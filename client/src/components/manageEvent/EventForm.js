@@ -90,95 +90,97 @@ const EventForm = ({ currentId, setCurrentId, setOpenPopup }) => {
   };
 
   return (
-    <Custom.Form onSubmit={handleSubmit}>
-      <Grid container>
-        <Custom.Input
-          name="title"
-          label="Title"
-          value={values.title}
-          onChange={handleInputChange}
-          error={errors.title}
-          required
-        />
-        <Custom.Input
-          name="tags"
-          label="Tags"
-          value={values.tags}
-          onChange={handleInputChange}
-          error={errors.tags}
-          required
-        />
-        <Custom.Input
-          name="about"
-          label="About"
-          value={values.about}
-          onChange={handleInputChange}
-          error={errors.about}
-          multiline
-          minRows={5}
-          maxRows={10}
-          required
-        />
-        <Custom.Input
-          name="startDate"
-          label="Start Date"
-          value={values.startDate}
-          type="datetime-local"
-          onChange={handleInputChange}
-          error={errors.startDate}
-          required
-          inputProps={{
-            min: new Date().toISOString().slice(0, 16),
-          }}
-          InputLabelProps={{
-            shrink: true,
-          }}
-        />
-        <Custom.Input
-          name="endDate"
-          label="End Date"
-          value={values.endDate}
-          type="datetime-local"
-          onChange={handleInputChange}
-          error={errors.endDate}
-          required
-          inputProps={{
-            min: new Date().toISOString().slice(0, 16),
-          }}
-          InputLabelProps={{
-            shrink: true,
-          }}
-        />
-        <Custom.Input
-          name="venue"
-          label="Venue"
-          value={values.venue}
-          onChange={handleInputChange}
-          error={errors.venue}
-          multiline
-          required
-        />
-        <Custom.Input
-          name="contact"
-          label="Contact"
-          value={values.contact}
-          onChange={handleInputChange}
-          error={errors.contact}
-          required
-        />
-        <div className={classes.fileInput}>
-          <FileBase
-            type="file"
-            multiple={false}
-            onDone={({ base64 }) => setValues({ ...values, image: base64 })}
+    <>
+      <Custom.Form onSubmit={handleSubmit}>
+        <Grid container>
+          <Custom.Input
+            name="title"
+            label="Title"
+            value={values.title}
+            onChange={handleInputChange}
+            error={errors.title}
+            required
           />
-        </div>
-        <div>
-          <Custom.Button type="submit" text="Submit" />
-          <Custom.Button text="Reset" color="default" onClick={resetForm} />
-        </div>
-      </Grid>
-    </Custom.Form>
+          <Custom.Input
+            name="tags"
+            label="Tags"
+            value={values.tags}
+            onChange={handleInputChange}
+            error={errors.tags}
+            required
+          />
+          <Custom.Input
+            name="about"
+            label="About"
+            value={values.about}
+            onChange={handleInputChange}
+            error={errors.about}
+            multiline
+            minRows={5}
+            maxRows={10}
+            required
+          />
+          <Custom.Input
+            name="startDate"
+            label="Start Date"
+            value={values.startDate}
+            type="datetime-local"
+            onChange={handleInputChange}
+            error={errors.startDate}
+            required
+            inputProps={{
+              min: new Date().toISOString().slice(0, 16),
+            }}
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
+          <Custom.Input
+            name="endDate"
+            label="End Date"
+            value={values.endDate}
+            type="datetime-local"
+            onChange={handleInputChange}
+            error={errors.endDate}
+            required
+            inputProps={{
+              min: new Date().toISOString().slice(0, 16),
+            }}
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
+          <Custom.Input
+            name="venue"
+            label="Venue"
+            value={values.venue}
+            onChange={handleInputChange}
+            error={errors.venue}
+            multiline
+            required
+          />
+          <Custom.Input
+            name="contact"
+            label="Contact"
+            value={values.contact}
+            onChange={handleInputChange}
+            error={errors.contact}
+            required
+          />
+          <div className={classes.fileInput}>
+            <FileBase
+              type="file"
+              multiple={false}
+              onDone={({ base64 }) => setValues({ ...values, image: base64 })}
+            />
+          </div>
+          <div>
+            <Custom.Button type="submit" text="Submit" />
+            <Custom.Button text="Reset" color="default" onClick={resetForm} />
+          </div>
+        </Grid>
+      </Custom.Form>
+    </>
   );
 };
 

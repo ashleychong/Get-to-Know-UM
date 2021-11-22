@@ -1,10 +1,10 @@
-import { FETCH_ALL } from "../constants/actionTypes";
+import { FETCH_COURSE_CAL } from "../constants/actionTypes";
 
-export default (gpa = [], action) => {
+export default (umCourses = [], action) => {
   switch (action.type) {
-    case FETCH_ALL:
+    case FETCH_COURSE_CAL:
       return action.payload;
     default:
-      return gpa;
+      return umCourses;
   }
 };

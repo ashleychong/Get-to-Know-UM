@@ -6,8 +6,7 @@ import {
   Typography,
   ButtonBase,
 } from "@material-ui/core/";
-import { useDispatch, useSelector } from "react-redux";
-import moment from "moment";
+import { useDispatch } from "react-redux";
 import useStyles from "./style";
 import { useHistory } from "react-router-dom";
 

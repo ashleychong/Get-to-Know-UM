@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const gpaSchema = mongoose.Schema({
   name: String,
-  credit: Number,
+  credithr: Number,
 });
 
 const Gpa = mongoose.model("Gpa", gpaSchema);

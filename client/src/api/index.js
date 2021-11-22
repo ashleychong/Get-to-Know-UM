@@ -53,5 +53,3 @@ export const updateFood = (id, updatedFood) =>
   api.patch(`/food/${id}`, updatedFood);
 export const deleteFood = (id) => api.delete(`/food/${id}`);
 export const voteFood = (id) => api.patch(`/food/${id}/voteFood`);
-
-export const fetchGpa = () => api.get("/gpa");

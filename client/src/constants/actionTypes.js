@@ -39,3 +39,5 @@ export const DELETE_CLUB = "DELETE_CLUB";
 export const FETCH_CLUBS = "FETCH_CLUBS";
 export const FETCH_CLUB = "FETCH_CLUB";
 export const FETCH_BY_SEARCH_CLUB = "FETCH_BY_SEARCH_CLUB";
+
+export const FETCH_COURSE_CAL = "FETCH_COURSE_CAL";
