@@ -26,6 +26,16 @@ export const getClubList = async (req, res) => {
   }
 };
 
+export const getClubTable = async (req, res) => {
+  const { user } = req.params;
+  try {
+    const clubTable = await ClubMessage.find();
+    res.status(200).json(clubTable);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
 export const getClub = async (req, res) => {
   const { id } = req.params;
   try {

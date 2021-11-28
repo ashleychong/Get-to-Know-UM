@@ -58,6 +58,16 @@ export const getLeisureList = async (req, res) => {
   }
 };
 
+export const getLeisureTable = async (req, res) => {
+  const { user } = req.params;
+  try {
+    const leisureTable = await LeisureMessage.find();
+    res.status(200).json(leisureTable);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
 export const getLeisure = async (req, res) => {
   const { id } = req.params;
   try {

@@ -109,7 +109,6 @@ const CourseForm = ({
       >
         {edit ? "Edit Course" : "Add Course"}
       </Button>
-      <Divider style={{ margin: "10px 0" }} />
     </>
   );
 };

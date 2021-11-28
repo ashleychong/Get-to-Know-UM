@@ -8,3 +8,4 @@ export const createLeisures = (newLeisure) => axios.post(url, newLeisure);
 export const updateLeisure = (id, updatedLeisure) =>
   axios.patch(`${url}/${id}`, updatedLeisure);
 export const deleteLeisure = (id) => axios.delete(`${url}/${id}`);
+export const fetchLeisureTable = (user) => axios.get(`${url}/${user}`);

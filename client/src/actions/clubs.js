@@ -8,6 +8,7 @@ import {
   FETCH_CLUB,
   START_LOADING,
   END_LOADING,
+  FETCH_CLUB_TABLE,
 } from "../constants/actionTypes";
 
 export const getClubs = (page) => async (dispatch) => {
@@ -17,6 +18,15 @@ export const getClubs = (page) => async (dispatch) => {
     console.log(data);
     dispatch({ type: FETCH_CLUBS, payload: data });
     dispatch({ type: END_LOADING });
+  } catch (error) {
+    console.log(error.response);
+  }
+};
+
+export const getClubTable = (user) => async (dispatch) => {
+  try {
+    const { data } = await api.fetchClubTable(user);
+    dispatch({ type: FETCH_CLUB_TABLE, payload: data });
   } catch (error) {
     console.log(error.response);
   }

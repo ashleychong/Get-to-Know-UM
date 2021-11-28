@@ -23,11 +23,12 @@ import EventHome from "./components/manageEvent/EventHome";
 import Food from "./components/Food/Food";
 import AdminFoodNomination from "./components/Admin/Food/FoodNominationPage";
 import FoodNominationDetails from "./components/Admin/Food/FoodNominationDetails";
-import Calc from "./components/GPA/calculator";
 import Leisure from "./components/Leisure/Leisure";
 import LeisureCategory from "./components/Leisure/LeisureCategory";
 import ClubHomePage from "./components/Clubs/ClubHomePage";
 import ClubDetails from "./components/Clubs/ClubDetails/ClubDetails";
+import GPACalHome from "./components/GPA/GPACalHome";
+import LeisureHome from "./components/manageLeisure/LeisureHome";
 
 const theme = createMuiTheme({
   palette: {
@@ -75,6 +76,7 @@ function App() {
           {/* <Layout> */}
           <Route path="/admin/club/:page?" component={ClubHome} />
           <Route path="/admin/event" exact component={EventHome} />
+          <Route path="/admin/leisure" exact component={LeisureHome} />
           {/* <Route path="/courses" exact component={Courses} /> */}
           {/* </Layout> */}
           <Route path="/userProfile" exact component={UserProfile} />
@@ -85,7 +87,7 @@ function App() {
           <Route path="/event" exact component={EventHomePage} />
           <Route path="/event/search" exact component={EventHomePage} />
           <Route path="/event/:id" exact component={EventDetails} />
-          <Route path="/gpa" exact component={Calc} />
+          <Route path="/gpa" exact component={GPACalHome} />
           <Route path="/leisure" exact component={Leisure} />
           <Route path="/leisure/ranking" exact component={ExperienceRank} />
           <Route path="/leisure/inUM" exact component={LeisureCategory} />

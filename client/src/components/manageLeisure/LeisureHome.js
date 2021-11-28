@@ -1,28 +1,26 @@
-import { Button, CssBaseline } from "@material-ui/core";
+import { Button, CssBaseline, CircularProgress } from "@material-ui/core";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AddIcon from "@material-ui/icons/Add";
 import useStyles from "./styles";
 import PageHeader from "../PageHeader";
-import ClubPopup from "./ClubPopup";
+import { getCourses } from "../../actions/courses";
+import LeisurePopup from "./LeisurePopup";
 import Layout from "../Admin/Layout/Layout";
-import ClubTable from "./ClubTable/Table";
-import { getClubs } from "../../actions/clubs";
+import LeisureTable from "./LeisureTable/Table";
 
-const ClubHome = () => {
+const LeisureHome = () => {
+  const { leisures, isLoading } = useSelector((state) => state.leisures);
   const classes = useStyles();
   const dispatch = useDispatch();
   const [openPopup, setOpenPopup] = useState(false);
   const [currentId, setCurrentId] = useState(0);
   const user = JSON.parse(localStorage.getItem("profile"));
 
-  const editInPopup = (club) => {
-    setCurrentId(club._id);
+  const editInPopup = (leisure) => {
+    setCurrentId(leisure._id);
     setOpenPopup(true);
   };
-  useEffect(() => {
-    dispatch(getClubs());
-  }, [dispatch]);
 
   if (user?.result?.role === "admin") {
     return (
@@ -30,7 +28,7 @@ const ClubHome = () => {
         <CssBaseline />
         <Layout>
           <>
-            <PageHeader title="Club">
+            <PageHeader title="Leisure">
               {user?.result?.role === "admin" && (
                 <Button
                   className={classes.newButton}
@@ -40,14 +38,14 @@ const ClubHome = () => {
                     setOpenPopup(true);
                   }}
                 >
-                  Create a new club
+                  Create a new leisure
                 </Button>
               )}
             </PageHeader>
             <div className={classes.pageContent}>
-              <ClubTable editInPopup={editInPopup} />
+              <LeisureTable editInPopup={editInPopup} />
             </div>
-            <ClubPopup
+            <LeisurePopup
               currentId={currentId}
               setCurrentId={setCurrentId}
               openPopup={openPopup}
@@ -61,13 +59,13 @@ const ClubHome = () => {
     return (
       <>
         <CssBaseline />
-        <PageHeader title="Club" />
+        <PageHeader title="Leisure" />
         <div className={classes.pageContent}>
-          <ClubTable editInPopup={editInPopup} />
+          <LeisureTable editInPopup={editInPopup} />
         </div>
       </>
     );
   }
 };
 
-export default ClubHome;
+export default LeisureHome;

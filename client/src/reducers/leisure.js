@@ -3,6 +3,7 @@ import {
   DELETE_LEISURE,
   FETCH_ALL_LEISURE,
   UPDATE_LEISURE,
+  FETCH_LEISURE_TABLE,
 } from "../constants/leisureActionTypes";
 
 export default (leisures = [], action) => {
@@ -17,6 +18,9 @@ export default (leisures = [], action) => {
       );
     case DELETE_LEISURE:
       return leisures.filter((leisure) => leisure._id !== action.payload);
+    case FETCH_LEISURE_TABLE:
+      return action.payload;
+
     default:
       return leisures;
   }

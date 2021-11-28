@@ -2,10 +2,11 @@ import { makeStyles } from "@material-ui/core/styles";
 
 export default makeStyles(() => ({
   paper: {
-    marginTop: "20px",
+    marginTop: "30px",
     margin: "auto",
-    width: "800px",
-    minHeight: "500px",
+    width: "900px",
+    minHeight: "100%",
+    overflow: "auto",
   },
   course: {
     margin: "10px 20px ",
@@ -40,5 +41,54 @@ export default makeStyles(() => ({
     flexDirection: "row",
     justifyContent: "center",
     margin: "10px 0 10px 0",
+  },
+  card: {
+    border: "2px dashed grey",
+    width: "500px",
+    margin: "auto",
+    marginTop: "16px",
+  },
+  content: {
+    paddingBottom: "16px",
+    display: "flex",
+    justifyContent: "center",
+  },
+
+  gpa: {
+    color: "#27899E",
+    fontWeight: "400",
+  },
+  bottom: {
+    marginBottom: "30px",
+  },
+  header: { margin: "16px", fontSize: "26", fontWeight: "420" },
+  text: {
+    textAlign: "center",
+  },
+  title: {
+    fontWeight: "300",
+    fontSize: "18px",
+    padding: "20px 0",
+    display: "inline-block",
+    textAlign: "right",
+    width: "150px",
+    marginBottom: "10px",
+    marginRight: "20px",
+  },
+  wording: {
+    display: "flex",
+    flexDirection: "row",
+  },
+  gpa2: {
+    color: "#27899E",
+    fontWeight: "400",
+    marginLeft: "10px",
+  },
+  card2: {
+    border: "2px dashed grey",
+    width: "550px",
+    margin: "auto",
+    marginTop: "16px",
+    textAlign: "center",
   },
 }));

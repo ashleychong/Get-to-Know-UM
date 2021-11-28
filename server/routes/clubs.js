@@ -6,12 +6,14 @@ import {
   updateClub,
   deleteClub,
   getClubsBySearch,
+  getClubTable,
 } from "../controllers/clubs.js";
 
 const router = express.Router();
 
 router.get("/", getClubList);
-router.get("/:id", getClub);
+router.get("/:user", getClubTable);
+router.get("/detail/:id", getClub);
 router.get("/search", getClubsBySearch);
 router.post("/", addClub);
 router.patch("/:id", updateClub);

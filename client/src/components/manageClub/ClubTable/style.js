@@ -2,17 +2,19 @@ import { blue } from "@material-ui/core/colors";
 import { makeStyles } from "@material-ui/core/styles";
 
 export default makeStyles((theme) => ({
-  container: {
-    "& tbody tr:hover": {
-      backgroundColor: "#b0bec5",
-      cursor: "pointer",
-    },
-  },
   paper: {
-    marginTop: "25px",
+    marginTop: "16px",
   },
-  row: {
-    backgroundColor: "#eceff1",
-    textTransform: "uppercase",
+  searchInput: {
+    width: "75%",
+    marginTop: "24px",
+  },
+  status1: {
+    backgroundColor: "#ab47bc",
+    color: "white",
+  },
+  status2: {
+    backgroundColor: "#00e676",
+    color: "white",
   },
 }));

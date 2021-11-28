@@ -1,93 +1,127 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
-  Table,
   TableBody,
   TableCell,
-  TableContainer,
-  TableHead,
   TableRow,
   Paper,
   IconButton,
-  TablePagination,
+  Toolbar,
+  InputAdornment,
+  Chip,
 } from "@material-ui/core";
 import useStyles from "./style";
 import { useDispatch, useSelector } from "react-redux";
-import { getClubs } from "../../../actions/clubs";
-import { Button } from "@material-ui/core";
-import { deleteClub } from "../../../actions/clubs";
+import { deleteClub, getClubTable } from "../../../actions/clubs";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
-import moment from "moment";
+import useTable from "../../Custom/useTable";
+import { Search } from "@material-ui/icons";
+import Input from "../../Custom/Input";
 
 const ClubTable = (props) => {
   const dispatch = useDispatch();
-  const pages = 8;
-  const [page, setPage] = React.useState(0);
   const { club, editInPopup } = props;
   const classes = useStyles();
-  const [rowsPerPage, setRowsPerPage] = React.useState(pages);
-
-  useEffect(() => {
-    dispatch(getClubs());
-    console.log(clubs);
-  }, [dispatch]);
+  const user = JSON.parse(localStorage.getItem("profile"));
 
   const { clubs, isLoading } = useSelector((state) => state.clubs);
 
+  const headCells = [
+    { id: "title", label: "Title" },
+    { id: "registration", label: "Registration", disableSorting: "true" },
+    { id: "action", label: "Action", disableSorting: "true" },
+  ];
+  const [filterFn, setFilterFn] = useState({
+    fn: (items) => {
+      return items;
+    },
+  });
+
+  const { TblContainer, TblHead, TblPagination, recordsAfterPagingAndSorting } =
+    useTable(clubs, headCells, filterFn);
+
+  useEffect(() => {
+    dispatch(getClubTable(user.result.role));
+  }, [dispatch]);
+
   if (!clubs.length && !isLoading) return "No clubs";
 
-  const handleChangePage = (e, newPage) => {
-    setPage(newPage);
+  const handleSearch = (e) => {
+    let target = e.target;
+    setFilterFn({
+      fn: (items) => {
+        if (target.value == "") return items;
+        else
+          return items.filter((x) =>
+            x.title.toLowerCase().includes(target.value.toLowerCase())
+          );
+      },
+    });
   };
 
   return (
     <Paper className={classes.paper}>
-      <TableContainer className={classes.container}>
-        <Table>
-          <TableHead>
-            <TableRow className={classes.row}>
-              <TableCell>Title</TableCell>
-              <TableCell>Action</TableCell>
+      <Toolbar>
+        <Input
+          label="Search Club"
+          className={classes.searchInput}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <Search />
+              </InputAdornment>
+            ),
+          }}
+          onChange={handleSearch}
+        />
+      </Toolbar>
+      <TblContainer>
+        <TblHead className={classes.row} />
+        <TableBody>
+          {recordsAfterPagingAndSorting().map((club) => (
+            <TableRow key={club._id}>
+              <TableCell component="th" scope="row">
+                {club.title}
+              </TableCell>
+              <TableCell>
+                {club.clublink ? (
+                  <Chip
+                    label="Available"
+                    className={classes.status2}
+                    size="small"
+                  />
+                ) : (
+                  <Chip
+                    label="Unavailable"
+                    className={classes.status1}
+                    size="small"
+                  />
+                )}
+              </TableCell>
+              <TableCell>
+                <IconButton
+                  size="small"
+                  color="primary"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    editInPopup(club);
+                  }}
+                >
+                  <EditIcon fontSize="small" />
+                </IconButton>
+                <IconButton
+                  size="small"
+                  color="secondary"
+                  onClick={() => dispatch(deleteClub(club._id))}
+                >
+                  <DeleteIcon fontSize="small" />
+                </IconButton>
+              </TableCell>
             </TableRow>
-          </TableHead>
-          <TableBody>
-            {clubs.map((club) => (
-              <TableRow key={club._id}>
-                <TableCell component="th" scope="row">
-                  {club.title}
-                </TableCell>
-                <TableCell>
-                  <IconButton
-                    size="small"
-                    color="primary"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      editInPopup(club);
-                    }}
-                  >
-                    <EditIcon fontSize="small" />
-                  </IconButton>
-                  <IconButton
-                    size="small"
-                    color="secondary"
-                    onClick={() => dispatch(deleteClub(club._id))}
-                  >
-                    <DeleteIcon fontSize="small" />
-                  </IconButton>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <TablePagination
-        rowsPerPageOptions={[8]}
-        component="div"
-        count={clubs.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-      />
+          ))}
+        </TableBody>
+      </TblContainer>
+      <TblPagination />
     </Paper>
   );
 };

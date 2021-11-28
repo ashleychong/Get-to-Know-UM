@@ -9,6 +9,7 @@ import {
   updateLeisure,
   deleteLeisure,
   getLeisuresBySearch,
+  getLeisureTable,
 } from "../controllers/experience.js";
 import auth from "../middleware/auth.js";
 
@@ -19,6 +20,7 @@ router.post("/exp", auth, addExp);
 router.patch("/:id/likeExp", auth, likeExp);
 
 router.get("/", getLeisureList);
+router.get("/:user", getLeisureTable);
 router.get("/:id", getLeisure);
 router.get("/search", getLeisuresBySearch);
 router.post("/", addLeisure);

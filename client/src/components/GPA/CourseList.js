@@ -25,6 +25,7 @@ const CourseList = ({
   return (
     inputs.length > 0 && (
       <>
+        <Divider />
         <Table>
           <TableHead>
             <TableRow>

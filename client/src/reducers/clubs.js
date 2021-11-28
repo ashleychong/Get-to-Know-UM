@@ -7,6 +7,7 @@ import {
   FETCH_BY_SEARCH_CLUB,
   START_LOADING,
   END_LOADING,
+  FETCH_CLUB_TABLE,
 } from "../constants/actionTypes";
 
 export default (state = { isLoading: true, clubs: [] }, action) => {
@@ -39,6 +40,11 @@ export default (state = { isLoading: true, clubs: [] }, action) => {
       return {
         ...state,
         clubs: state.clubs.filter((club) => club._id !== action.payload),
+      };
+    case FETCH_CLUB_TABLE:
+      return {
+        ...state,
+        clubs: action.payload,
       };
     default:
       return state;

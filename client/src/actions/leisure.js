@@ -4,6 +4,7 @@ import {
   DELETE_LEISURE,
   FETCH_ALL_LEISURE,
   UPDATE_LEISURE,
+  FETCH_LEISURE_TABLE,
 } from "../constants/leisureActionTypes";
 
 export const getLeisures = () => async (dispatch) => {
@@ -12,6 +13,15 @@ export const getLeisures = () => async (dispatch) => {
     dispatch({ type: FETCH_ALL_LEISURE, payload: data });
   } catch (error) {
     console.log(error.message);
+  }
+};
+
+export const getLeisureTable = (user) => async (dispatch) => {
+  try {
+    const { data } = await api.fetchLeisureTable(user);
+    dispatch({ type: FETCH_LEISURE_TABLE, payload: data });
+  } catch (error) {
+    console.log(error.response);
   }
 };
 

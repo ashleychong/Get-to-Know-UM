@@ -81,7 +81,7 @@ const SideBar = () => {
     {
       text: "Leisure",
       icon: <DirectionsRunOutlined />,
-      path: "#",
+      path: "/admin/leisure",
     },
   ];
   return (

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Paper, Box, Typography } from "@material-ui/core/";
+import { Paper, Box, Typography, Card, CardContent } from "@material-ui/core/";
 import useStyles from "./style";
 import { getCourse } from "../../actions/gpa";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,11 +18,17 @@ const Calc = () => {
   const [edit, setEdit] = useState(false);
   const [id, setId] = useState(0);
   const [value, setValue] = useState(true);
-  const dispatch = useDispatch();
+  const [click, setClick] = useState(false);
+  const [gpa, setGpa] = useState(true);
+  const dispatch = useDispatch(0);
 
   useEffect(() => {
     dispatch(getCourse());
   }, [dispatch]);
+
+  useEffect(() => {
+    setCredit(creditSelected);
+  }, [course]);
 
   const umCourses = useSelector((state) => state.umCourses);
 
@@ -31,14 +37,12 @@ const Calc = () => {
 
   const handleCourseChange = (event) => {
     setCourse(event.target.value);
-    setCredit(creditSelected);
   };
   const handleGradeChange = (event) => {
-    setCredit(creditSelected);
     setGrade(event.target.value);
   };
-  const handleCreditChange = (e) => {
-    setCredit(e);
+  const handleCreditChange = (event) => {
+    setCredit(event.target.value);
   };
 
   const handleSubmit = (e) => {
@@ -70,6 +74,8 @@ const Calc = () => {
 
   const clearItems = () => {
     setInput([]);
+    setClick(false);
+    setGpa(0);
   };
 
   const handleEdit = (id) => {
@@ -82,6 +88,7 @@ const Calc = () => {
     setId(id);
   };
   const calculate = () => {
+    setClick(true);
     let totalCred = 0;
     let totalGradePoints = 0;
 
@@ -92,35 +99,50 @@ const Calc = () => {
 
     if (totalCred === 0) return 0;
 
-    const gpa = totalGradePoints / totalCred.toFixed(2);
-    return gpa;
+    let calgpa = totalGradePoints / totalCred;
+    setGpa(calgpa.toFixed(2));
   };
 
   return (
-    <Paper className={classes.paper} elevation={3}>
-      <CourseForm
-        handleSubmit={handleSubmit}
-        course={course}
-        handleCourseChange={handleCourseChange}
-        credit={credit}
-        handleCreditChange={handleCreditChange}
-        grade={grade}
-        handleGradeChange={handleGradeChange}
-        edit={edit}
-        value={value}
-        setValue={setValue}
-      />
-      <CourseList
-        inputs={inputs}
-        handleDelete={handleDelete}
-        handleEdit={handleEdit}
-        clearItems={clearItems}
-        calculate={calculate}
-      />
-      <Box component="span" sx={{ border: "1px dashed grey" }}>
-        <Typography></Typography>
-      </Box>
-    </Paper>
+    <>
+      <div>
+        <Typography className={classes.header}>
+          Use this calculator to calculate grade point average (GPA). <br />
+          Please select course and grade.{" "}
+        </Typography>
+        <CourseForm
+          handleSubmit={handleSubmit}
+          course={course}
+          handleCourseChange={handleCourseChange}
+          credit={credit}
+          handleCreditChange={handleCreditChange}
+          grade={grade}
+          handleGradeChange={handleGradeChange}
+          edit={edit}
+          value={value}
+          setValue={setValue}
+        />
+        <CourseList
+          inputs={inputs}
+          handleDelete={handleDelete}
+          handleEdit={handleEdit}
+          clearItems={clearItems}
+          calculate={calculate}
+        />
+        {click && (
+          <Card variant="outlined" className={classes.card}>
+            <CardContent className={classes.content}>
+              <Typography variant="h6" className={classes.wording}>
+                Your GPA is
+              </Typography>
+              <Typography variant="h5" className={classes.gpa}>
+                &nbsp;&nbsp;{gpa}
+              </Typography>
+            </CardContent>
+          </Card>
+        )}
+      </div>
+    </>
   );
 };
 

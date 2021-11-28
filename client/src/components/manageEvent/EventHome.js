@@ -1,4 +1,4 @@
-import { Button, CssBaseline } from "@material-ui/core";
+import { Button, CssBaseline, CircularProgress } from "@material-ui/core";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AddIcon from "@material-ui/icons/Add";
@@ -10,6 +10,7 @@ import Layout from "../Admin/Layout/Layout";
 import EventTable from "./EventTable/Table";
 
 const EventHome = () => {
+  const { events, isLoading } = useSelector((state) => state.events);
   const classes = useStyles();
   const dispatch = useDispatch();
   const [openPopup, setOpenPopup] = useState(false);
@@ -42,7 +43,6 @@ const EventHome = () => {
               )}
             </PageHeader>
             <div className={classes.pageContent}>
-              {/* <Courses editInPopup={editInPopup} /> */}
               <EventTable editInPopup={editInPopup} />
             </div>
             <EventPopup
