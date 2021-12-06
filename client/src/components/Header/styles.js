@@ -11,6 +11,12 @@ export default makeStyles((theme) => ({
     fontWeight: 600,
     textDecoration: "none",
   },
+  logoContainer: {
+    flex: 1,
+  },
+  logo: {
+    height: "53px",
+  },
   toolbarSecondary: {
     justifyContent: "space-between",
     overflowX: "auto",
@@ -23,6 +29,7 @@ export default makeStyles((theme) => ({
   profile: {
     display: "flex",
     justifyContent: "space-between",
+    alignItems: "center",
     // width: "250px",
   },
   userName: {

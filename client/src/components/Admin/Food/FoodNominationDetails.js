@@ -3,23 +3,27 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import {
   Card,
-  CardMedia,
   CardContent,
   Grid,
+  Divider,
   Typography,
   Paper,
   CircularProgress,
+  Box,
 } from "@material-ui/core";
 
+import useStyles from "./FoodNominationDetailsStyles";
 import {
   getFoodNomination,
-  deleteFoodNomination,
+  approveFoodNomimation,
+  declineFoodNomimation,
 } from "../../../actions/foodNominations";
 import { createFood } from "../../../actions/food";
 import Custom from "../../Custom/Custom";
 
 const FoodNominationDetails = () => {
   const { foodNominationId } = useParams();
+  const classes = useStyles();
   const dispatch = useDispatch();
   const { foodNomination, isLoading } = useSelector(
     (state) => state.foodNominations
@@ -29,10 +33,14 @@ const FoodNominationDetails = () => {
     dispatch(getFoodNomination(foodNominationId));
   }, [dispatch]);
 
-  const approveFoodNomination = () => {
+  const handleApproval = () => {
     console.log("approve food");
-    dispatch(createFood({...foodNomination}));
-    dispatch(deleteFoodNomination(foodNominationId));
+    dispatch(createFood({ ...foodNomination }));
+    dispatch(approveFoodNomimation(foodNominationId));
+  };
+
+  const handleDeclination = () => {
+    dispatch(declineFoodNomimation(foodNominationId));
   };
 
   if (!foodNomination) {
@@ -44,26 +52,72 @@ const FoodNominationDetails = () => {
       <CircularProgress size="7em" />
     </Paper>
   ) : (
-    <Card>
-      <Grid container spacing={3}>
-        <Grid item xs={12} md={6}>
-          <CardMedia component="img" title={foodNomination.foodName} />
+    <>
+      <div className={classes.header}>
+        <Typography variant="h4">Food Approval Request</Typography>
+      </div>
+      <Grid container spacing={1}>
+        <Grid item xs={12} md={4}>
+          <div className={classes.detailsImgCtn}>
+            <img
+              className={classes.detailsImg}
+              src={
+                foodNomination?.image || "https://source.unsplash.com/random"
+              }
+              alt={foodNomination?.foodName}
+            />
+          </div>
         </Grid>
-        <Grid item xs={12} md={6}>
-          <CardContent>
-            <Typography variant="h4">{foodNomination.foodName}</Typography>
-            <Typography variant="body1" color="textSecondary" component="p">
-              Lizards are a widespread group of squamate reptiles, with over
-              6,000 species, ranging across all continents except Antarctica
-            </Typography>
-            <div style={({ display: "flex" }, { textAlign: "center" })}>
-              <Custom.Button text="Approve" color="default" onClick={() => approveFoodNomination()} />
-              <Custom.Button text="Reject" color="secondary" />
-            </div>
-          </CardContent>
+        <Grid item xs={12} md={8} className={classes.content}>
+          <Card className={classes.card}>
+            <CardContent>
+              <Typography variant="h5">Details</Typography>
+              <Divider className={classes.divider} />
+              <Box mt={5} mb={5}>
+                <Box mb={3}>
+                  <Typography
+                    variant="body1"
+                    color="textSecondary"
+                    className={classes.indicatorText}
+                  >
+                    Food Name
+                  </Typography>
+                  <Typography variant="body1">
+                    {foodNomination.foodName}
+                  </Typography>
+                </Box>
+                <Box>
+                  <Typography
+                    variant="body1"
+                    color="textSecondary"
+                    className={classes.indicatorText}
+                  >
+                    Description
+                  </Typography>
+                  <Typography variant="body1" component="p">
+                    {foodNomination?.description}
+                  </Typography>
+                </Box>
+              </Box>
+              <div style={({ display: "flex" }, { textAlign: "center" })}>
+                <Custom.ActionButton
+                  color="approval"
+                  onClick={() => handleApproval()}
+                  className={classes.btn}
+                >
+                  approve
+                </Custom.ActionButton>
+                  <Custom.ActionButton color="decline"
+                    className={classes.btn}
+                  >
+                  decline
+                </Custom.ActionButton>
+              </div>
+            </CardContent>
+          </Card>
         </Grid>
       </Grid>
-    </Card>
+    </>
   );
 };
 

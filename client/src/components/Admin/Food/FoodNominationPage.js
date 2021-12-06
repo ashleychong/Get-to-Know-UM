@@ -10,6 +10,8 @@ import {
   Tab,
   Tooltip,
   Box,
+  CardContent,
+  Divider,
 } from "@material-ui/core";
 import { Help } from "@material-ui/icons";
 
@@ -41,8 +43,8 @@ const FoodNominationPage = () => {
   };
 
   return (
-    <>
-      <AppBar
+    <div className={classes.root}>
+      {/* <AppBar
         component="div"
         className={classes.secondaryBar}
         color="primary"
@@ -55,12 +57,47 @@ const FoodNominationPage = () => {
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
-        <FoodNominationTable/>
+        <FoodNominationTable />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <ApprovedFoodPage/>
-      </TabPanel>
-    </>
+        <ApprovedFoodPage />
+      </TabPanel> */}
+      <div className={classes.header}>
+        <Typography variant="h4">Food</Typography>
+        <Tabs
+          className={classes.tabBar}
+          value={value}
+          onChange={handleChange}
+          textColor="inherit"
+        >
+          <Tab
+            className={classes.tabButton}
+            textColor="inherit"
+            label="Nominated Food"
+          />
+          <Tab
+            className={classes.tabButton}
+            textColor="inherit"
+            label="Favourite Food in UM"
+          />
+        </Tabs>
+      </div>
+      <Divider />
+      <div className={classes.tabContent}>
+        {/* <Box sx={{ width: "100%", bgcolor: "background.paper" }}>
+          <Tabs value={value} onChange={handleChange} textColor="inherit">
+            <Tab textColor="inherit" label="Nominated Food" />
+            <Tab textColor="inherit" label="Favourite Food in UM" />
+          </Tabs>
+        </Box> */}
+        <TabPanel className={classes.tabPanel} value={value} index={0}>
+          <FoodNominationTable />
+        </TabPanel>
+        <TabPanel className={classes.tabPanel} value={value} index={1}>
+          <ApprovedFoodPage />
+        </TabPanel>
+      </div>
+    </div>
   );
 };
 

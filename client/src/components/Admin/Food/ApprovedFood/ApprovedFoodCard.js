@@ -1,58 +1,78 @@
 import React from "react";
 import { useTheme } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
-import IconButton from "@material-ui/core/IconButton";
-import { Edit as EditIcon, Delete as DeleteIcon } from '@material-ui/icons';
-import Typography from "@material-ui/core/Typography";
+import {
+  Card,
+  CardContent,
+  CardMedia,
+  Grid,
+  IconButton,
+  Divider,
+  Typography,
+  Box,
+  Avatar,
+} from "@material-ui/core";
+import { Edit as EditIcon, Delete as DeleteIcon } from "@material-ui/icons";
 import { useDispatch } from "react-redux";
 
 import useStyles from "./ApprovedFoodCardStyles";
 import { updateFood, deleteFood } from "../../../../actions/food";
 
-export default function ApprovedFoodCard(props) {
-  const { food, editInPopup } = props;
+const ApprovedFoodCard = (props) => {
+  const { food, editInPopup, index } = props;
   const classes = useStyles();
   const dispatch = useDispatch();
 
   return (
-    <Card className={classes.root}>
-      <CardMedia
-        className={classes.cover}
-        image={food.image}
-        title={food.foodName}
-      />
-      <div className={classes.ranking}>
-        <Typography component="h6">1</Typography>
-      </div>
-      <div className={classes.details}>
-        <CardContent className={classes.content}>
-          <Typography component="h5" variant="h5">
-            {food.foodName}
-          </Typography>
-          <div>
-            <IconButton
-              size="small"
-              color="primary"
-              onClick={(e) => {
-                e.stopPropagation();
-                editInPopup(food);
-              }}
-            >
-              <EditIcon fontsize="small" />
-            </IconButton>
-            <IconButton>
-              <DeleteIcon fontsize="small" />
-            </IconButton>
-          </div>
-        </CardContent>
-        <div className={classes.desc}>
-          <Typography variant="body1" color="textSecondary">
-            {food.description}
-          </Typography>
+    <Grid container className={classes.container}>
+      <Grid item xs={2} md={1} className={classes.ranking}>
+        {index}
+      </Grid>
+      <Grid item xs={9} md={10}>
+        <Box
+          sx={{
+            alignItems: "center",
+            display: "flex",
+          }}
+        >
+          <Avatar
+            src={food?.image || "https://source.unsplash.com/random"}
+            alt={food?.foodName}
+            className={classes.avatar}
+          />
+          <Box ml={4} mr={3}>
+            <Box mb={1}>
+              <Typography variant="h5" gutterBottom>{food?.foodName}</Typography>
+              <Typography variant="body2" color="textSecondary" style={{fontSize: "1rem"}}>
+                {food?.description}
+              </Typography>
+            </Box>
+            <Typography className={classes.votes}>
+              {food?.votes?.length > 1
+                ? `${food?.votes.length} votes`
+                : `${food?.votes.length} vote`}
+            </Typography>
+          </Box>
+        </Box>
+      </Grid>
+      <Grid item xs={12}>
+        <div className={classes.actions}>
+          <IconButton
+            size="small"
+            color="primary"
+            onClick={(e) => {
+              e.stopPropagation();
+              editInPopup(food);
+            }}
+          >
+            <EditIcon fontSize="small" />
+          </IconButton>
+          <IconButton>
+            <DeleteIcon fontSize="small" />
+          </IconButton>
         </div>
-      </div>
-    </Card>
+      </Grid>
+    </Grid>
   );
-}
+};
+
+export default ApprovedFoodCard;

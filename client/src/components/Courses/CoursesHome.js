@@ -75,7 +75,7 @@ const CoursesHome = () => {
                     setOpenPopup(true);
                   }}
                 >
-                  Create a new elective course
+                  Create a new course
                 </Button>
               )}
             </PageHeader>

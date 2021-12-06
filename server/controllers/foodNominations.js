@@ -47,3 +47,34 @@ export const deleteFoodNomination = async (req, res) => {
   await FoodNomination.findByIdAndRemove(id);
   res.json({ message: "Food nomination deleted successfully." });
 };
+
+export const approveFoodNomination = async (req, res) => {
+  const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).send(`No food nomination with id: ${id}`);
+  }
+
+  const approvedNomination = await FoodNomination.findByIdAndUpdate(
+    id,
+    { status: "approved" },
+    { new: true }
+  );
+  res.json(approvedNomination);
+};
+
+export const declineFoodNomination = async (req, res) => {
+  const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).send(`No food nomination with id: ${id}`);
+  }
+
+  const declinedNomination = await FoodNomination.findByIdAndUpdate(
+    id,
+    { status: "declined" },
+    { new: true }
+  );
+  res.json(declinedNomination);
+};
+

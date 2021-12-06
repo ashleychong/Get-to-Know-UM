@@ -14,6 +14,15 @@ export const useForm = (initialValues, validateOnChange = false, validate = {}) 
     if (validateOnChange) validate({ [name]: value });
   };
 
+  const handleRatingInputChange = (event, value) => {
+    const { name } = event.target;
+    setValues({
+      ...values,
+      [name]: value,
+    });
+    if (validateOnChange) validate({ [name]: value });
+  };
+
   const resetForm = () => {
     setValues(initialValues);
     setErrors({});
@@ -25,6 +34,7 @@ export const useForm = (initialValues, validateOnChange = false, validate = {}) 
     errors,
     setErrors,
     handleInputChange,
+    handleRatingInputChange,
     resetForm,
   };
 };

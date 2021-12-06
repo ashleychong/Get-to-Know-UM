@@ -1,8 +1,9 @@
 import mongoose from "mongoose";
 
 import Cafe from "../models/cafe.js";
+import CafeReview from "../models/cafeReview.js";
 
-export const getAllCafe = async (req, res) => {
+export const getAllCafes = async (req, res) => {
   try {
     const cafes = await Cafe.find();
 
@@ -12,7 +13,7 @@ export const getAllCafe = async (req, res) => {
   }
 };
 
-export const getCafe = async (res, req) => {
+export const getCafe = async (req, res) => {
   const { id } = req.params;
   try {
     const cafe = await Cafe.findById(id);
@@ -46,7 +47,7 @@ export const updateCafe = async (req, res) => {
 
   const updatedCafe = await Cafe.findByIdAndUpdate(
     id,
-    { title, description, avgRating, image },
+    { title, description, image },
     { new: true }
   );
   res.json(updatedCafe);
@@ -60,5 +61,8 @@ export const deleteCafe = async (req, res) => {
   }
 
   await Cafe.findByIdAndRemove(id);
+  await CafeReview.deleteMany({ cafeId: id });
+
   res.json({ message: "Cafe deleted successfully." });
 };
+

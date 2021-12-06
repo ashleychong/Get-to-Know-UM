@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 import Course from "../models/course.js";
+import CourseReview from "../models/courseReview.js";
 
 export const getCourses = async (req, res) => {
     try {
@@ -12,7 +13,7 @@ export const getCourses = async (req, res) => {
     }
 };
 
-export const getCourse = async (res, req) => {
+export const getCourse = async (req, res) => {
     const { id } = req.params;
     try {
         const course = await Course.findById(id);
@@ -57,5 +58,7 @@ export const deleteCourse = async (req, res) => {
     }
 
     await Course.findByIdAndRemove(id);
+    await CourseReview.deleteMany({ courseId: id });
+    
     res.json({ message: "Course deleted successfully." });
 };

@@ -15,7 +15,7 @@ import { Link, useHistory, useLocation } from "react-router-dom";
 
 import * as actionType from "../../constants/actionTypes";
 import useStyles from "./styles";
-
+import logo from "../../assets/images/logo.png";
 
 const sections = [
   { title: "Forum", url: "/forum" },
@@ -75,7 +75,7 @@ export default function Header(props) {
         elevation={2}
       >
         <Toolbar>
-          <Typography
+          {/* <Typography
             variant="h5"
             color="inherit"
             align="left"
@@ -85,7 +85,12 @@ export default function Header(props) {
             to="/"
           >
             {title}
-          </Typography>
+          </Typography> */}
+          <div className={classes.logoContainer}>
+            <a href="/home">
+              <img src={logo} alt="Get to Know UM" className={classes.logo} />
+            </a>
+          </div>
           {/* <IconButton>
             <SearchIcon />
           </IconButton> */}
@@ -116,8 +121,8 @@ export default function Header(props) {
           ) : (
             <Button
               onClick={() => {
-                  history.push("/auth");
-                  console.log("sign in!")
+                history.push("/auth");
+                console.log("sign in!");
               }}
               color="primary"
               variant="contained"

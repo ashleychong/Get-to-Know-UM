@@ -11,12 +11,17 @@ import {
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { Rating } from "@material-ui/lab";
+import { useDispatch } from "react-redux";
+import moment from "moment";
 
 import useStyles from "./ReviewStyles";
+import { deleteCafeReview } from "../../../actions/cafeReviews";
 
-const Review = () => {
+const Review = ({ editInPopup, cafeId, review }) => {
   const theme = useTheme();
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const user = JSON.parse(localStorage.getItem("profile"));
 
   return (
     <>
@@ -25,38 +30,47 @@ const Review = () => {
           <Box className={classes.userInfo}>
             <Avatar
               className={classes.userAvatar}
-              src="https://source.unsplash.com/random"
+              src={user?.result?.image || "https://source.unsplash.com/random"}
             ></Avatar>
-            <Typography variant="subtitle1">Username</Typography>
+            <Typography variant="subtitle1">{review?.username}</Typography>
           </Box>
         </Grid>
-        <Grid container xs={12} md={10}>
+        <Grid item xs={12} md={10}>
           <Grid item xs={12} md={11}>
             <Box className={classes.ratingBox}>
-              <Rating value="4.0" precision="0.5" readOnly />
+              <Rating value={review?.rating} readOnly />
               <Typography variant="subtitle2" className={classes.reviewDate}>
-                Reviewed 18 October 2020
+                {`${moment(review?.createdAt).format("lll")}`}
               </Typography>
             </Box>
-            <Typography variant="h6">Dishes really amazing</Typography>
+            <Typography variant="h6">{review?.title}</Typography>
             <Typography variant="subtitle1" className={classes.reviewDesc}>
-              It is excellent. my first dating was there and we spent a very
-              good time together. the food was awesome and the staff was really
-              nice. Fabulous food, impeccable service. What a experience ! Had a
-              wonderful table overviewing. The quality and presentation of the
-              food was amazing .
+              {review?.description}
             </Typography>
           </Grid>
-          <Grid item xs={12}>
-            <Box className={classes.actions}>
-              <IconButton aria-label="edit" className={classes.iconButton}>
-                <EditIcon />
-              </IconButton>
-              <IconButton aria-label="delete" className={classes.iconButton}>
-                <DeleteIcon />
-              </IconButton>
-            </Box>
-          </Grid>
+          {user?.result?._id === review?.userId && (
+            <Grid item xs={12}>
+              <Box className={classes.actions}>
+                <IconButton
+                  aria-label="edit"
+                  className={classes.iconButton}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    editInPopup(review);
+                  }}
+                >
+                  <EditIcon />
+                </IconButton>
+                <IconButton
+                  aria-label="delete"
+                  className={classes.iconButton}
+                  onClick={() => dispatch(deleteCafeReview(cafeId, review._id))}
+                >
+                  <DeleteIcon />
+                </IconButton>
+              </Box>
+            </Grid>
+          )}
         </Grid>
       </Grid>
     </>

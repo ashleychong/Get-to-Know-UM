@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import {
   CssBaseline,
   Grid,
@@ -9,12 +10,34 @@ import {
   Button,
 } from "@material-ui/core";
 import { Rating } from "@material-ui/lab";
+import { useDispatch, useSelector } from "react-redux";
 
 import useStyles from "./CafeDetailsStyles";
-import Review from "./Review";
+import Reviews from "./Reviews";
+import ReviewPopup from "./ReviewPopup";
+import { getCafe } from "../../../actions/cafe";
+import { getCafeReviews } from "../../../actions/cafeReviews";
 
 const CafeDetails = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const { cafeId } = useParams();
+  const { cafe, isLoading } = useSelector((state) => state.cafes);
+  const [openPopup, setOpenPopup] = useState(false);
+  const [currentReviewId, setCurrentReviewId] = useState(0);
+
+  useEffect(() => {
+    dispatch(getCafe(cafeId));
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(getCafeReviews(cafeId));
+  }, [cafe]);
+
+  const editInPopup = (review) => {
+    setCurrentReviewId(review._id);
+    setOpenPopup(true);
+  };
 
   return (
     <>
@@ -26,14 +49,14 @@ const CafeDetails = () => {
               <div className={classes.detailsImgCtn}>
                 <img
                   className={classes.detailsImg}
-                  src="https://source.unsplash.com/random"
+                  src={cafe?.image || "https://source.unsplash.com/random"}
                   alt="cafe"
                 />
               </div>
             </Grid>
             <Grid item xs={12} md={6}>
               <Typography variant="h4" gutterBottom>
-                Cafe Name
+                {cafe?.title}
               </Typography>
               <Box
                 display="flex"
@@ -42,27 +65,20 @@ const CafeDetails = () => {
                 mb={2}
               >
                 <Box>
-                  <Rating value="3.5" precision="0.5" readOnly />
+                  <Rating
+                    value={cafe?.avgRating || 0}
+                    precision={0.1}
+                    readOnly
+                    size="large"
+                  />
                 </Box>
-                {/* {avgRatingDisplay ? ( */}
                 <Box className="avgRating" ml={1}>
-                  3.5
+                  {cafe?.avgRating?.toFixed(1)}
                 </Box>
-                {/* ) : null} */}
               </Box>
               <Divider />
               <Box mt={2}>
-                <Typography paragraph>
-                  Heat oil in a (14- to 16-inch) paella pan or a large, deep
-                  skillet over medium-high heat. Add chicken, shrimp and
-                  chorizo, and cook, stirring occasionally until lightly
-                  browned, 6 to 8 minutes. Transfer shrimp to a large plate and
-                  set aside, leaving chicken and chorizo in the pan. Add
-                  pimentón, bay leaves, garlic, tomatoes, onion, salt and
-                  pepper, and cook, stirring often until thickened and fragrant,
-                  about 10 minutes. Add saffron broth and remaining 4 1/2 cups
-                  chicken broth; bring to a boil.
-                </Typography>
+                <Typography paragraph>{cafe?.description}</Typography>
               </Box>
             </Grid>
           </Grid>
@@ -72,12 +88,25 @@ const CafeDetails = () => {
             <Typography className={classes.titleText} variant="h4">
               Reviews
             </Typography>
-            <Button variant="contained" color="primary" size="small">
+            <Button
+              variant="contained"
+              color="primary"
+              size="small"
+              onClick={() => {
+                setOpenPopup(true);
+              }}
+            >
               Write a review
             </Button>
           </div>
-          <Divider />
-          <Review />
+          <Reviews editInPopup={editInPopup} cafeId={cafeId} />
+          <ReviewPopup
+            openPopup={openPopup}
+            setOpenPopup={setOpenPopup}
+            cafeId={cafeId}
+            currentReviewId={currentReviewId}
+            setCurrentReviewId={setCurrentReviewId}
+          />
         </Card>
       </div>
     </>

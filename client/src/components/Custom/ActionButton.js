@@ -18,6 +18,22 @@ const useStyles = makeStyles((theme) => ({
       color: theme.palette.primary.main,
     },
   },
+  approval: {
+    backgroundColor: "#e6f4fe",
+    margin: "0 9px",
+    "& .MuiButton-label": {
+      color: "#108cff",
+      letterSpacing: "0.02rem",
+    },
+  },
+  decline: {
+    backgroundColor: theme.palette.secondary.light,
+    margin: "0 9px",
+    "& .MuiButton-label": {
+      color: theme.palette.secondary.main,
+      letterSpacing: "0.02rem",
+    },
+  },
 }));
 
 const ActionButton = (props) => {

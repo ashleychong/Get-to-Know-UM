@@ -38,7 +38,7 @@ const Forum = () => {
                 Topics
               </Typography>
               <Custom.Button
-                text="Create a new topic"
+                text="Create topic"
                 variant="outlined"
                 startIcon={<AddIcon />}
                 className={classes.newButton}

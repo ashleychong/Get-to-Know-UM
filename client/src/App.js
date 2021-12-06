@@ -1,5 +1,5 @@
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
-import { Container, createMuiTheme, ThemeProvider, CssBaseline } from "@material-ui/core";
+import { Container, createTheme, ThemeProvider, CssBaseline } from "@material-ui/core";
 import { useSelector } from "react-redux";
 
 import Home from "./components/Home/Home";
@@ -9,6 +9,7 @@ import UserProfile from './components/Profile/UserProfile';
 import Forum from './components/Forum/Forum';
 import TopicDetails from './components/Forum/TopicDetails/TopicDetails';
 import Courses from "./components/Courses/CoursesHome";
+import CourseDetails from "./components/Courses/CourseDetails.js/CourseDetails";
 import Events from "./components/Events/Events";
 import EventDetails from './components/Events/EventDetails/EventDetails';
 import ExperienceRank from "./components/Leisure/ExperienceRank/Ranking/ExperienceRank";
@@ -18,11 +19,15 @@ import EventTab from "./components/manageEvent/EventTab/Tab";
 import Food from "./components/Food/Food";
 import AdminFoodNomination from "./components/Admin/Food/FoodNominationPage";
 import FoodNominationDetails from "./components/Admin/Food/FoodNominationDetails";
-import CafeHome from "./components/Admin/Cafe/CafeHome";
+import AdminCafeHome from "./components/Admin/Cafe/AdminCafeHome";
 import AdminCafeDetails from "./components/Admin/Cafe/CafeDetails/CafeDetails";
 import CafeDetails from "./components/Cafe/CafeDetails/CafeDetails";
+import CafeHome from "./components/Cafe/CafeHome";
 
-const theme = createMuiTheme({
+const theme = createTheme({
+  typography: {
+    fontFamily: 'Nunito Sans',
+  },
   palette: {
     primary: {
       main: "#333996",
@@ -77,17 +82,20 @@ function App() {
           <Route path="/forum" exact component={Forum} />
           <Route path="/forum/:topicId" exact component={TopicDetails} />
           <Route path="/courses" exact component={Courses} />
+          <Route path="/courses/:courseId" exact component={CourseDetails} />
           <Route path="/food" exact component={Food} />
           <Redirect exact from="/gtkum" to="/gtkum/event" />
           <Route path="/gtkum/event" exact component={Events} />
           <Route path="/gtkum/event/search" exact component={Events} />
           <Route path="/gtkum/event/:id" exact component={EventDetails} />
           <Route path="/gtkum/leisure" exact component={ExperienceRank} />
-          <Route path="/admin/foodNomination" exact component={AdminFoodNomination} />
-          <Route path="/admin/foodNomination/:foodNominationId" exact component={FoodNominationDetails} />
-          <Route path="/admin/cafe" exact component={CafeHome} />
+          <Route path="/admin/foodNominations" exact component={AdminFoodNomination} />
+          <Route path="/admin/foodNominations/:foodNominationId" exact component={FoodNominationDetails} />
+          <Route path="/admin/cafe" exact component={AdminCafeHome} />
           <Route path="/admin/cafeDetails" exact component={AdminCafeDetails} />
-          <Route path="/cafeDetails" exact component={CafeDetails} />
+          <Route path="/cafe/:cafeId" exact component={CafeDetails} />
+          <Route path="/cafe" exact component={CafeHome} />
+          {/* <Route path="/courseDetails" exact component={CourseDetails}></Route> */}
         </Switch>
       </ThemeProvider>
     </BrowserRouter>

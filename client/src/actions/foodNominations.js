@@ -6,6 +6,8 @@ import {
   FETCH_FOOD_NOMINATION,
   CREATE_FOOD_NOMINATION,
   DELETE_FOOD_NOMINATION,
+  APPROVE_FOOD_NOMINATION,
+  DECLINE_FOOD_NOMINATION,
 } from "../constants/foodNominationActionTypes";
 
 export const getFoodNominations = () => async (dispatch) => {
@@ -53,6 +55,24 @@ export const deleteFoodNomination = (id) => async (dispatch) => {
   try {
     await api.deleteFoodNomination(id);
     dispatch({ type: DELETE_FOOD_NOMINATION, payload: id });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const approveFoodNomimation = (id) => async (dispatch) => {
+  try {
+    const { data } = await api.approveFoodNomimation(id);
+    dispatch({ type: APPROVE_FOOD_NOMINATION, payload: data });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const declineFoodNomimation = (id) => async (dispatch) => {
+  try {
+    const { data } = await api.declineFoodNomimation(id);
+    dispatch({ type: DECLINE_FOOD_NOMINATION, payload: data });
   } catch (error) {
     console.log(error);
   }

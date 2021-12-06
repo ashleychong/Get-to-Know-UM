@@ -6,11 +6,14 @@ import dotenv from "dotenv";
 import userRoutes from "./routes/user.js";
 import topicRoutes from "./routes/topics.js";
 import courseRoutes from "./routes/courses.js";
+import courseReviewRoutes from "./routes/courseReviews.js";
 import manageEventRoutes from "./routes/events.js";
 import manageClubRoutes from "./routes/clubs.js";
 import manageLeisureRoutes from "./routes/experience.js";
 import foodNominationRoutes from "./routes/foodNominations.js";
 import foodRoutes from "./routes/food.js";
+import cafeRoutes from "./routes/cafe.js";
+import cafeReviewRoutes from "./routes/cafeReviews.js";
 
 dotenv.config();
 
@@ -23,11 +26,14 @@ app.use(cors());
 app.use("/user", userRoutes);
 app.use("/topics", topicRoutes);
 app.use("/courses", courseRoutes);
+app.use("/courseReviews", courseReviewRoutes);
 app.use("/event", manageEventRoutes);
 app.use("/club", manageClubRoutes);
 app.use("/leisure", manageLeisureRoutes);
 app.use("/foodNominations", foodNominationRoutes);
 app.use("/food", foodRoutes);
+app.use("/cafe", cafeRoutes);
+app.use("/cafeReviews", cafeReviewRoutes);
 
 const PORT = process.env.PORT || 5000;
 const CONNECTION_URL = process.env.ATLAS_URI;

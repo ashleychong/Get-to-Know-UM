@@ -16,11 +16,13 @@ import {
   Paper,
 } from "@material-ui/core";
 
+import useStyles from "./FoodNominationTableStyles";
 import FoodNominationRows from './FoodNominationTableRows';
 import { getFoodNominations } from "../../../actions/foodNominations";
 
 const FoodNominationTable = () => {
   const dispatch = useDispatch();
+  const classes = useStyles();
 
   useEffect(() => {
     dispatch(getFoodNominations());
@@ -28,14 +30,16 @@ const FoodNominationTable = () => {
 
   return (
     <Fragment>
-        <CardContent className="p-3">
+        {/* <CardContent className="p-3"> */}
           <TableContainer component={Paper}>
             <Table>
-              <TableHead>
+              <TableHead className={classes.MuiTableHead}>
                 <TableRow>
-                  <TableCell>No</TableCell>
-                  <TableCell>Image</TableCell>
+                  <TableCell>No.</TableCell>
                   <TableCell>Food Name</TableCell>
+                  <TableCell>Image</TableCell>
+                  <TableCell>Approval Status</TableCell>
+                  <TableCell>Date</TableCell>
                 </TableRow>
             </TableHead>
             <TableBody>
@@ -43,7 +47,7 @@ const FoodNominationTable = () => {
             </TableBody>
             </Table>
           </TableContainer>
-        </CardContent>
+        {/* </CardContent> */}
     </Fragment>
   );
 };

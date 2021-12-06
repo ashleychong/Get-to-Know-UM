@@ -1,9 +1,18 @@
 import {
-    START_LOADING, END_LOADING, FETCH_FOOD_NOMINATIONS, FETCH_FOOD_NOMINATION, CREATE_FOOD_NOMINATION, DELETE_FOOD_NOMINATION
+  START_LOADING,
+  END_LOADING,
+  FETCH_FOOD_NOMINATIONS,
+  FETCH_FOOD_NOMINATION,
+  CREATE_FOOD_NOMINATION,
+  DELETE_FOOD_NOMINATION,
+  APPROVE_FOOD_NOMINATION,
+  DECLINE_FOOD_NOMINATION,
 } from "../constants/foodNominationActionTypes";
- 
 
-const foodNominationsReducer = (state = { isLoading: false, foodNominations: [] }, action) => {
+const foodNominationsReducer = (
+  state = { isLoading: false, foodNominations: [] },
+  action
+) => {
   switch (action.type) {
     case START_LOADING:
       return { ...state, isLoading: true };
@@ -23,6 +32,24 @@ const foodNominationsReducer = (state = { isLoading: false, foodNominations: [] 
         ...state,
         foodNominations: state.foodNominations.filter(
           (foodNomination) => foodNomination._id !== action.payload
+        ),
+      };
+    case APPROVE_FOOD_NOMINATION:
+      return {
+        ...state,
+        foodNominations: state.foodNominations.map((foodNomination) =>
+          foodNomination._id === action.payload._id
+            ? action.payload
+            : foodNomination
+        ),
+      };
+    case DECLINE_FOOD_NOMINATION:
+      return {
+        ...state,
+        foodNominations: state.foodNominations.map((foodNomination) =>
+          foodNomination._id === action.payload._id
+            ? action.payload
+            : foodNomination
         ),
       };
     default:
