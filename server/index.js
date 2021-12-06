@@ -14,6 +14,7 @@ import foodNominationRoutes from "./routes/foodNominations.js";
 import foodRoutes from "./routes/food.js";
 import cafeRoutes from "./routes/cafe.js";
 import cafeReviewRoutes from "./routes/cafeReviews.js";
+import gpaRoutes from "./routes/gpa.js";
 
 dotenv.config();
 
@@ -27,6 +28,7 @@ app.use("/user", userRoutes);
 app.use("/topics", topicRoutes);
 app.use("/courses", courseRoutes);
 app.use("/courseReviews", courseReviewRoutes);
+app.use("/gpa", gpaRoutes);
 app.use("/event", manageEventRoutes);
 app.use("/club", manageClubRoutes);
 app.use("/leisure", manageLeisureRoutes);

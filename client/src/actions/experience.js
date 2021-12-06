@@ -1,5 +1,5 @@
 import * as api from "../api/experience";
-import { FETCH_ALL, CREATE } from "../constants/actionTypes";
+import { FETCH_ALL, CREATE, UPDATE, DELETE } from "../constants/actionTypes";
 
 export const getExps = () => async (dispatch) => {
   try {

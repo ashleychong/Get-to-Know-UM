@@ -9,7 +9,11 @@ const url = "http://localhost:5000/event";
 export const fetchEvents = () => axios.get(url);
 export const fetchEvent = (id) => axios.get(`${url}/${id}`);
 export const fetchEventsBySearch = (searchQuery) =>
-  axios.get(`${url}/search?searchQuery=${searchQuery.search || "none"}`);
+  axios.get(
+    `${url}/search?searchQuery=${searchQuery.search || "none"}&tags=${
+      searchQuery.tags || "none"
+    }`
+  );
 export const createEvents = (newEvent) => axios.post(url, newEvent);
 export const updateEvent = (id, updatedEvent) =>
   axios.patch(`${url}/${id}`, updatedEvent);

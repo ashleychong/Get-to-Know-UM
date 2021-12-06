@@ -9,5 +9,19 @@ import experience from "./experience";
 import foodNominations from "./foodNominations";
 import food from "./food";
 import cafes from "./cafe"
+import gpa from "./gpa";
+import leisures from "./leisure";
 
-export const reducers = combineReducers({ auth, topics, courses, events, clubs, experience, foodNominations, food, cafes});
+export const reducers = combineReducers({
+  auth,
+  topics,
+  courses,
+  events,
+  clubs,
+  experience,
+  foodNominations,
+  food,
+  cafes
+  gpa,
+  leisures,
+});

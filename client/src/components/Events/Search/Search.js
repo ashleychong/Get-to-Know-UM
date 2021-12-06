@@ -12,25 +12,31 @@ function useQuery() {
 const Search = () => {
   const classes = useStyles();
   const query = useQuery();
-  const page = query.get("page") || 1;
+  // const page = query.get("page") || 1;
   const searchQuery = query.get("searchQuery");
 
   const [search, setSearch] = useState("");
+  const [tags, setTags] = useState([]);
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const searchPost = () => {
-    if (search.trim()) {
-      dispatch(getEventsBySearch({ search }));
-      history.push(`/gtkum/event/search?searchQuery=${search || "none"}`);
+  const searchEvent = () => {
+    if (search.trim() || tags) {
+      dispatch(getEventsBySearch({ search, tags: tags.join(",") }));
+      history.push(
+        `/gtkum/event/search?searchQuery=${search || "none"}&tags=${
+          "none" || tags.join(",")
+        }`
+      );
     } else {
-      history.push("/gtkum/event");
+      // history.push("/gtkum/event");
+      history.push("/");
     }
   };
 
   const handleKeyPress = (e) => {
     if (e.keyCode === 13) {
-      searchPost();
+      searchEvent();
     }
   };
 
