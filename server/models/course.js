@@ -6,6 +6,10 @@ const courseSchema = mongoose.Schema({
     description: { type: String },
     faculty: { type: String, default: "" },
     image: { type: String, default: "" },
+    avgOverallRating: {type: Number},
+    avgDeliveryRating: {type: Number},
+    avgDifficultyRating: {type: Number},
+    avgEnjoymentRating: {type: Number},
 });
 
 export default mongoose.model("Course", courseSchema);

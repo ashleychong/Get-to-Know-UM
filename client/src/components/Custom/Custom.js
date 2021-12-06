@@ -4,6 +4,8 @@ import ActionButton from "./ActionButton";
 import { useForm, Form } from "./FormControl";
 import ConfirmDelete from "./ConfirmDelete";
 import useTable from "./useTable";
+import DropDown from "./Dropdown";
+import RatingInput from "./RatingInput";
 
 const Custom = {
   Input,
@@ -13,6 +15,8 @@ const Custom = {
   Form,
   ConfirmDelete,
   useTable,
+  DropDown,
+  RatingInput,
 };
 
 export default Custom;

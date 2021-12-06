@@ -7,6 +7,6 @@ const cafeSchema = mongoose.Schema({
   image: { type: String, default: "" },
 });
 
-const Cafe = mongoose.model("Cafe", cafeSchema);
+const Cafe = mongoose.model("Cafe", cafeSchema, "cafes");
 
 export default Cafe;

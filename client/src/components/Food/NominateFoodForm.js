@@ -92,7 +92,7 @@ const NominateFoodForm = ({
           error={errors.description}
           multiline
           rows={3}
-          rowsMax={10}
+          maxRows={10}
           required
         />
         <div className={classes.fileInput}>
