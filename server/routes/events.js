@@ -7,6 +7,7 @@ import {
   deleteEvent,
   getEventsBySearch,
   getEventTable,
+  favEvent,
 } from "../controllers/events.js";
 
 //create a new router obj for request handling
@@ -20,4 +21,5 @@ router.get("/search", getEventsBySearch);
 router.post("/", addEvent);
 router.patch("/:id", updateEvent);
 router.delete("/:id", deleteEvent);
+router.post("/addfav", favEvent);
 export default router;

@@ -10,6 +10,7 @@ const expSchema = mongoose.Schema({
     type: [String],
     default: [],
   },
+  status: String,
 });
 
 const Experience = mongoose.model("Experience", expSchema);

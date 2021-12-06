@@ -57,16 +57,6 @@ const ClubHome = () => {
         </Layout>
       </>
     );
-  } else {
-    return (
-      <>
-        <CssBaseline />
-        <PageHeader title="Club" />
-        <div className={classes.pageContent}>
-          <ClubTable editInPopup={editInPopup} />
-        </div>
-      </>
-    );
   }
 };
 

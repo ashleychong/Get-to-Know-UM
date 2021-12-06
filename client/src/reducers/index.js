@@ -5,7 +5,7 @@ import topics from "./topics";
 import courses from "./courses";
 import events from "./events";
 import clubs from "./clubs";
-import experience from "./experience";
+import exps from "./experience";
 import foodNominations from "./foodNominations";
 import food from "./food";
 import umCourses from "./gpa";
@@ -17,7 +17,7 @@ export const reducers = combineReducers({
   courses,
   events,
   clubs,
-  experience,
+  exps,
   foodNominations,
   food,
   umCourses,

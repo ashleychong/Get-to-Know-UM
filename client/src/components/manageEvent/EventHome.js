@@ -55,16 +55,6 @@ const EventHome = () => {
         </Layout>
       </>
     );
-  } else {
-    return (
-      <>
-        <CssBaseline />
-        <PageHeader title="Event" />
-        <div className={classes.pageContent}>
-          <EventTable editInPopup={editInPopup} />
-        </div>
-      </>
-    );
   }
 };
 

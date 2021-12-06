@@ -18,6 +18,7 @@ import {
   LocalLibraryOutlined,
   DirectionsRunOutlined,
   PeopleAltOutlined,
+  StarRateRounded,
 } from "@material-ui/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
@@ -82,6 +83,11 @@ const SideBar = () => {
       text: "Leisure",
       icon: <DirectionsRunOutlined />,
       path: "/admin/leisure",
+    },
+    {
+      text: "Experience",
+      icon: <StarRateRounded />,
+      path: "/admin/exp",
     },
   ];
   return (

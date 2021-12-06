@@ -1,24 +1,21 @@
 import { Button, CssBaseline, CircularProgress } from "@material-ui/core";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import AddIcon from "@material-ui/icons/Add";
 import useStyles from "./styles";
 import PageHeader from "../PageHeader";
-import { getCourses } from "../../actions/courses";
-import LeisurePopup from "./LeisurePopup";
+import ExpPopup from "./ExpPopup";
 import Layout from "../Admin/Layout/Layout";
-import LeisureTable from "./LeisureTable/Table";
+import ExpTable from "./ExpTable/Table";
 
-const LeisureHome = () => {
-  const { leisures, isLoading } = useSelector((state) => state.leisures);
+const ExpHome = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [openPopup, setOpenPopup] = useState(false);
   const [currentId, setCurrentId] = useState(0);
   const user = JSON.parse(localStorage.getItem("profile"));
 
-  const editInPopup = (leisure) => {
-    setCurrentId(leisure._id);
+  const editInPopup = (exp) => {
+    setCurrentId(exp._id);
     setOpenPopup(true);
   };
 
@@ -28,24 +25,11 @@ const LeisureHome = () => {
         <CssBaseline />
         <Layout>
           <>
-            <PageHeader title="Leisure">
-              {user?.result?.role === "admin" && (
-                <Button
-                  className={classes.newButton}
-                  variant="outlined"
-                  startIcon={<AddIcon />}
-                  onClick={() => {
-                    setOpenPopup(true);
-                  }}
-                >
-                  Create a new leisure
-                </Button>
-              )}
-            </PageHeader>
+            <PageHeader title="Experience"></PageHeader>
             <div className={classes.pageContent}>
-              <LeisureTable editInPopup={editInPopup} />
+              <ExpTable editInPopup={editInPopup} />
             </div>
-            <LeisurePopup
+            <ExpPopup
               currentId={currentId}
               setCurrentId={setCurrentId}
               openPopup={openPopup}
@@ -58,4 +42,4 @@ const LeisureHome = () => {
   }
 };
 
-export default LeisureHome;
+export default ExpHome;

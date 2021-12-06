@@ -29,6 +29,7 @@ import ClubHomePage from "./components/Clubs/ClubHomePage";
 import ClubDetails from "./components/Clubs/ClubDetails/ClubDetails";
 import GPACalHome from "./components/GPA/GPACalHome";
 import LeisureHome from "./components/manageLeisure/LeisureHome";
+import ExpHome from "./components/manageExp/ExpHome";
 
 const theme = createMuiTheme({
   palette: {
@@ -77,6 +78,7 @@ function App() {
           <Route path="/admin/club/:page?" component={ClubHome} />
           <Route path="/admin/event" exact component={EventHome} />
           <Route path="/admin/leisure" exact component={LeisureHome} />
+          <Route path="/admin/exp" exact component={ExpHome} />
           {/* <Route path="/courses" exact component={Courses} /> */}
           {/* </Layout> */}
           <Route path="/userProfile" exact component={UserProfile} />

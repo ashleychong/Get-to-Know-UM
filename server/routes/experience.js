@@ -3,6 +3,9 @@ import {
   getExpList,
   addExp,
   likeExp,
+  getExpTable,
+  updatedExp,
+  deleteExp,
   getLeisureList,
   getLeisure,
   addLeisure,
@@ -18,6 +21,9 @@ const router = express.Router();
 router.get("/exp", getExpList);
 router.post("/exp", auth, addExp);
 router.patch("/:id/likeExp", auth, likeExp);
+router.get("/exp/:user", getExpTable);
+router.patch("/exp/:id", updatedExp);
+router.delete("/exp/:id", deleteExp);
 
 router.get("/", getLeisureList);
 router.get("/:user", getLeisureTable);

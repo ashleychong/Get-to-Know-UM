@@ -49,6 +49,46 @@ export const likeExp = async (req, res) => {
   res.status(200).json(updatedExp);
 };
 
+export const getExpTable = async (req, res) => {
+  const { user } = req.params;
+  try {
+    const ExpTable = await ExpMessage.find();
+    res.status(200).json(ExpTable);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
+export const updatedExp = async (req, res) => {
+  const { id } = req.params;
+  const { title, description, img, name, creator, like, status } = req.body;
+
+  if (!mongoose.Types.ObjectId.isValid(id))
+    return res.status(404).send(`No exp with id: ${id}`);
+  const updateExp = {
+    title,
+    description,
+    img,
+    name,
+    creator,
+    like,
+    _id: id,
+    status,
+  };
+  await ExpMessage.findByIdAndUpdate(id, updateExp, { new: true });
+  res.json(updateExp);
+};
+
+export const deleteExp = async (req, res) => {
+  const { id } = req.params;
+  if (!mongoose.Types.ObjectId.isValid(id))
+    return res.status(404).send(`No exp with id: ${id}`);
+  await ExpMessage.findByIdAndRemove(id);
+  res.json({ message: "Deleted successfully." });
+};
+
+//**************************************************************** */
+
 export const getLeisureList = async (req, res) => {
   try {
     const leisures = await LeisureMessage.find();
@@ -114,7 +154,7 @@ export const updateLeisure = async (req, res) => {
   const { title, details, category } = req.body;
 
   if (!mongoose.Types.ObjectId.isValid(id))
-    return res.status(404).send(`No exp with id: ${id}`);
+    return res.status(404).send(`No leisure with id: ${id}`);
   const updateLeisure = {
     title,
     details,
@@ -128,7 +168,7 @@ export const updateLeisure = async (req, res) => {
 export const deleteLeisure = async (req, res) => {
   const { id } = req.params;
   if (!mongoose.Types.ObjectId.isValid(id))
-    return res.status(404).send(`No exp with id: ${id}`);
+    return res.status(404).send(`No leisure with id: ${id}`);
   await LeisureMessage.findByIdAndRemove(id);
   res.json({ message: "Deleted successfully." });
 };

@@ -18,7 +18,7 @@ import FileBase from "react-file-base64";
 import ExperienceCard from "../ExperienceCard/ExperienceCard";
 
 const ExperienceRank = () => {
-  const experience = useSelector((state) => state.experience);
+  const exps = useSelector((state) => state.exps);
   const user = JSON.parse(localStorage.getItem("profile"));
   useEffect(() => {
     dispatch(getExps());
@@ -28,9 +28,12 @@ const ExperienceRank = () => {
   const [expData, setExpData] = useState({
     title: "",
     description: "",
+    img: "",
+    status: "disapprove",
   });
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
+  const [share, setShare] = React.useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -45,12 +48,15 @@ const ExperienceRank = () => {
     dispatch(createExp({ ...expData, name: user?.result?.name }));
     clear();
     setOpen(false);
+    setShare(true);
   };
+
   const clear = () => {
     setExpData({
       title: "",
       description: "",
       img: "",
+      status: "",
     });
   };
 
@@ -74,8 +80,9 @@ const ExperienceRank = () => {
           </Button>
         </Grid>
         {[]
-          .concat(experience)
+          .concat(exps)
           .sort((a, b) => (a.likes.length > b.likes.length ? -1 : 1))
+          .filter((exp) => exp.status !== "disapprove")
           .map((exp, index) => (
             <Grid item key={exp._id} xs={12} className={classes.card}>
               <ExperienceCard exp={exp} index={index + 1} />

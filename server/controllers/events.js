@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 
 import EventMessage from "../models/eventModel.js";
+import Fav from "../models/fav.js";
 
 const router = express.Router();
 
@@ -119,3 +120,21 @@ export const deleteEvent = async (req, res) => {
 };
 
 export default router;
+
+export const favEvent = async (req, res) => {
+  // const { id } = req.params;
+  // if (!req.userId) {
+  //   return res.json({ message: "Unauthenticated" });
+  // }
+  // if (!mongoose.Types.ObjectId.isValid(id))
+  //   return res.status(404).send(`No event with id: ${id}`);
+  // const exp = await Fav.findById(id);
+  // const index = exp.likes.findIndex((id) => id === String(req.userId));
+  // if (index === -1) {
+  //   exp.likes.push(req.userId);
+  // } else {
+  //   exp.likes = exp.likes.filter((id) => id !== String(req.userId));
+  // }
+  // const updatedExp = await ExpMessage.findByIdAndUpdate(id, exp, { new: true });
+  // res.status(200).json(updatedExp);
+};

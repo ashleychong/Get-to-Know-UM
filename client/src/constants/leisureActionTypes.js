@@ -5,3 +5,7 @@ export const UPDATE_LEISURE = "UPDATE_LEISURE";
 export const DELETE_LEISURE = "DELETE_LEISURE";
 export const VOTE_LEISURE = "VOTE_LEISURE";
 export const FETCH_LEISURE_TABLE = "FETCH_LEISURE_TABLE";
+
+export const UPDATE_EXP = "UPDATE_EXP";
+export const FETCH_EXP_TABLE = "FETCH_EXP_TABLE";
+export const DELETE_EXP = "DELETE_EXP";
