@@ -8,7 +8,7 @@ import clubs from "./clubs";
 import experience from "./experience";
 import foodNominations from "./foodNominations";
 import food from "./food";
-import cafes from "./cafe"
+import cafes from "./cafe";
 import gpa from "./gpa";
 import leisures from "./leisure";
 
@@ -21,7 +21,7 @@ export const reducers = combineReducers({
   experience,
   foodNominations,
   food,
-  cafes
+  cafes,
   gpa,
   leisures,
 });
