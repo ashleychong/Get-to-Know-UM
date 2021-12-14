@@ -25,7 +25,7 @@ export default makeStyles((theme) => ({
   },
   drawerPaper: {
     width: drawerWidth,
-    backgroundColor: "#263238",
+    backgroundColor: "#111827",
   },
 
   list: {
@@ -43,7 +43,15 @@ export default makeStyles((theme) => ({
     color: "#FFFFFF",
   },
   active: {
-    background: "#607d8b",
+    color: "#10B981",
+    fontWeight: 600,
+  },
+  normal: {
+    "&:hover": {
+      color: "#D1D5DB",
+      backgroundColor: "rgba(255,255,255, 0.08)",
+    },
+    fontWeight: 600,
   },
   logoutDiv: {
     display: "flex",

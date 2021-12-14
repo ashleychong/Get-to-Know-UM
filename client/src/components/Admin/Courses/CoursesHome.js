@@ -1,17 +1,23 @@
 import {
+  Button,
   CssBaseline,
+  Grid,
+  Typography,
+  CircularProgress,
 } from "@material-ui/core";
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
+import AddIcon from "@material-ui/icons/Add";
 
-import useStyles from "./styles";
-import Pagination from "./CoursePagination";
-import PageHeader from "../PageHeader";
+import Layout from "../Layout/Layout";
+import useStyles from "./CoursesHomeStyles";
+import PageHeader from "../../PageHeader";
+import { getCourses, getCoursesBySearch } from "../../../actions/courses";
+import CoursePopup from "./CoursePopup";
 import Courses from "./Courses";
-import Layout from "../Admin/Layout/Layout";
-import Custom from "../Custom/Custom";
-import { getCoursesBySearch } from "../../actions/courses";
+import Custom from "../../Custom/Custom";
+import Pagination from "./CoursePagination";
 
 const dummyCourses = [
   {
@@ -44,27 +50,28 @@ function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
 
-const CoursesHome = () => {
+const AdminCoursesHome = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const [openPopup, setOpenPopup] = useState(false);
+  const [currentCourseId, setCurrentCourseId] = useState(0);
   const [search, setSearch] = useState("");
   const history = useHistory();
   const query = useQuery();
   const page = query.get("page") || 1;
   const searchQuery = query.get("searchQuery");
+  const user = JSON.parse(localStorage.getItem("profile"));
 
   useEffect(() => {
-    if (searchQuery) {
-      dispatch(getCoursesBySearch({ search: searchQuery }));
-    }
+    dispatch(getCourses());
   }, [dispatch]);
 
   const searchCourse = () => {
     if (search.trim()) {
       dispatch(getCoursesBySearch({ search }));
-      history.push(`/courses/search?searchQuery=${search}`);
+      history.push(`/admin/courses/search?searchQuery=${search}`);
     } else {
-      history.push("/courses");
+      history.push("/admin/courses");
     }
   };
 
@@ -74,28 +81,57 @@ const CoursesHome = () => {
     }
   };
 
-  return (
-    <>
-      <CssBaseline />
-      <PageHeader title="Courses">
-        <Custom.SearchBar
-          placeholder="Search..."
-          name="search"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          onKeyDown={handleKeyPress}
-        />
-      </PageHeader>
-      <div className={classes.pageContent}>
-        <Courses />
-      </div>
-      {!searchQuery && (
-        <div className={classes.pagination}>
-          <Pagination page={page} />
-        </div>
-      )}
-    </>
-  );
+  const editInPopup = (course) => {
+    setCurrentCourseId(course._id);
+    setOpenPopup(true);
+  };
+
+  if (user?.result?.role === "admin") {
+    return (
+      <>
+        <CssBaseline />
+        <Layout>
+          <>
+            <PageHeader title="Courses">
+              <Custom.SearchBar
+                placeholder="Search..."
+                name="search"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                onKeyDown={handleKeyPress}
+              />
+            </PageHeader>
+            <div className={classes.pageContent}>
+              <div className={classes.createButtonDiv}>
+                <Button
+                  className={classes.createButton}
+                  variant="outlined"
+                  startIcon={<AddIcon />}
+                  onClick={() => {
+                    setOpenPopup(true);
+                  }}
+                >
+                  Create course
+                </Button>
+              </div>
+              <Courses editInPopup={editInPopup} />
+              {!searchQuery && (
+                <div className={classes.pagination}>
+                  <Pagination page={page} />
+                </div>
+              )}
+            </div>
+            <CoursePopup
+              currentCourseId={currentCourseId}
+              setCurrentCourseId={setCurrentCourseId}
+              openPopup={openPopup}
+              setOpenPopup={setOpenPopup}
+            />
+          </>
+        </Layout>
+      </>
+    );
+  } 
 };
 
-export default CoursesHome;
+export default AdminCoursesHome;

@@ -20,6 +20,8 @@ export default makeStyles((theme) => ({
   },
   cardActions: {
     display: "flex",
-    justifyContent: "space-between",
+    justifyContent: "flex-end",
+    paddingRight: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
   },
 }));

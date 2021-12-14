@@ -13,7 +13,7 @@ const CafeCards = ({ editInPopup }) => {
   ) : (
     <>
       {cafes?.map((cafe) => (
-        <Grid key={cafe._id} item xs={12} sm={12} md={6} lg={3}>
+        <Grid key={cafe._id} item xs={12} sm={12} md={6} lg={4}>
           <CafeCard
             cafeId={cafe._id}
             imgSrc={cafe.image}

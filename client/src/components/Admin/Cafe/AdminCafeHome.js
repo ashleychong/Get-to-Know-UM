@@ -6,6 +6,7 @@ import useStyles from "./CafeHomeStyles";
 import { getAllCafes } from "../../../actions/cafe";
 import CafeCards from './CafeCards';
 import CafePopup from './CafePopup';
+import Layout from "../Layout/Layout";
 
 export default function CafeHome() {
   const classes = useStyles();
@@ -25,27 +26,30 @@ export default function CafeHome() {
   return (
     <>
       <CssBaseline />
-      <div className={classes.root}>
-        <div className={classes.createButtonRow}>
-          <Button
-            variant="contained"
-            onClick={() => {
-              setOpenPopup(true);
-            }}
-          >
-            Add new cafe
-          </Button>
+      <Layout>
+        <div className={classes.root}>
+          <div className={classes.createButtonRow}>
+            <Button
+              variant="outlined"
+              color="primary"
+              onClick={() => {
+                setOpenPopup(true);
+              }}
+            >
+              Add new cafe
+            </Button>
+          </div>
+          <Grid container alignItems="stretch" spacing={3}>
+            <CafeCards editInPopup={editInPopup} />
+          </Grid>
+          <CafePopup
+            currentCafeId={currentCafeId}
+            setCurrentCafeId={setCurrentCafeId}
+            openPopup={openPopup}
+            setOpenPopup={setOpenPopup}
+          />
         </div>
-        <Grid container alignItems="stretch" spacing={3}>
-          <CafeCards editInPopup={editInPopup} />
-        </Grid>
-        <CafePopup
-          currentCafeId={currentCafeId}
-          setCurrentCafeId={setCurrentCafeId}
-          openPopup={openPopup}
-          setOpenPopup={setOpenPopup}
-        />
-      </div>
+      </Layout>
     </>
   );
 }

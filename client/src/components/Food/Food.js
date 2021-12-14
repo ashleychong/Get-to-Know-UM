@@ -24,7 +24,7 @@ export default function FoodHome() {
       <CssBaseline />
       <div className={classes.root}>
         <div className={classes.firstRow}>
-          <Typography variant="h4" component="div">
+          <Typography variant="h5" component="div">
             Vote for your favourite food
           </Typography>
           <Button

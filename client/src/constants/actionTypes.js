@@ -11,6 +11,7 @@ export const FETCH_TOPIC = "FETCH_TOPIC";
 export const CREATE_TOPIC = "CREATE_TOPIC";
 export const UPDATE_TOPIC = "UPDATE_TOPIC";
 export const DELETE_TOPIC = "DELETE_TOPIC";
+export const FETCH_BY_SEARCH = "FETCH_BY_SEARCH";
 
 export const FETCH_POSTS = "FETCH_POSTS";
 export const CREATE_POST = "CREATE_POST";
@@ -21,7 +22,7 @@ export const CREATE = "CREATE";
 export const UPDATE = "UPDATE";
 export const DELETE = "DELETE";
 export const FETCH_ALL = "FETCH_ALL";
-export const FETCH_BY_SEARCH = "FETCH_BY_SEARCH";
+export const FETCH_TOPICS_BY_SEARCH = "FETCH_TOPICS_BY_SEARCH";
 export const LIKE = "LIKE";
 
 export const CREATE_EVENT = "CREATE_EVENT";

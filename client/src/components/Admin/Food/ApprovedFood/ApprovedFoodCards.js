@@ -15,7 +15,7 @@ const ApprovedFoodCards = (props) => {
   return isLoading ? (
     <CircularProgress />
   ) : (
-    <Grid item xs={12} md={9} lg={8}>
+    <Grid item xs={12} md={9} lg={10}>
       <Paper>
         {foodList.map((food, i) => (
           <div key={food._id}>

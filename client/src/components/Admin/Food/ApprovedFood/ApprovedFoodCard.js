@@ -24,25 +24,31 @@ const ApprovedFoodCard = (props) => {
 
   return (
     <Grid container className={classes.container}>
-      <Grid item xs={2} md={1} className={classes.ranking}>
-        {index}
+      <Grid item xs={12} md={3} className={classes.ranking}>
+        <span className={classes.ranking}>{index}</span>
+        <Avatar
+          src={food?.image || "https://source.unsplash.com/random"}
+          alt={food?.foodName}
+          className={classes.avatar}
+        />
       </Grid>
-      <Grid item xs={9} md={10}>
+      <Grid item xs={12} md={9}>
         <Box
           sx={{
             alignItems: "center",
             display: "flex",
           }}
         >
-          <Avatar
-            src={food?.image || "https://source.unsplash.com/random"}
-            alt={food?.foodName}
-            className={classes.avatar}
-          />
-          <Box ml={4} mr={3}>
+          <Box ml={1} mr={3}>
             <Box mb={1}>
-              <Typography variant="h5" gutterBottom>{food?.foodName}</Typography>
-              <Typography variant="body2" color="textSecondary" style={{fontSize: "1rem"}}>
+              <Typography variant="h5" gutterBottom>
+                {food?.foodName}
+              </Typography>
+              <Typography
+                variant="body2"
+                color="textSecondary"
+                style={{ fontSize: "1rem" }}
+              >
                 {food?.description}
               </Typography>
             </Box>

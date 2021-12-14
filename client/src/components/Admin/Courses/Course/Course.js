@@ -13,52 +13,20 @@ import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { useDispatch } from "react-redux";
 
-import { deleteCourse } from './../../../actions/courses';
-import reading from "../../../assets/images/reading.jpg";
+import { deleteCourse } from "../../../../actions/courses";
+import reading from "../../../../assets/images/reading.jpg";
+import useStyles from "./styles";
 
-const useStyles = makeStyles((theme) => ({
-  cardGrid: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-between",
-  },
-  card: {
-    display: "flex",
-    "& .MuiPaper-root": {
-      alignItems: "stretch",
-    },
-    flexDirection: "column",
-    justifyContent: "space-between",
-    height: "auto",
-  },
-  cardDetails: {
-    flex: 1,
-    height: "auto",
-  },
-  cardMedia: {
-    // height: 0,
-    paddingTop: "50%",
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
-    backgroundBlendMode: "darken",
-  },
-  right: {
-    display: "flex",
-    // marginLeft: "auto",
-    justifyContent: "flex-end",
-    "& .MuiSvgIcon-root": {
-      marginRight: theme.spacing(1),
-    },
-  },
-}));
 
-export default function FeaturedPost(props) {
+export default function Course(props) {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { course } = props;
+  const { course, editInPopup } = props;
+  const user = JSON.parse(localStorage.getItem("profile"));
 
   return (
     <Grid item className={classes.cardGrid} xs={12} md={4}>
-      <CardActionArea component="a" href={`/courses/${course._id}`} >
+      <CardActionArea component="a" href={`/courses/${course._id}`}>
         <Card className={classes.card}>
           <CardMedia
             className={classes.cardMedia}
@@ -75,6 +43,27 @@ export default function FeaturedPost(props) {
               <Typography variant="body1">
                 {course.description.split(" ").splice(0, 30).join(" ")}...
               </Typography>
+              {user?.result?.role === "admin" && (
+                <div className={classes.right}>
+                  <IconButton
+                    size="small"
+                    color="primary"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      editInPopup(course);
+                    }}
+                  >
+                    <EditIcon fontSize="small" />
+                  </IconButton>
+                  <IconButton
+                    size="small"
+                    color="secondary"
+                    onClick={() => dispatch(deleteCourse(course._id))}
+                  >
+                    <DeleteIcon fontSize="small" />
+                  </IconButton>
+                </div>
+              )}
             </CardContent>
           </div>
           {/* <Hidden xsDown>
@@ -89,6 +78,6 @@ export default function FeaturedPost(props) {
   );
 }
 
-FeaturedPost.propTypes = {
+Course.propTypes = {
   course: PropTypes.object,
 };

@@ -15,7 +15,7 @@ const Topics = ({ editInPopup }) => {
       {topics?.map((topic) => (
         <Container key={topic._id}>
           <Divider style={{ margin: "20px 0" }} />
-          <Grid key={topic._id} /*item xs={12} sm={12} md={6} lg={3}>} */>
+          <Grid key={topic._id}>
             <Topic topic={topic} editInPopup={editInPopup} />
           </Grid>
         </Container>

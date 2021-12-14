@@ -2,6 +2,7 @@ import {
   START_LOADING,
   END_LOADING,
   FETCH_COURSES,
+  FETCH_COURSES_BY_SEARCH,
   FETCH_COURSE,
   CREATE_COURSE,
   UPDATE_COURSE,
@@ -22,7 +23,14 @@ const coursesReducer = (
     case END_LOADING:
       return { ...state, isLoading: false };
     case FETCH_COURSES:
-      return { ...state, courses: action.payload };
+      return {
+        ...state,
+        courses: action.payload.data,
+        currentPage: action.payload.currentPage,
+        numberOfPages: action.payload.numberOfPages,
+      };
+    case FETCH_COURSES_BY_SEARCH:
+      return { ...state, courses: action.payload.data };
     case FETCH_COURSE:
       // to be reviewed
       return { ...state, course: action.payload };
@@ -79,9 +87,9 @@ const coursesReducer = (
         ...state,
         reviews: {
           ...state.reviews,
-          [action.payload.courseId]: state.reviews[action.payload.courseId].filter(
-            (review) => review._id !== action.payload.reviewId
-          ),
+          [action.payload.courseId]: state.reviews[
+            action.payload.courseId
+          ].filter((review) => review._id !== action.payload.reviewId),
         },
       };
     default:

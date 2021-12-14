@@ -1,11 +1,11 @@
 import express from "express";
 
-
-import { getCourses, getCourse, createCourse, updateCourse, deleteCourse } from './../controllers/courses.js';
+import { getCourses, getCoursesBySearch, getCourse, createCourse, updateCourse, deleteCourse } from './../controllers/courses.js';
 import auth from "../middleware/auth.js";
 
 const router = express.Router();
 
+router.get("/search", getCoursesBySearch);
 router.get("/", getCourses);
 router.get("/:id", getCourse);
 router.post("/", auth, createCourse);

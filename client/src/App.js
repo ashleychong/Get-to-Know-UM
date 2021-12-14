@@ -15,8 +15,9 @@ import UserProfile from "./components/Profile/UserProfile";
 import Forum from "./components/Forum/Forum";
 import TopicDetails from "./components/Forum/TopicDetails/TopicDetails";
 import Courses from "./components/Courses/CoursesHome";
-import EventHomePage from "./components/Events/EventHomePage";
 import CourseDetails from "./components/Courses/CourseDetails.js/CourseDetails";
+import AdminCourseHome from "./components/Admin/Courses/CoursesHome";
+import EventHomePage from "./components/Events/EventHomePage";
 import Events from "./components/Events/Events";
 import EventDetails from "./components/Events/EventDetails/EventDetails";
 import ExperienceRank from "./components/Leisure/ExperienceRank/Ranking/ExperienceRank";
@@ -72,7 +73,7 @@ function App() {
             exact
             component={() =>
               user?.result?.role === "admin" ? (
-                <Courses />
+                <AdminCourseHome />
               ) : (
                 <Redirect to="/home" />
               )
@@ -90,12 +91,15 @@ function App() {
           <Route path="/admin/event" exact component={EventHome} />
           <Route path="/admin/leisure" exact component={LeisureHome} />
           <Route path="/admin/exp" exact component={ExpHome} />
-          {/* <Route path="/courses" exact component={Courses} /> */}
+          <Route path="/admin/courses" exact component={AdminCourseHome} />
+          <Route path="/admin/courses/search" exact component={AdminCourseHome} />
           {/* </Layout> */}
           <Route path="/userProfile" exact component={UserProfile} />
           <Route path="/forum" exact component={Forum} />
+          <Route path="/topics/search" exact component={Forum} />
           <Route path="/forum/:topicId" exact component={TopicDetails} />
           <Route path="/courses" exact component={Courses} />
+          <Route path="/courses/search" exact component={Courses} />
           <Route path="/courses/:courseId" exact component={CourseDetails} />
           <Route path="/food" exact component={Food} />
           <Route path="/event" exact component={EventHomePage} />

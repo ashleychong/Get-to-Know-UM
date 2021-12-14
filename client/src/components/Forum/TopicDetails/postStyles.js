@@ -21,8 +21,14 @@ const useStyles = makeStyles((theme) => ({
     // },
   },
   leftAvatar: {
-    height: 70,
-    width: 70,
+    [theme.breakpoints.down("sm")]: {
+      height: 50,
+      width: 50,
+    },
+    [theme.breakpoints.up("sm")]: {
+      height: 70,
+      width: 70,
+    },
     margin: "auto",
     color: theme.palette.getContrastText(deepPurple[500]),
     backgroundColor: deepPurple[500],

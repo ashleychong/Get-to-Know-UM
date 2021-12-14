@@ -18,6 +18,11 @@ export default makeStyles((theme) => ({
     position: "absolute",
     right: "10px",
   },
+  pagination: {
+    justifyContent: "flex-end",
+    display: "flex",
+    marginTop: "1.5rem",
+  },
 }));
 
 

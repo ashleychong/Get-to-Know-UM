@@ -6,6 +6,7 @@ import ConfirmDelete from "./ConfirmDelete";
 import useTable from "./useTable";
 import DropDown from "./Dropdown";
 import RatingInput from "./RatingInput";
+import SearchBar from "./SearchBar";
 
 const Custom = {
   Input,
@@ -17,6 +18,7 @@ const Custom = {
   useTable,
   DropDown,
   RatingInput,
+  SearchBar,
 };
 
 export default Custom;

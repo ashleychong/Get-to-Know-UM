@@ -11,14 +11,29 @@ export default makeStyles((theme) => ({
     fontWeight: 700,
     fontSize: "2.7rem",
     color: "#b8c0cc",
+    display: "flex",
+    flexWrap: "nowrap",
+    [theme.breakpoints.down("sm")]: {
+      marginBottom: "0.8rem",
+    },
+    [theme.breakpoints.up("sm")]: {
+      alignItems: "center",
+    },
   },
   avatar: {
-    height: 56,
-    width: 56,
+    marginLeft: "1.7rem",
+    [theme.breakpoints.down("sm")]: {
+      height: 60,
+      width: 60,
+    },
+    [theme.breakpoints.up("sm")]: {
+      height: 80,
+      width: 80,
+    },
   },
   votes: {
     color: "#00a1d6",
-    fontWeight: 700,
+    fontWeight: 600,
     fontSize: "1.3rem",
   },
   root: {

@@ -18,8 +18,10 @@ export const updateProfile = (userId, formData) =>
 export const updatePassword = (userId, formData) =>
   api.patch(`/user/updatePassword/${userId}`, formData);
 
-export const fetchTopics = () => api.get("/topics");
+export const fetchTopics = (page) => api.get(`/topics?page=${page}`);
 export const fetchTopic = (id) => api.get(`/topics/${id}`);
+export const fetchTopicsBySearch = (searchQuery) =>
+  api.get(`/topics/search?searchQuery=${searchQuery.search || "none"}`);
 export const createTopic = (newTopic) => api.post("/topics", newTopic);
 export const updateTopic = (id, updatedTopic) =>
   api.patch(`/topics/${id}`, updatedTopic);
@@ -31,6 +33,7 @@ export const updatePost = (topicId, postId, updatedPost) =>
   api.patch(`/topics/topic/${topicId}/post/${postId}`, updatedPost);
 export const deletePost = (topicId, postId) =>
   api.delete(`/topics/topic/${topicId}/post/${postId}`);
+
 
 // export const fetchCourses = () => api.get("/courses");
 // export const fetchCourse = (id) => api.get(`/courses/${id}`);

@@ -1,6 +1,7 @@
 import {
   FETCH_TOPICS,
   FETCH_TOPIC,
+  FETCH_TOPICS_BY_SEARCH,
   CREATE_TOPIC,
   UPDATE_TOPIC,
   DELETE_TOPIC,
@@ -24,8 +25,12 @@ const topicsReducer = (
     case FETCH_TOPICS:
       return {
         ...state,
-        topics: action.payload,
+        topics: action.payload.data,
+        currentPage: action.payload.currentPage,
+        numberOfPages: action.payload.numberOfPages,
       };
+    case FETCH_TOPICS_BY_SEARCH:
+      return { ...state, topics: action.payload.data };
     case FETCH_TOPIC:
       return { ...state, topic: action.payload.topic };
     case CREATE_TOPIC:

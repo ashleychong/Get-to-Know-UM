@@ -15,6 +15,7 @@ import {
 } from "@material-ui/core";
 import { Help } from "@material-ui/icons";
 
+import Layout from "../Layout/Layout";
 import useStyles from "./FoodNominationPageStyles";
 import FoodNominationTable from "./FoodNominationTable";
 import ApprovedFoodPage from './ApprovedFood/ApprovedFoodPage';
@@ -43,8 +44,9 @@ const FoodNominationPage = () => {
   };
 
   return (
-    <div className={classes.root}>
-      {/* <AppBar
+    <Layout>
+      <div className={classes.root}>
+        {/* <AppBar
         component="div"
         className={classes.secondaryBar}
         color="primary"
@@ -62,42 +64,43 @@ const FoodNominationPage = () => {
       <TabPanel value={value} index={1}>
         <ApprovedFoodPage />
       </TabPanel> */}
-      <div className={classes.header}>
-        <Typography variant="h4">Food</Typography>
-        <Tabs
-          className={classes.tabBar}
-          value={value}
-          onChange={handleChange}
-          textColor="inherit"
-        >
-          <Tab
-            className={classes.tabButton}
+        <div className={classes.header}>
+          <Typography variant="h4">Food</Typography>
+          <Tabs
+            className={classes.tabBar}
+            value={value}
+            onChange={handleChange}
             textColor="inherit"
-            label="Nominated Food"
-          />
-          <Tab
-            className={classes.tabButton}
-            textColor="inherit"
-            label="Favourite Food in UM"
-          />
-        </Tabs>
-      </div>
-      <Divider />
-      <div className={classes.tabContent}>
-        {/* <Box sx={{ width: "100%", bgcolor: "background.paper" }}>
+          >
+            <Tab
+              className={classes.tabButton}
+              textColor="inherit"
+              label="Nominated Food"
+            />
+            <Tab
+              className={classes.tabButton}
+              textColor="inherit"
+              label="Favourite Food in UM"
+            />
+          </Tabs>
+        </div>
+        <Divider />
+        <div className={classes.tabContent}>
+          {/* <Box sx={{ width: "100%", bgcolor: "background.paper" }}>
           <Tabs value={value} onChange={handleChange} textColor="inherit">
             <Tab textColor="inherit" label="Nominated Food" />
             <Tab textColor="inherit" label="Favourite Food in UM" />
           </Tabs>
         </Box> */}
-        <TabPanel className={classes.tabPanel} value={value} index={0}>
-          <FoodNominationTable />
-        </TabPanel>
-        <TabPanel className={classes.tabPanel} value={value} index={1}>
-          <ApprovedFoodPage />
-        </TabPanel>
+          <TabPanel className={classes.tabPanel} value={value} index={0}>
+            <FoodNominationTable />
+          </TabPanel>
+          <TabPanel className={classes.tabPanel} value={value} index={1}>
+            <ApprovedFoodPage />
+          </TabPanel>
+        </div>
       </div>
-    </div>
+    </Layout>
   );
 };
 

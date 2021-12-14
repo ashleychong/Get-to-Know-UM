@@ -8,7 +8,7 @@ export default makeStyles((theme) => ({
   searchInput: {
     width: "75%",
   },
-  newButton: {
+  createButton: {
     // position: "absolute",
     // right: "10px",
     // minWidth: 0,
@@ -18,13 +18,15 @@ export default makeStyles((theme) => ({
       color: theme.palette.primary.main,
     },
   },
-  newButtonDiv: {
-    align: "right",
+  createButtonDiv: {
+    display: "flex",
+    justifyContent: "flex-end",
+    marginBottom: theme.spacing(5),
   },
   pagination: {
     justifyContent: "center",
     display: "flex",
-    marginTop: "1rem",
-    marginBottom: "3rem",
+    marginTop: "10vh",
+    marginBottom: "8vh",
   },
 }));
