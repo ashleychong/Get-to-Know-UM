@@ -3,11 +3,10 @@ import { Grid, CircularProgress, Paper } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import Event from "./Event/Event";
 
-const Events = (setCurrentId) => {
+const Events = ({ setCurrentId }) => {
   const { events, isLoading } = useSelector((state) => state.events);
-
-  if (!events.length && !isLoading) return "No events";
-
+  if (!events?.length && !isLoading) return "No events";
+  console.log(events);
   return isLoading ? (
     <CircularProgress />
   ) : (

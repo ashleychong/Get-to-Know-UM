@@ -133,12 +133,13 @@ export const getLeisuresBySearch = async (req, res) => {
 };
 
 export const addLeisure = async (req, res) => {
-  const { title, details, category } = req.body;
+  const { title, details, category, img } = req.body;
 
   const newLeisure = new LeisureMessage({
     title,
     details,
     category,
+    img,
   });
 
   try {
@@ -151,7 +152,7 @@ export const addLeisure = async (req, res) => {
 
 export const updateLeisure = async (req, res) => {
   const { id } = req.params;
-  const { title, details, category } = req.body;
+  const { title, details, category, img } = req.body;
 
   if (!mongoose.Types.ObjectId.isValid(id))
     return res.status(404).send(`No leisure with id: ${id}`);
@@ -159,6 +160,7 @@ export const updateLeisure = async (req, res) => {
     title,
     details,
     category,
+    img,
     _id: id,
   };
   await LeisureMessage.findByIdAndUpdate(id, updateLeisure, { new: true });

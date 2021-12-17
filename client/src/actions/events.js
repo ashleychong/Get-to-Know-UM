@@ -9,6 +9,9 @@ import {
   FETCH_EVENT_TABLE,
   START_LOADING,
   END_LOADING,
+  FAV,
+  FETCH_FAV_EVENTS,
+  FETCH_BY_TAG_EVENT,
 } from "../constants/actionTypes";
 
 //Action Creators are function that return an action
@@ -17,9 +20,24 @@ import {
 export const getEvents = (page) => async (dispatch) => {
   try {
     dispatch({ type: START_LOADING });
+
     const { data } = await api.fetchEvents(page);
     console.log(data);
     dispatch({ type: FETCH_EVENTS, payload: data });
+    dispatch({ type: END_LOADING });
+  } catch (error) {
+    console.log(error.response);
+  }
+};
+
+export const getFavEvents = (page) => async (dispatch) => {
+  try {
+    dispatch({ type: START_LOADING });
+    const user = JSON.parse(localStorage.getItem("profile"));
+    const { data } = await api.fetchFavEvents(page, user?.token);
+    console.log(data);
+
+    dispatch({ type: FETCH_FAV_EVENTS, payload: data });
     dispatch({ type: END_LOADING });
   } catch (error) {
     console.log(error.response);
@@ -49,11 +67,22 @@ export const getEvent = (id) => async (dispatch) => {
 export const getEventsBySearch = (searchQuery) => async (dispatch) => {
   try {
     dispatch({ type: START_LOADING });
-    const {
-      data: { data },
-    } = await api.fetchEventsBySearch(searchQuery);
+    const { data } = await api.fetchEventsBySearch(searchQuery);
     console.log(data);
     dispatch({ type: FETCH_BY_SEARCH_EVENT, payload: { data } });
+    dispatch({ type: END_LOADING });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const getEventsByTag = (tag) => async (dispatch) => {
+  try {
+    dispatch({ type: START_LOADING });
+
+    const { data } = await api.fetchEventsByTag(tag);
+    console.log(data);
+    dispatch({ type: FETCH_BY_TAG_EVENT, payload: { data } });
     dispatch({ type: END_LOADING });
   } catch (error) {
     console.log(error.message);
@@ -85,5 +114,17 @@ export const deleteEvent = (id) => async (dispatch) => {
     dispatch({ type: DELETE_EVENT, payload: id });
   } catch (error) {
     console.log(error.message);
+  }
+};
+
+export const addFav = (id) => async (dispatch) => {
+  const user = JSON.parse(localStorage.getItem("profile"));
+
+  try {
+    const { data } = await api.addFav(id, user?.token);
+
+    dispatch({ type: FAV, payload: data });
+  } catch (error) {
+    console.log(error);
   }
 };

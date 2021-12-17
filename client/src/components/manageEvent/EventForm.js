@@ -26,6 +26,7 @@ const initialValues = {
   endDate: "",
   venue: "",
   contact: "",
+  organizer: "",
   img: "",
 };
 
@@ -58,6 +59,8 @@ const EventForm = ({ currentId, setCurrentId, setOpenPopup }) => {
       temp.contact = fieldValues.contact.length
         ? ""
         : "This field is required.";
+    if ("organizer" in fieldValues)
+      temp.organizer = fieldValues.organizer ? "" : "This field is required.";
     setErrors({
       ...temp,
     });
@@ -167,11 +170,19 @@ const EventForm = ({ currentId, setCurrentId, setOpenPopup }) => {
             error={errors.contact}
             required
           />
+          <Custom.Input
+            name="organizer"
+            label="Organizer"
+            value={values.organizer}
+            onChange={handleInputChange}
+            error={errors.organizer}
+            required
+          />
           <div className={classes.fileInput}>
             <FileBase
               type="file"
               multiple={false}
-              onDone={({ base64 }) => setValues({ ...values, image: base64 })}
+              onDone={({ base64 }) => setValues({ ...values, img: base64 })}
             />
           </div>
           <div>

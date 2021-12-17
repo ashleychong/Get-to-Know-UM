@@ -8,8 +8,10 @@ import {
   getEventsBySearch,
   getEventTable,
   favEvent,
+  getFavEventList,
+  getEventsByTag,
 } from "../controllers/events.js";
-
+import auth from "../middleware/auth.js";
 //create a new router obj for request handling
 const router = express.Router();
 
@@ -17,9 +19,11 @@ const router = express.Router();
 router.get("/", getEventList);
 router.get("/:user", getEventTable);
 router.get("/detail/:id", getEvent);
-router.get("/search", getEventsBySearch);
+router.get("/info/search", getEventsBySearch);
+router.get("/tag/search", getEventsByTag);
 router.post("/", addEvent);
 router.patch("/:id", updateEvent);
 router.delete("/:id", deleteEvent);
-router.post("/addfav", favEvent);
+router.get("/fav/events", auth, getFavEventList);
+router.patch("/addFav/:id", auth, favEvent);
 export default router;

@@ -2,7 +2,6 @@ import express from "express";
 import mongoose from "mongoose";
 
 import EventMessage from "../models/eventModel.js";
-import Fav from "../models/fav.js";
 
 const router = express.Router();
 
@@ -13,8 +12,14 @@ export const getEventList = async (req, res) => {
   try {
     const LIMIT = 8;
     const startIndex = (Number(page) - 1) * LIMIT; // get the starting index of every page
-    const total = await EventMessage.countDocuments({});
-    const events = await EventMessage.find()
+    const today = new Date().toISOString();
+    const total = await EventMessage.countDocuments({
+      startDate: { $gt: today },
+    });
+
+    const events = await EventMessage.find({
+      startDate: { $gt: today },
+    })
       .sort({ _id: -1 })
       .limit(LIMIT)
       .skip(startIndex);
@@ -28,6 +33,36 @@ export const getEventList = async (req, res) => {
     res.status(404).json({ message: error.message });
   }
 };
+
+export const getFavEventList = async (req, res) => {
+  const { page } = req.query;
+  try {
+    const LIMIT = 8;
+    const startIndex = (Number(page) - 1) * LIMIT;
+    const today = new Date().toISOString();
+    const total = await EventMessage.countDocuments({
+      startDate: { $gt: today },
+      fav: req.userId,
+    });
+
+    const events = await EventMessage.find({
+      startDate: { $gt: today },
+      fav: req.userId,
+    })
+      .sort({ _id: -1 })
+      .limit(LIMIT)
+      .skip(startIndex);
+    console.log(events);
+    res.json({
+      currentPage: Number(page),
+      numberOfPages: Math.ceil(total / LIMIT),
+      data: events,
+    });
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
 //for admin portal table
 export const getEventTable = async (req, res) => {
   const { user } = req.params;
@@ -51,34 +86,38 @@ export const getEvent = async (req, res) => {
 };
 
 export const getEventsBySearch = async (req, res) => {
-  const { searchQuery, tags } = req.query;
+  const { searchQuery } = req.query;
 
   try {
     const title = new RegExp(searchQuery, "i");
+    console.log(title);
+    const events = await EventMessage.find({ title });
+    console.log(events);
+    res.json(events);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
 
-    const events = await EventMessage.find({
-      $or: [{ title: title }, { tags: { $in: tags.split(",") } }],
-    });
+export const getEventsByTag = async (req, res) => {
+  const { tag } = req.query;
 
-    res.json({ data: events });
+  try {
+    const eventTag = new RegExp(tag, "i");
+    console.log(eventTag);
+    const events = await EventMessage.find({ tags: eventTag });
+    console.log(events);
+    res.json(events);
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
 };
 
 export const addEvent = async (req, res) => {
-  const { title, tags, about, startDate, endDate, venue, contact, img } =
-    req.body;
+  const event = req.body;
 
   const newEvent = new EventMessage({
-    title,
-    tags,
-    about,
-    startDate,
-    endDate,
-    venue,
-    contact,
-    img,
+    ...event,
   });
 
   try {
@@ -91,8 +130,18 @@ export const addEvent = async (req, res) => {
 
 export const updateEvent = async (req, res) => {
   const { id } = req.params;
-  const { title, tags, about, startDate, endDate, venue, contact, img } =
-    req.body;
+  const {
+    title,
+    tags,
+    about,
+    startDate,
+    endDate,
+    venue,
+    contact,
+    organizer,
+    img,
+    fav,
+  } = req.body;
 
   if (!mongoose.Types.ObjectId.isValid(id))
     return res.status(404).send(`No post with id: ${id}`);
@@ -104,7 +153,9 @@ export const updateEvent = async (req, res) => {
     endDate,
     venue,
     contact,
+    organizer,
     img,
+    fav,
     _id: id,
   };
   await EventMessage.findByIdAndUpdate(id, updateEvent, { new: true });
@@ -122,19 +173,26 @@ export const deleteEvent = async (req, res) => {
 export default router;
 
 export const favEvent = async (req, res) => {
-  // const { id } = req.params;
-  // if (!req.userId) {
-  //   return res.json({ message: "Unauthenticated" });
-  // }
-  // if (!mongoose.Types.ObjectId.isValid(id))
-  //   return res.status(404).send(`No event with id: ${id}`);
-  // const exp = await Fav.findById(id);
-  // const index = exp.likes.findIndex((id) => id === String(req.userId));
-  // if (index === -1) {
-  //   exp.likes.push(req.userId);
-  // } else {
-  //   exp.likes = exp.likes.filter((id) => id !== String(req.userId));
-  // }
-  // const updatedExp = await ExpMessage.findByIdAndUpdate(id, exp, { new: true });
-  // res.status(200).json(updatedExp);
+  const { id } = req.params;
+
+  if (!req.userId) {
+    return res.json({ message: "Unauthenticated" });
+  }
+
+  if (!mongoose.Types.ObjectId.isValid(id))
+    return res.status(404).send(`No event with id: ${id}`);
+
+  const event = await EventMessage.findById(id);
+
+  const index = event.fav.findIndex((id) => id === String(req.userId));
+
+  if (index === -1) {
+    event.fav.push(req.userId);
+  } else {
+    event.fav = event.fav.filter((id) => id !== String(req.userId));
+  }
+  const updatedEvent = await EventMessage.findByIdAndUpdate(id, event, {
+    new: true,
+  });
+  res.status(200).json(updatedEvent);
 };

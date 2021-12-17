@@ -61,13 +61,23 @@ export default makeStyles(() => ({
   bottom: {
     marginBottom: "30px",
   },
-  header: { margin: "16px", fontSize: "26", fontWeight: "420" },
+  header: { margin: "16px", fontSize: "26", fontWeight: "bold" },
   text: {
     textAlign: "center",
   },
   title: {
     fontWeight: "300",
     fontSize: "18px",
+    padding: "20px 0",
+    display: "inline-block",
+    textAlign: "right",
+    width: "150px",
+    marginBottom: "10px",
+    marginRight: "20px",
+  },
+  title2: {
+    fontWeight: "300",
+    fontSize: "16px",
     padding: "20px 0",
     display: "inline-block",
     textAlign: "right",

@@ -14,7 +14,7 @@ const router = express.Router();
 router.get("/", getClubList);
 router.get("/:user", getClubTable);
 router.get("/detail/:id", getClub);
-router.get("/search", getClubsBySearch);
+router.get("/name/search", getClubsBySearch);
 router.post("/", addClub);
 router.patch("/:id", updateClub);
 router.delete("/:id", deleteClub);

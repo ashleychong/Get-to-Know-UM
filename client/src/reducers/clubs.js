@@ -8,9 +8,16 @@ import {
   START_LOADING,
   END_LOADING,
   FETCH_CLUB_TABLE,
+  FETCH_CLUB_REVIEWS,
+  CREATE_CLUB_REVIEW,
+  UPDATE_CLUB_REVIEW,
+  DELETE_CLUB_REVIEW,
 } from "../constants/actionTypes";
 
-export default (state = { isLoading: true, clubs: [] }, action) => {
+export default (
+  state = { isLoading: false, clubs: [], reviews: {} },
+  action
+) => {
   switch (action.type) {
     case START_LOADING:
       return { ...state, isLoading: true };
@@ -24,7 +31,7 @@ export default (state = { isLoading: true, clubs: [] }, action) => {
         numberOfPages: action.payload.numberOfPages,
       };
     case FETCH_BY_SEARCH_CLUB:
-      return { ...state, clubs: action.payload };
+      return { ...state, clubs: action.payload.data };
     case FETCH_CLUB:
       return { ...state, club: action.payload.club };
     case CREATE_CLUB:
@@ -45,6 +52,48 @@ export default (state = { isLoading: true, clubs: [] }, action) => {
       return {
         ...state,
         clubs: action.payload,
+      };
+    case FETCH_CLUB_REVIEWS:
+      return {
+        ...state,
+        reviews: {
+          ...state.reviews,
+          [action.payload.clubId]: action.payload.data,
+        },
+      };
+    case CREATE_CLUB_REVIEW:
+      return {
+        ...state,
+        reviews: {
+          ...state.reviews,
+          [action.payload.clubId]: [
+            ...state.reviews[action.payload.clubId],
+            action.payload.data,
+          ],
+        },
+      };
+    case UPDATE_CLUB_REVIEW:
+      return {
+        ...state,
+        reviews: {
+          ...state.reviews,
+          [action.payload.clubId]: state.reviews[action.payload.clubId].map(
+            (review) =>
+              review._id === action.payload.reviewId
+                ? action.payload.data
+                : review
+          ),
+        },
+      };
+    case DELETE_CLUB_REVIEW:
+      return {
+        ...state,
+        reviews: {
+          ...state.reviews,
+          [action.payload.clubId]: state.reviews[action.payload.clubId].filter(
+            (review) => review._id !== action.payload.reviewId
+          ),
+        },
       };
     default:
       return state;

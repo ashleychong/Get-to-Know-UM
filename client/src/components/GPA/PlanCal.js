@@ -69,7 +69,7 @@ const PlanCal = () => {
       </Typography>
       <Custom.Form className={classes.cal}>
         <div className={classes.text}>
-          <Typography className={classes.title}>Current GPA</Typography>
+          <Typography className={classes.title2}>Current GPA</Typography>
           <Custom.Input
             required
             name="curGPA"
@@ -79,7 +79,7 @@ const PlanCal = () => {
           />
         </div>
         <div className={classes.text}>
-          <Typography className={classes.title}>Target GPA</Typography>
+          <Typography className={classes.title2}>Target GPA</Typography>
           <Custom.Input
             required
             name="targetGPA"
@@ -89,7 +89,7 @@ const PlanCal = () => {
           />
         </div>
         <div className={classes.text}>
-          <Typography className={classes.title}>Current Credit</Typography>
+          <Typography className={classes.title2}>Current Credit</Typography>
           <Custom.Input
             required
             name="curCdt"
@@ -101,7 +101,7 @@ const PlanCal = () => {
           />
         </div>
         <div className={classes.text}>
-          <Typography className={classes.title}>Additional Credit</Typography>
+          <Typography className={classes.title2}>Additional Credit</Typography>
           <Custom.Input
             required
             name="addCdt"

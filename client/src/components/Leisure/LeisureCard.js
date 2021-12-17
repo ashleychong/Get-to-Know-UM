@@ -23,7 +23,11 @@ export default function LeisureCard(leisure) {
         <Card className={classes.card}>
           <CardMedia
             className={classes.cover}
-            image="https://source.unsplash.com/random"
+            image={
+              leisure.leisure.img
+                ? leisure.leisure.img
+                : "https://source.unsplash.com/random"
+            }
             alt={leisure.leisure.title}
           />
           <Box className={classes.box}>
@@ -50,7 +54,11 @@ export default function LeisureCard(leisure) {
         <Card className={classes.card}>
           <CardMedia
             className={classes.cover}
-            image="https://source.unsplash.com/random"
+            image={
+              leisure.leisure.img
+                ? leisure.leisure.img
+                : "https://source.unsplash.com/random"
+            }
             alt={leisure.leisure.title}
           />
           <Box className={classes.box}>

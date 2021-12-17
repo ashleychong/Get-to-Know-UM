@@ -8,7 +8,7 @@ export default makeStyles((theme) => ({
   },
   submitButton: {
     textTransform: "none",
-    backgroundColor: "#27899E",
+    backgroundColor: "#3f51b5",
     margin: "0 20px",
   },
 }));

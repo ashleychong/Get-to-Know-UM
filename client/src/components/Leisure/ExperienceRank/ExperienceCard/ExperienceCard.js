@@ -50,39 +50,43 @@ const ExperienceCard = (props) => {
     <>
       <Grid className={classes.grid} container spacing={5}>
         <Grid item xs={12}>
-          <Card className={classes.card}>
-            <CardMedia
-              className={classes.cover}
-              image={exp.img}
-              title={exp.title}
-            />
-            <div className={classes.ranking}>
-              <Typography component="h6">{index}</Typography>
-            </div>
-            <Box className={classes.box}>
-              <div className={classes.details}>
-                <CardContent className={classes.content}>
-                  <Typography component="h5" variant="h5">
-                    {exp.title}{" "}
-                    <Button
-                      className={classes.btn}
-                      size="small"
-                      color="primary"
-                      disabled={!user?.result}
-                      onClick={() => dispatch(likeExp(exp._id))}
-                    >
-                      <Likes />
-                    </Button>
-                  </Typography>
-                </CardContent>
-                <div className={classes.desc}>
-                  <Typography variant="body1" color="textSecondary">
-                    {exp.description}
-                  </Typography>
+          <div className={classes.position}>
+            <Typography className={classes.ranking} variant="h4">
+              {index}
+            </Typography>
+
+            <Card className={classes.card}>
+              <CardMedia
+                className={classes.cover}
+                image={exp.img}
+                title={exp.title}
+              />
+
+              <Box className={classes.box}>
+                <div className={classes.details}>
+                  <CardContent className={classes.content}>
+                    <Typography component="h5" variant="h5">
+                      {exp.title}{" "}
+                      <Button
+                        className={classes.btn}
+                        size="small"
+                        color="primary"
+                        disabled={!user?.result}
+                        onClick={() => dispatch(likeExp(exp._id))}
+                      >
+                        <Likes />
+                      </Button>
+                    </Typography>
+                  </CardContent>
+                  <div className={classes.desc}>
+                    <Typography variant="body1" color="textSecondary">
+                      {exp.description}
+                    </Typography>
+                  </div>
                 </div>
-              </div>
-            </Box>
-          </Card>
+              </Box>
+            </Card>
+          </div>
         </Grid>
       </Grid>
     </>

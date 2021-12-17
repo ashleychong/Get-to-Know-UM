@@ -4,16 +4,20 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Pagination, PaginationItem } from '@material-ui/lab';
 import { Link } from 'react-router-dom';
 import useStyles from "./style";
-import { getEvents } from '../../actions/events';
+import { getEvents,getFavEvents } from '../../actions/events';
 
-const Paginate = ({ page }) => {
-  const { numberOfPages } = useSelector((state) => state.events);
+const Paginate = ({ page,refresh }) => {
+  const { numberOfPages, events } = useSelector((state) => state.events);
   const dispatch = useDispatch();
   const classes = useStyles();
-
+  const checkFavPage = window.location.href.includes("fav");
   useEffect(() => {
     if (page) {
+      if(checkFavPage){
+        dispatch(getFavEvents(page));
+      }else{
       dispatch(getEvents(page));
+      }
     }
   }, [dispatch, page]);
 
@@ -27,10 +31,10 @@ const Paginate = ({ page }) => {
       shape="rounded"
       color="primary"
       renderItem={(item) => (
-        <PaginationItem {...item} component={Link} to={`/event?page=${item.page}`} />
+        <PaginationItem {...item} component={Link} to={checkFavPage? `/event/fav?page=${item.page}`:`/event?page=${item.page}`} />
       )}
     />
-  );
+  )
 };
 
 export default Paginate;

@@ -3,25 +3,19 @@ import useStyles from "./style";
 import { useDispatch } from "react-redux";
 import { AppBar, TextField, InputAdornment, SvgIcon } from "@material-ui/core";
 import { useHistory, useLocation } from "react-router-dom";
-import { getEventsBySearch } from "../../../actions/events";
+import { getClubsBySearch } from "../../../actions/clubs";
 import SearchIcon from "@material-ui/icons/Search";
 
 const Search = () => {
   const classes = useStyles();
   const [search, setSearch] = useState("");
-  const [tags, setTags] = useState([]);
   const history = useHistory();
   const dispatch = useDispatch();
 
   const searchEvent = () => {
-    if (search.trim() || tags) {
-      dispatch(getEventsBySearch({ search, tags: tags.join(",") }));
-      //rmb remove tags
-      history.push(
-        `/event/search?searchQuery=${search || "none"}&tags=${
-          "none" || tags.join(",")
-        }`
-      );
+    if (search.trim()) {
+      dispatch(getClubsBySearch({ search }));
+      history.push(`/club/search?searchQuery=${search}`);
     } else {
       history.push("/");
     }

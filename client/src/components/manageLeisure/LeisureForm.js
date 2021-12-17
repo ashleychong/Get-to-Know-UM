@@ -115,7 +115,7 @@ const LeisureForm = ({ currentId, setCurrentId, setOpenPopup }) => {
             <FileBase
               type="file"
               multiple={false}
-              onDone={({ base64 }) => setValues({ ...values, image: base64 })}
+              onDone={({ base64 }) => setValues({ ...values, img: base64 })}
             />
           </div>
           <div>

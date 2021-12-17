@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 
 import ClubMessage from "../models/clubModal.js";
+import ClubReview from "../models/clubReview.js";
 
 const router = express.Router();
 
@@ -48,31 +49,24 @@ export const getClub = async (req, res) => {
 };
 
 export const getClubsBySearch = async (req, res) => {
-  const { searchQuery, tags } = req.query;
+  const { searchQuery } = req.query;
 
   try {
     const title = new RegExp(searchQuery, "i");
 
-    const clubs = await ClubMessage.find({
-      $or: [{ title: title }, { tags: { $in: tags.split(",") } }],
-    });
+    const clubs = await ClubMessage.find({ title });
 
-    res.json({ data: clubs });
+    res.json(clubs);
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
 };
 
 export const addClub = async (req, res) => {
-  const { title, about, event, contact, img, clublink } = req.body;
+  const club = req.body;
 
   const newClub = new ClubMessage({
-    title,
-    about,
-    event,
-    contact,
-    img,
-    clublink,
+    ...club,
   });
 
   try {
@@ -85,7 +79,21 @@ export const addClub = async (req, res) => {
 
 export const updateClub = async (req, res) => {
   const { id } = req.params;
-  const { title, about, event, contact, img, clublink } = req.body;
+  const {
+    title,
+    about,
+    event,
+    contact,
+    website,
+    insta,
+    email,
+    fb,
+    utube,
+    linkedin,
+    img,
+    clublink,
+    avgRating,
+  } = req.body;
 
   if (!mongoose.Types.ObjectId.isValid(id))
     return res.status(404).send(`No club with id: ${id}`);
@@ -94,8 +102,15 @@ export const updateClub = async (req, res) => {
     about,
     event,
     contact,
+    website,
+    insta,
+    email,
+    fb,
+    utube,
+    linkedin,
     img,
     clublink,
+    avgRating,
     _id: id,
   };
   await ClubMessage.findByIdAndUpdate(id, updateClub, { new: true });
@@ -107,6 +122,7 @@ export const deleteClub = async (req, res) => {
   if (!mongoose.Types.ObjectId.isValid(id))
     return res.status(404).send(`No club with id: ${id}`);
   await ClubMessage.findByIdAndRemove(id);
+  await ClubReview.deleteMany({ clubId: id });
   res.json({ message: "Deleted successfully." });
 };
 

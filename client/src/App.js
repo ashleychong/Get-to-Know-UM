@@ -39,6 +39,7 @@ import ClubDetails from "./components/Clubs/ClubDetails/ClubDetails";
 import GPACalHome from "./components/GPA/GPACalHome";
 import LeisureHome from "./components/manageLeisure/LeisureHome";
 import ExpHome from "./components/manageExp/ExpHome";
+import FavEvent from "./components/Events/FavEvent";
 
 const theme = createTheme({
   typography: {
@@ -92,7 +93,11 @@ function App() {
           <Route path="/admin/leisure" exact component={LeisureHome} />
           <Route path="/admin/exp" exact component={ExpHome} />
           <Route path="/admin/courses" exact component={AdminCourseHome} />
-          <Route path="/admin/courses/search" exact component={AdminCourseHome} />
+          <Route
+            path="/admin/courses/search"
+            exact
+            component={AdminCourseHome}
+          />
           {/* </Layout> */}
           <Route path="/userProfile" exact component={UserProfile} />
           <Route path="/forum" exact component={Forum} />
@@ -104,11 +109,7 @@ function App() {
           <Route path="/food" exact component={Food} />
           <Route path="/event" exact component={EventHomePage} />
           <Route path="/event/search" exact component={EventHomePage} />
-          <Redirect exact from="/gtkum" to="/gtkum/event" />
-          <Route path="/gtkum/event" exact component={Events} />
-          <Route path="/gtkum/event/search" exact component={Events} />
-          <Route path="/gtkum/event/:id" exact component={EventDetails} />
-          <Route path="/gtkum/leisure" exact component={ExperienceRank} />
+          <Route path="/event/fav" exact component={FavEvent} />
           <Route
             path="/admin/foodNominations"
             exact
@@ -124,10 +125,8 @@ function App() {
           <Route path="/cafe/:cafeId" exact component={CafeDetails} />
           <Route path="/cafe" exact component={CafeHome} />
           {/* <Route path="/courseDetails" exact component={CourseDetails}></Route> */}
-          {/* <Redirect exact from="/gtkum" to="/gtkum/event" /> */}
-          <Route path="/event" exact component={Events} />
-          <Route path="/event/search" exact component={Events} />
           <Route path="/event/:id" exact component={EventDetails} />
+
           <Route path="/gpa" exact component={GPACalHome} />
           <Route path="/leisure" exact component={Leisure} />
           <Route path="/leisure/ranking" exact component={ExperienceRank} />
@@ -135,7 +134,7 @@ function App() {
           <Route path="/leisure/nearUM" exact component={LeisureCategory} />
           <Route path="/club" exact component={ClubHomePage} />
           <Route path="/club/search" exact component={ClubHomePage} />
-          <Route path="/club/:id" exact component={ClubDetails} />
+          <Route path="/club/:clubId" exact component={ClubDetails} />
           <Route
             path="/admin/foodNomination"
             exact

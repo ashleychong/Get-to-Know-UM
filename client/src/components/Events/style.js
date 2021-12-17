@@ -6,15 +6,17 @@ export default makeStyles((theme) => ({
     display: "flex",
     margin: "10px 0",
   },
-  fav: { color: "white" },
+  fav: { color: "black" },
   btn: {
     position: "absolute",
+    backgroundColor:"#c5cae9",
     right: "0",
     marginTop: "30px",
     marginRight: "20px",
+    borderRadius:"20px"
   },
   word: {
     textTransform: "none",
-    color: "white",
+    color: "black",
   },
 }));

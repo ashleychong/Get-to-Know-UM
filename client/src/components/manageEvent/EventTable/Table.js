@@ -8,7 +8,7 @@ import {
   Toolbar,
   InputAdornment,
   Chip,
-  CircularProgress,
+  Avatar,
 } from "@material-ui/core";
 import useStyles from "./style";
 import { useDispatch, useSelector } from "react-redux";
@@ -28,9 +28,10 @@ const EventTable = (props) => {
   const user = JSON.parse(localStorage.getItem("profile"));
   const { events, isLoading } = useSelector((state) => state.events);
   const headCells = [
+    { id: "no", label: "No.", disableSorting: "true" },
     { id: "title", label: "Title" },
+    { id: "img", label: "Image", disableSorting: "true" },
     { id: "date", label: "Date", disableSorting: "true" },
-    { id: "venue", label: "Venue", disableSorting: "true" },
     { id: "status", label: "Status", disableSorting: "true" },
     { id: "action", label: "Action", disableSorting: "true" },
   ];
@@ -80,17 +81,25 @@ const EventTable = (props) => {
       <TblContainer>
         <TblHead className={classes.row} />
         <TableBody>
-          {recordsAfterPagingAndSorting().map((event) => (
+          {recordsAfterPagingAndSorting().map((event, index) => (
             <TableRow key={event._id}>
               <TableCell component="th" scope="row">
+                {index + 1}
+              </TableCell>
+              <TableCell component="th" scope="row">
                 {event.title}
+              </TableCell>
+              <TableCell component="th" scope="row">
+                <Avatar
+                  src={event?.img || "https://source.unsplash.com/random"}
+                  alt={event?.img}
+                />
               </TableCell>
               <TableCell>
                 {moment(event.startDate).format("DD/MM/YY h:mma")}
                 <br />
                 {moment(event.endDate).format("DD/MM/YY h:mma")}
               </TableCell>
-              <TableCell>{event.venue}</TableCell>
               <TableCell>
                 {event.startDate && event.endDate < new Date().toISOString() ? (
                   <Chip

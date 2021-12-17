@@ -45,9 +45,7 @@ export const getClub = (id) => async (dispatch) => {
 export const getClubsBySearch = (searchQuery) => async (dispatch) => {
   try {
     dispatch({ type: START_LOADING });
-    const {
-      data: { data },
-    } = await api.fetchClubsBySearch(searchQuery);
+    const { data } = await api.fetchClubsBySearch(searchQuery);
     console.log(data);
     dispatch({ type: FETCH_BY_SEARCH_CLUB, payload: { data } });
     dispatch({ type: END_LOADING });

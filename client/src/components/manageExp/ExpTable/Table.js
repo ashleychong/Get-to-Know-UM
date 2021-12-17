@@ -8,6 +8,7 @@ import {
   Toolbar,
   InputAdornment,
   Chip,
+  Avatar,
 } from "@material-ui/core";
 import useStyles from "./style";
 import { useDispatch, useSelector } from "react-redux";
@@ -25,7 +26,9 @@ const ExpTable = (props) => {
   const user = JSON.parse(localStorage.getItem("profile"));
   const exps = useSelector((state) => state.exps);
   const headCells = [
+    { id: "no", label: "No.", disableSorting: "true" },
     { id: "title", label: "Title" },
+    { id: "img", label: "Image", disableSorting: "true" },
     { id: "status", label: "Status", disableSorting: "true" },
     { id: "action", label: "Action", disableSorting: "true" },
   ];
@@ -75,10 +78,19 @@ const ExpTable = (props) => {
       <TblContainer>
         <TblHead className={classes.row} />
         <TableBody>
-          {recordsAfterPagingAndSorting().map((exp) => (
+          {recordsAfterPagingAndSorting().map((exp, index) => (
             <TableRow key={exp._id}>
               <TableCell component="th" scope="row">
+                {index + 1}
+              </TableCell>
+              <TableCell component="th" scope="row">
                 {exp.title}
+              </TableCell>
+              <TableCell component="th" scope="row">
+                <Avatar
+                  src={exp?.img || "https://source.unsplash.com/random"}
+                  alt={exp?.img}
+                />
               </TableCell>
               <TableCell>
                 {exp.status == "disapprove" ? (

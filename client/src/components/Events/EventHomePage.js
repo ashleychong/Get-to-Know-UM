@@ -7,6 +7,7 @@ import FilterButton from "./FilterButton/FilterButton";
 import { useLocation } from "react-router-dom";
 import useStyles from "./style";
 import LoyaltyOutlinedIcon from "@material-ui/icons/LoyaltyOutlined";
+import { useHistory } from "react-router-dom";
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -18,18 +19,17 @@ const EventHomePage = () => {
   const page = query.get("page") || 1;
   const searchQuery = query.get("searchQuery");
   const user = JSON.parse(localStorage.getItem("profile"));
+  const history = useHistory();
 
   return (
     <>
       <Button
         className={classes.btn}
         variant="contained"
-        color="primary"
         disabled={!user?.result}
+        onClick={() => history.push("/event/fav")}
       >
-        <Badge badgeContent={1} color="secondary">
-          <LoyaltyOutlinedIcon className={classes.fav} />
-        </Badge>
+        <LoyaltyOutlinedIcon className={classes.fav} />
         <Typography className={classes.word}>
           &nbsp;&nbsp;&nbsp;Favourite
         </Typography>

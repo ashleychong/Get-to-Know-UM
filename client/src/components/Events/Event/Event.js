@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useState } from "react";
 import {
   Card,
   CardContent,
@@ -13,31 +13,33 @@ import useStyles from "./style";
 import { useHistory } from "react-router-dom";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
-import { AddFav } from "../../../actions/clubs";
+import { addFav } from "../../../actions/events";
 
 const Event = ({ event, setCurrentId }) => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const history = useHistory();
-  const openEvent = () => history.push(`event/${event._id}`);
+  const openEvent = () => history.push(`/event/${event._id}`);
   const user = JSON.parse(localStorage.getItem("profile"));
+  // const [refresh, setRefresh] = useState(false);
 
-  // const Fav = () => {
-  //   if (exp.likes.length > 0) {
-  //     return exp.likes.find(
-  //       (like) => like === (user?.result?.googleId || user?.result?._id)
-  //     ) ? (
-  //       <>
-  //         <ThumbUpAltIcon fontSize="small" />
-  //         &nbsp;{exp.likes.length}{" "}
-  //       </>
-  //     ) : (
-  //       <>
-  //         <ThumbUpAltOutlined fontSize="small" />
-  //         &nbsp;{exp.likes.length}{" "}
-  //       </>
-  //     );
-  //   }
+  const setFav = () => {
+    dispatch(addFav(event._id));
+    // setRefresh(!refresh);
+    // callback(refresh);
+  };
+
+  const Fav = () => {
+    if (event.fav.length > 0) {
+      return event.fav.find((favEvent) => favEvent === user?.result?._id) ? (
+        <FavoriteIcon style={{ color: "red" }} />
+      ) : (
+        <FavoriteBorderIcon />
+      );
+    }
+
+    return <FavoriteBorderIcon />;
+  };
 
   return (
     <Card className={classes.card}>
@@ -53,7 +55,7 @@ const Event = ({ event, setCurrentId }) => {
             color="textSecondary"
             variant="body2"
           >
-            {event.tags.map((tag) => `#${tag} `)}
+            #{event.tags}
           </Typography>
           <Typography variant="subtitle2" className={classes.details}>
             {moment(event.startDate).format("ddd DD/MM/YYYY h:mma")}
@@ -66,12 +68,8 @@ const Event = ({ event, setCurrentId }) => {
           </Typography>
         </CardContent>
       </ButtonBase>
-      <Button
-        className={classes.btn}
-        disabled={!user?.result}
-        // onClick={() => dispatch(AddFav(event._id))}
-      >
-        <FavoriteBorderIcon />
+      <Button className={classes.btn} disabled={!user?.result} onClick={setFav}>
+        <Fav />
       </Button>
     </Card>
   );

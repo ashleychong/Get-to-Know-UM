@@ -17,19 +17,13 @@ const Search = () => {
   // const searchQuery = query.get("searchQuery");
 
   const [search, setSearch] = useState("");
-  const [tags, setTags] = useState([]);
   const history = useHistory();
   const dispatch = useDispatch();
 
   const searchEvent = () => {
-    if (search.trim() || tags) {
-      dispatch(getEventsBySearch({ search, tags: tags.join(",") }));
-      //rmb remove tags
-      history.push(
-        `/event/search?searchQuery=${search || "none"}&tags=${
-          "none" || tags.join(",")
-        }`
-      );
+    if (search.trim()) {
+      dispatch(getEventsBySearch({ search }));
+      history.push(`/event/search?searchQuery=${search || "none"}`);
     } else {
       history.push("/");
     }

@@ -7,7 +7,7 @@ export default makeStyles(() => ({
   card: {
     display: "flex",
     position: "relative",
-    margin: "0 140px",
+    margin: "0 120px 0 40px",
     height: "200px",
   },
   box: {
@@ -30,12 +30,15 @@ export default makeStyles(() => ({
     right: "8px",
   },
   ranking: {
-    position: "absolute",
-    top: "0",
-    left: "0",
-    backgroundColor: "red",
-    color: "white",
-    padding: "0.3em 0.4em",
-    zIndex: "5",
+    color: "#3949ab",
+    fontWeight: "bold",
+    margin: "auto",
+  },
+  position: {
+    display: "flex",
+    flexDirection: "row",
+    left: "auto",
+    right: "auto",
+    marginLeft: "120px",
   },
 }));

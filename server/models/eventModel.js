@@ -4,13 +4,18 @@ import mongoose from "mongoose";
 //Each schema maps to a MongoDB collection
 const eventSchema = mongoose.Schema({
   title: String,
-  tags: [String],
+  tags: String,
   about: String,
   startDate: String,
   endDate: String,
   venue: String,
   contact: String,
+  organizer: String,
   img: String,
+  fav: {
+    type: [String],
+    default: [],
+  },
 });
 
 ////to use the schema, need to convert it to model

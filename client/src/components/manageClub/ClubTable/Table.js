@@ -8,6 +8,7 @@ import {
   Toolbar,
   InputAdornment,
   Chip,
+  Avatar,
 } from "@material-ui/core";
 import useStyles from "./style";
 import { useDispatch, useSelector } from "react-redux";
@@ -27,7 +28,9 @@ const ClubTable = (props) => {
   const { clubs, isLoading } = useSelector((state) => state.clubs);
 
   const headCells = [
+    { id: "no", label: "No.", disableSorting: "true" },
     { id: "title", label: "Title" },
+    { id: "img", label: "Image", disableSorting: "true" },
     { id: "registration", label: "Registration", disableSorting: "true" },
     { id: "action", label: "Action", disableSorting: "true" },
   ];
@@ -78,10 +81,21 @@ const ClubTable = (props) => {
       <TblContainer>
         <TblHead className={classes.row} />
         <TableBody>
-          {recordsAfterPagingAndSorting().map((club) => (
+          {recordsAfterPagingAndSorting().map((club, index) => (
             <TableRow key={club._id}>
               <TableCell component="th" scope="row">
+                {index + 1}
+              </TableCell>
+              <TableCell component="th" scope="row">
                 {club.title}
+              </TableCell>
+              <TableCell component="th" scope="row">
+                <Avatar
+                  src={
+                    club.img ? club.img : "https://source.unsplash.com/random"
+                  }
+                  alt={club?.img}
+                />
               </TableCell>
               <TableCell>
                 {club.clublink ? (

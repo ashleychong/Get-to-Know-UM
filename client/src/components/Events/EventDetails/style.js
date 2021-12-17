@@ -16,27 +16,33 @@ export default makeStyles((theme) => ({
   },
   section: {
     borderRadius: "20px",
-    margin: "10px",
+
     flex: 1,
-    marginTop: "30px",
   },
   imageSection: {
-    marginLeft: "20px",
-    [theme.breakpoints.down("sm")]: {
-      marginLeft: 0,
-    },
-    width: "35%",
+    width: "20%",
+    height: "10%",
   },
   about: {
     textAlign: "justify",
     margin: "0 0 8px",
     width: "200",
+    whiteSpace: "pre-line",
   },
   title: {
-    color: "#27899E",
     fontWeight: "600",
   },
   info: {
     fontWeight: "500",
+  },
+  desc: {
+    textAlign: "justify",
+    padding: "15px",
+  },
+  header: {
+    display: "flex",
+    flexDirection: "row",
+    margin: "auto",
+    alignItems: "center",
   },
 }));

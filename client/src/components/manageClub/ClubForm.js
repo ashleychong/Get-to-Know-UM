@@ -23,6 +23,12 @@ const initialValues = {
   about: "",
   event: "",
   contact: "",
+  website: "",
+  insta: "",
+  email: "",
+  fb: "",
+  utube: "",
+  linked: "",
   img: "",
   clublink: "",
 };
@@ -40,12 +46,23 @@ const ClubForm = ({ currentId, setCurrentId, setOpenPopup }) => {
     let temp = { ...errors };
     if ("title" in fieldValues)
       temp.title = fieldValues.title ? "" : "This field is required.";
-    if ("" in fieldValues)
-      temp.courseCode = fieldValues.courseCode ? "" : "This field is required.";
-    if ("description" in fieldValues)
-      temp.description = fieldValues.description
+    if ("about" in fieldValues)
+      temp.about = fieldValues.about ? "" : "This field is required.";
+    if ("event" in fieldValues)
+      temp.event = fieldValues.event ? "" : "This field is required.";
+    if ("contact" in fieldValues) {
+      temp.contact = /^\d+$/.test(fieldValues.contact)
         ? ""
-        : "This field is required.";
+        : "Please input numbers only.";
+      temp.contact =
+        fieldValues.contact.length >= 9 ? "" : "Minimum 9 numbers required.";
+    }
+    if ("email" in fieldValues)
+      temp.email = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(
+        fieldValues.email
+      )
+        ? ""
+        : "Email is not valid.";
     setErrors({
       ...temp,
     });
@@ -93,7 +110,7 @@ const ClubForm = ({ currentId, setCurrentId, setOpenPopup }) => {
           label="About"
           value={values.about}
           onChange={handleInputChange}
-          error={errors.description}
+          error={errors.about}
           multiline
           minRows={6}
           maxRows={10}
@@ -104,10 +121,11 @@ const ClubForm = ({ currentId, setCurrentId, setOpenPopup }) => {
           label="Event"
           value={values.event}
           multiline
-          minRows={6}
+          minRows={4}
           maxRows={10}
           onChange={handleInputChange}
-          error={errors.description}
+          error={errors.event}
+          helperText="e.g. Conference, Workshop, Show"
           required
         />
         <Custom.Input
@@ -115,13 +133,54 @@ const ClubForm = ({ currentId, setCurrentId, setOpenPopup }) => {
           label="Contact"
           value={values.contact}
           onChange={handleInputChange}
-          error={errors.description}
-          multiline
-          required
+          error={errors.contact}
+          helperText="e.g. 012XXXXXXX / 05XXXXXXX / 1300XXXXXX"
+        />
+        <Custom.Input
+          name="website"
+          label="Website Link"
+          value={values.website}
+          onChange={handleInputChange}
+          error={errors.website}
+        />
+        <Custom.Input
+          name="insta"
+          label="Instagram"
+          value={values.insta}
+          onChange={handleInputChange}
+          error={errors.insta}
+        />
+        <Custom.Input
+          name="email"
+          label="Email"
+          value={values.email}
+          onChange={handleInputChange}
+          error={errors.email}
+        />
+        <Custom.Input
+          name="fb"
+          label="Facebook"
+          value={values.fb}
+          onChange={handleInputChange}
+          error={errors.fb}
+        />
+        <Custom.Input
+          name="utube"
+          label="Youtube Link"
+          value={values.utube}
+          onChange={handleInputChange}
+          error={errors.utube}
+        />
+        <Custom.Input
+          name="linkedin"
+          label="LinkedIn"
+          value={values.linkedin}
+          onChange={handleInputChange}
+          error={errors.linkedin}
         />
         <Custom.Input
           name="clublink"
-          label="Club Link"
+          label="Registration Form Link"
           value={values.clublink}
           onChange={handleInputChange}
         />
@@ -129,7 +188,7 @@ const ClubForm = ({ currentId, setCurrentId, setOpenPopup }) => {
           <FileBase
             type="file"
             multiple={false}
-            onDone={({ base64 }) => setValues({ ...values, image: base64 })}
+            onDone={({ base64 }) => setValues({ ...values, img: base64 })}
           />
         </div>
         <div>

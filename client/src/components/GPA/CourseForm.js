@@ -7,6 +7,7 @@ import {
   InputLabel,
   MenuItem,
   Divider,
+  AutoComplete,
   Button,
   FormHelperText,
 } from "@material-ui/core/";
@@ -96,8 +97,14 @@ const CourseForm = ({
         </div>
       </div>
       {!value && (
-        <FormHelperText style={{ textAlign: "center" }}>
-          {course == "" || grade == "" ? "Please select course and grade" : ""}
+        <FormHelperText style={{ textAlign: "center", color: "red" }}>
+          {course == "" && grade == ""
+            ? "Please select course and grade"
+            : course == ""
+            ? "Please select course "
+            : grade == ""
+            ? "Please select grade"
+            : ""}
         </FormHelperText>
       )}
       <Button

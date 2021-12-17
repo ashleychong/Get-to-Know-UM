@@ -27,8 +27,7 @@ export default makeStyles({
   tags: {},
   titleSection: {},
   title: {
-    color: "#0097a7",
-    fontWeight: "bold",
+    fontWeight: "500",
   },
   cardAction: {
     display: "block",

@@ -76,5 +76,14 @@ export const updateCafeReview = (cafeId, reviewId, updatedReview) =>
 export const deleteCafeReview = (cafeId, reviewId) =>
   api.delete(`/cafeReviews/${cafeId}/review/${reviewId}`);
 
-export default api;
+export const fetchClubReviews = (clubId) => api.get(`/clubReviews/${clubId}`);
+export const createClubReview = (clubId, newReview) =>
+  api.post(`/clubReviews/${clubId}`, newReview);
+export const updateClubReview = (clubId, reviewId, updatedReview) =>
+  api.patch(`/clubReviews/${clubId}/review/${reviewId}`, updatedReview);
+export const deleteClubReview = (clubId, reviewId) =>
+  api.delete(`/clubReviews/${clubId}/review/${reviewId}`);
+
 export const fetchGpa = () => api.get("/gpa");
+
+export default api;

@@ -2,7 +2,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 export default makeStyles((theme) => ({
   media: {
-    height: "100%",
+    height: "150px",
     width: "100%",
   },
   card: {
@@ -12,29 +12,23 @@ export default makeStyles((theme) => ({
       flexWrap: "wrap",
       flexDirection: "column",
     },
-    height: "568px",
   },
   section: {
     borderRadius: "20px",
     margin: "10px",
     flex: 1,
-    marginTop: "30px",
   },
   imageSection: {
-    marginLeft: "20px",
-    [theme.breakpoints.down("sm")]: {
-      marginLeft: 0,
-    },
-    width: "530px",
-    height: "320px",
+    justifyContent: "center",
+    paddingBottom: "20px",
   },
   details: {
     textAlign: "justify",
-    margin: "0 0 8px",
     width: "200",
+    fontSize: "16px",
+    whiteSpace: "pre-line",
   },
   title: {
-    color: "#27899E",
     fontWeight: "600",
   },
   info: {
@@ -43,10 +37,47 @@ export default makeStyles((theme) => ({
   button: {
     display: "flex",
     justifyContent: "center",
-    marginTop: "70px",
   },
   submitButton: {
-    textTransform: "none",
-    backgroundColor: "#27899E",
+    backgroundColor: "#333996",
+  },
+  contact: {
+    paddingTop: "12px",
+  },
+  email: {
+    paddingTop: "12px",
+    display: "flex",
+    flexDirection: "row",
+  },
+  clubInfo: {
+    margin: "auto",
+    display: "flex",
+    flexDirection: "row",
+  },
+  avgRating: {
+    fontWeight: "bold",
+    fontSize: "22px",
+    padding: "0 20px",
+  },
+
+  blockTitle: {
+    display: "flex",
+    marginBottom: "1rem",
+  },
+  desc: {
+    textAlign: "justify",
+    padding: "15px",
+  },
+  dialogWrapper: {
+    padding: "16px",
+    position: "absolute",
+    margin: "auto",
+  },
+  dialogTitle: {
+    paddingRight: "0px",
+  },
+  reviewBtn: {
+    marginLeft: "auto",
+    padding: "20px",
   },
 }));

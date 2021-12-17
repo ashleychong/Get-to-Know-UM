@@ -31,7 +31,7 @@ const RecommendEvent = ({ event, setCurrentId }) => {
             color="textSecondary"
             variant="body2"
           >
-            {event.tags.map((tag) => `#${tag} `)}
+            #{event.tags}
           </Typography>
           <Typography variant="subtitle2" className={classes.details}>
             {moment(event.startDate).format("ddd DD/MM/YYYY h:mma")}

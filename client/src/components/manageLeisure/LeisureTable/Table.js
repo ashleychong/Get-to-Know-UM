@@ -8,7 +8,7 @@ import {
   Toolbar,
   InputAdornment,
   Chip,
-  CircularProgress,
+  Avatar,
 } from "@material-ui/core";
 import useStyles from "./style";
 import { useDispatch, useSelector } from "react-redux";
@@ -26,7 +26,9 @@ const LeisureTable = (props) => {
   const user = JSON.parse(localStorage.getItem("profile"));
   const leisures = useSelector((state) => state.leisures);
   const headCells = [
+    { id: "no", label: "No.", disableSorting: "true" },
     { id: "title", label: "Title" },
+    { id: "img", label: "Image", disableSorting: "true" },
     { id: "category", label: "Category", disableSorting: "true" },
     { id: "action", label: "Action", disableSorting: "true" },
   ];
@@ -76,10 +78,23 @@ const LeisureTable = (props) => {
       <TblContainer>
         <TblHead className={classes.row} />
         <TableBody>
-          {recordsAfterPagingAndSorting().map((leisure) => (
+          {recordsAfterPagingAndSorting().map((leisure, index) => (
             <TableRow key={leisure._id}>
               <TableCell component="th" scope="row">
+                {index + 1}
+              </TableCell>
+              <TableCell component="th" scope="row">
                 {leisure.title}
+              </TableCell>
+              <TableCell component="th" scope="row">
+                <Avatar
+                  src={
+                    leisure.img
+                      ? leisure.img
+                      : "https://source.unsplash.com/random"
+                  }
+                  alt={leisure?.img}
+                />
               </TableCell>
               <TableCell component="th" scope="row">
                 {leisure.category}
