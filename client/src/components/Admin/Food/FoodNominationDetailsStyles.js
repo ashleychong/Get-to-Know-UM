@@ -5,19 +5,21 @@ export default makeStyles((theme) => ({
     margin: "2rem 3rem",
   },
   content: {
-    // display: "flex",
-    // alignItems: "center",
-    // justifyContent: "center",
-    // "& .MuiGrid-item": {
-    // padding: "0 2rem",
-    // }
+    [theme.breakpoints.down("sm")]: {
+      margin: "3rem 0",
+    },
   },
   indicatorText: {
     color: "rgba(80, 72, 229, 1)",
   },
   card: {
-    margin: "0 5rem",
-    padding: "20px 30px",
+    [theme.breakpoints.down("sm")]: {
+      margin: "0 1rem",
+    },
+    [theme.breakpoints.up("sm")]: {
+      margin: "0 5rem",
+      padding: "20px 30px",
+    },
   },
   divider: {
     marginTop: "0.5rem",
@@ -34,5 +36,5 @@ export default makeStyles((theme) => ({
   },
   btn: {
     marginRight: "10px",
-  }
+  },
 }));

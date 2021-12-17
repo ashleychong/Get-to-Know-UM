@@ -41,10 +41,6 @@ const CourseForm = ({ currentCourseId, setCurrentCourseId, setOpenPopup }) => {
             temp.courseCode = fieldValues.courseCode ? "" : "This field is required.";
         if ("description" in fieldValues)
             temp.description = fieldValues.description ? "" : "This field is required.";
-        // if ("message" in fieldValues)
-        //     temp.message = fieldValues.message ? "" : "This field is required.";
-        // if ("message" in fieldValues)
-        //   temp.message = fieldValues.message ? "" : "This field is required.";
         setErrors({
             ...temp,
         });

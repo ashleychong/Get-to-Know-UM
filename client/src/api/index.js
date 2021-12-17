@@ -34,7 +34,6 @@ export const updatePost = (topicId, postId, updatedPost) =>
 export const deletePost = (topicId, postId) =>
   api.delete(`/topics/topic/${topicId}/post/${postId}`);
 
-
 // export const fetchCourses = () => api.get("/courses");
 // export const fetchCourse = (id) => api.get(`/courses/${id}`);
 // export const createCourse = (newCourse) => api.post("/courses", newCourse);
@@ -45,12 +44,14 @@ export const fetchFoodNominations = () => api.get("/foodNominations");
 export const fetchFoodNomination = (id) => api.get(`/foodNominations/${id}`);
 export const createFoodNomination = (newFoodNomination) =>
   api.post("/foodNominations", newFoodNomination);
+export const updateFoodNomination = (id, updatedFoodNomination) =>
+  api.patch(`/foodNominations/${id}`, updatedFoodNomination);
 export const deleteFoodNomination = (id) =>
   api.delete(`/foodNominations/${id}`);
 export const approveFoodNomimation = (id) =>
-  api.patch(`/foodNomimation/${id}/approve`);
+  api.patch(`/foodNominations/${id}/approve`);
 export const declineFoodNomimation = (id) =>
-  api.patch(`/foodNomimation/${id}/decline`);
+  api.patch(`/foodNominations/${id}/decline`);
 
 export const fetchAllFood = () => api.get("/food");
 export const fetchFood = (id) => api.get(`/food/${id}`);

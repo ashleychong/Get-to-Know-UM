@@ -6,7 +6,14 @@ import ApprovedFoodCard from "./ApprovedFoodCard";
 const ApprovedFoodCards = (props) => {
   const { editInPopup } = props;
 
-  const { foodList, isLoading } = useSelector((state) => state.food);
+  // const { foodList, isLoading } = useSelector((state) => state.food);
+  const { foodNominations, isLoading } = useSelector(
+    (state) => state.foodNominations
+  );
+
+  const foodList = foodNominations.filter(
+    (foodNomination) => foodNomination?.status === "approved"
+  );
 
   if (!foodList?.length && !isLoading) {
     return "No listed food";

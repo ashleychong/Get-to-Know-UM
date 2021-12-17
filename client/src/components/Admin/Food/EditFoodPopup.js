@@ -8,8 +8,8 @@ import {
 } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 
-import Custom from "../../../Custom/Custom";
-import EditFoodForm from "./EditFoodForm";
+import Custom from "../../Custom/Custom";
+import FoodForm from "./EditFoodForm";
 
 const useStyles = makeStyles((theme) => ({
   dialogWrapper: {
@@ -22,9 +22,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const EditFoodPopup = ({
-  currentFoodId,
-  setCurrentFoodId,
+const FoodPopup = ({
+  currentFoodNominationId,
+  setCurrentFoodNominationId,
   openPopup,
   setOpenPopup,
 }) => {
@@ -39,13 +39,13 @@ const EditFoodPopup = ({
       <DialogTitle className={classes.dialogTitle}>
         <div style={{ display: "flex" }}>
           <Typography variant="h6" component="div" style={{ flexGrow: 1 }}>
-            Edit food details
+            Edit food
           </Typography>
           <Custom.ActionButton
             color="secondary"
             onClick={() => {
               setOpenPopup(false);
-              setCurrentFoodId(0);
+              setCurrentFoodNominationId(0);
             }}
           >
             <CloseIcon />
@@ -53,9 +53,9 @@ const EditFoodPopup = ({
         </div>
       </DialogTitle>
       <DialogContent dividers>
-        <EditFoodForm
-          currentFoodId={currentFoodId}
-          setCurrentFoodId={setCurrentFoodId}
+        <FoodForm
+          currentFoodNominationId={currentFoodNominationId}
+          setCurrentFoodNominationId={setCurrentFoodNominationId}
           setOpenPopup={setOpenPopup}
         />
       </DialogContent>
@@ -63,4 +63,4 @@ const EditFoodPopup = ({
   );
 };
 
-export default EditFoodPopup;
+export default FoodPopup;

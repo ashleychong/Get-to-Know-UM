@@ -3,14 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import decode from "jwt-decode";
 import PropTypes from "prop-types";
 import { Avatar } from "@material-ui/core/";
-import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Button from "@material-ui/core/Button";
-import IconButton from "@material-ui/core/IconButton";
-import SearchIcon from "@material-ui/icons/Search";
 import Typography from "@material-ui/core/Typography";
-import { Link as muiLink } from "@material-ui/core/Link";
 import { Link, useHistory, useLocation } from "react-router-dom";
 
 import * as actionType from "../../constants/actionTypes";
@@ -71,7 +67,7 @@ export default function Header(props) {
         className={"primary-app-bar"}
         color={"default"}
         position={"relative"}
-        elevation={2}
+        elevation={1}
       >
         <Toolbar>
           {/* <Typography

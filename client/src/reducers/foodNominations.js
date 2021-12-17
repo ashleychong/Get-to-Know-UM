@@ -4,6 +4,7 @@ import {
   FETCH_FOOD_NOMINATIONS,
   FETCH_FOOD_NOMINATION,
   CREATE_FOOD_NOMINATION,
+  UPDATE_FOOD_NOMINATION,
   DELETE_FOOD_NOMINATION,
   APPROVE_FOOD_NOMINATION,
   DECLINE_FOOD_NOMINATION,
@@ -26,6 +27,13 @@ const foodNominationsReducer = (
       return {
         ...state,
         foodNominations: [...state.foodNominations, action.payload],
+      };
+    case UPDATE_FOOD_NOMINATION:
+      return {
+        ...state,
+        foodNominations: state.foodNominations.map((foodNomination) =>
+          foodNomination._id === action.payload._id ? action.payload : foodNomination
+        ),
       };
     case DELETE_FOOD_NOMINATION:
       return {

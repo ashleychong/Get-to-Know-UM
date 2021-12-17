@@ -53,7 +53,7 @@ const EventTable = (props) => {
     let target = e.target;
     setFilterFn({
       fn: (items) => {
-        if (target.value == "") return items;
+        if (target.value === "") return items;
         else
           return items.filter((x) =>
             x.title.toLowerCase().includes(target.value.toLowerCase())

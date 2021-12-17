@@ -19,6 +19,10 @@ export default makeStyles((theme) => ({
       height: "100px",
     },
     [theme.breakpoints.up("sm")]: {
+      width: "170px",
+      height: "170px",
+    },
+    [theme.breakpoints.up("md")]: {
       width: "240px",
       height: "240px",
     },

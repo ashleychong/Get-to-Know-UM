@@ -11,7 +11,11 @@ export const useForm = (initialValues, validateOnChange = false, validate = {}) 
       ...values,
       [name]: value,
     });
-    if (validateOnChange) validate({ [name]: value });
+    // console.log(`${name}: ${value}`);
+    if (validateOnChange) {
+      validate({ [name]: value });
+      // console.log(errors);
+    }
   };
 
   const handleRatingInputChange = (event, value) => {
