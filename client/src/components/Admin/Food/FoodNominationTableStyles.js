@@ -16,4 +16,43 @@ export default makeStyles((theme) => ({
       textTransform: "uppercase",
     },
   },
+  paper: {
+    marginTop: "16px",
+  },
+  searchInput: {
+    width: "75%",
+    marginTop: "24px",
+  },
+  chip: {
+    alignItems: "center",
+    borderRadius: 12,
+    color: "white",
+    cursor: "default",
+    display: "inline-flex",
+    flexGrow: 0,
+    flexShrink: 0,
+    fontFamily: theme.typography.fontFamily,
+    fontSize: theme.typography.pxToRem(12),
+    lineHeight: 2,
+    fontWeight: 600,
+    justifyContent: "center",
+    letterSpacing: 0.5,
+    minWidth: 20,
+    paddingLeft: theme.spacing(1),
+    paddingRight: theme.spacing(1),
+    textTransform: "uppercase",
+    whiteSpace: "nowrap",
+  },
+  pending: {
+    backgroundColor: "#FFB020",
+    color: "white",
+  },
+  declined: {
+    backgroundColor: "#D14343",
+    color: "white",
+  },
+  approved: {
+    backgroundColor: "#14B8A6",
+    color: "white",
+  },
 }));

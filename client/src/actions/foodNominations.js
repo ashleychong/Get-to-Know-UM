@@ -5,6 +5,7 @@ import {
   FETCH_FOOD_NOMINATIONS,
   FETCH_FOOD_NOMINATION,
   CREATE_FOOD_NOMINATION,
+  UPDATE_FOOD_NOMINATION,
   DELETE_FOOD_NOMINATION,
   APPROVE_FOOD_NOMINATION,
   DECLINE_FOOD_NOMINATION,
@@ -46,6 +47,16 @@ export const createFoodNomination = (newFoodNomination) => async (dispatch) => {
     dispatch({ type: CREATE_FOOD_NOMINATION, payload: data });
 
     dispatch({ type: END_LOADING });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
+export const updateFoodNomination = (id, updatedFoodNomination) => async (dispatch) => {
+  try {
+    const { data } = await api.updateFoodNomination(id, updatedFoodNomination);
+    dispatch({ type: UPDATE_FOOD_NOMINATION, payload: data });
   } catch (error) {
     console.log(error);
   }

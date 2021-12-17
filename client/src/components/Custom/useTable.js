@@ -18,8 +18,8 @@ const useStyles = makeStyles((theme) => ({
       textTransform: "uppercase",
     },
     "& tbody tr:hover": {
-      backgroundColor: "#b0bec5",
-      cursor: "pointer",
+      backgroundColor: "rgba(55, 65, 81, 0.05)",
+      // cursor: "pointer",
     },
   },
 }));

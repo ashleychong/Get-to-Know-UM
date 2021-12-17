@@ -36,6 +36,21 @@ export const createFoodNomimation = async (req, res) => {
   }
 };
 
+export const updateFoodNomination = async (req, res) => {
+  const { id } = req.params;
+  const { foodName, description, image } = req.body;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).send(`No food with id: ${id}`);
+  }
+
+  const updatedFoodNomination = await FoodNomination.findByIdAndUpdate(
+    id,
+    { foodName, description, image },
+    { new: true }
+  );
+  res.json(updatedFoodNomination);
+};
 
 export const deleteFoodNomination = async (req, res) => {
   const { id } = req.params;

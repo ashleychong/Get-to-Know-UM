@@ -6,6 +6,7 @@ const foodNominationSchema = mongoose.Schema({
   description: { type: String },
   createdAt: { type: Date, default: new Date() },
   status: { type: String, default: "pending" },
+  votes: { type: [String], default: [] },
 });
 
 export default mongoose.model("FoodNomination", foodNominationSchema);

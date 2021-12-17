@@ -7,6 +7,7 @@ import useTable from "./useTable";
 import DropDown from "./Dropdown";
 import RatingInput from "./RatingInput";
 import SearchBar from "./SearchBar";
+import ErrorLabelText from "./ErrorLabelText";
 
 const Custom = {
   Input,
@@ -19,6 +20,7 @@ const Custom = {
   DropDown,
   RatingInput,
   SearchBar,
+  ErrorLabelText,
 };
 
 export default Custom;

@@ -1,4 +1,6 @@
 export const AUTH = "AUTH";
+export const LOGIN_FAIL = "LOGIN_FAIL";
+export const SIGNUP_FAIL = "SIGNUP_FAIL";
 export const LOGOUT = "LOGOUT";
 export const UPDATE_PROFILE = "UPDATE_PROFILE";
 export const UPDATE_PASSWORD = "UPDATE_PASSWORD";
