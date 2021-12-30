@@ -55,7 +55,12 @@ const ClubForm = ({ currentId, setCurrentId, setOpenPopup }) => {
         ? ""
         : "Please input numbers only.";
       temp.contact =
-        fieldValues.contact.length >= 9 ? "" : "Minimum 9 numbers required.";
+        fieldValues.contact.length < 9
+          ? "Minimum 9 numbers required."
+          : (temp.contact =
+              fieldValues.contact.length > 12
+                ? "Please enter valid phone number with maximum 11 digits."
+                : "");
     }
     if ("email" in fieldValues)
       temp.email = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(
@@ -135,6 +140,7 @@ const ClubForm = ({ currentId, setCurrentId, setOpenPopup }) => {
           onChange={handleInputChange}
           error={errors.contact}
           helperText="e.g. 012XXXXXXX / 05XXXXXXX / 1300XXXXXX"
+          required
         />
         <Custom.Input
           name="website"

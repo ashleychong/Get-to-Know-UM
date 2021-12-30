@@ -61,7 +61,18 @@ export const getExpTable = async (req, res) => {
 
 export const updatedExp = async (req, res) => {
   const { id } = req.params;
-  const { title, description, img, name, creator, like, status } = req.body;
+  const {
+    title,
+    description,
+    img,
+    name,
+    creator,
+    like,
+    status,
+    location,
+    charge,
+    duration,
+  } = req.body;
 
   if (!mongoose.Types.ObjectId.isValid(id))
     return res.status(404).send(`No exp with id: ${id}`);
@@ -74,6 +85,9 @@ export const updatedExp = async (req, res) => {
     like,
     _id: id,
     status,
+    location,
+    charge,
+    duration,
   };
   await ExpMessage.findByIdAndUpdate(id, updateExp, { new: true });
   res.json(updateExp);
@@ -133,13 +147,18 @@ export const getLeisuresBySearch = async (req, res) => {
 };
 
 export const addLeisure = async (req, res) => {
-  const { title, details, category, img } = req.body;
+  const { title, details, category, img, location, fee, openTime, closeTime } =
+    req.body;
 
   const newLeisure = new LeisureMessage({
     title,
     details,
     category,
     img,
+    location,
+    fee,
+    openTime,
+    closeTime,
   });
 
   try {
@@ -152,7 +171,8 @@ export const addLeisure = async (req, res) => {
 
 export const updateLeisure = async (req, res) => {
   const { id } = req.params;
-  const { title, details, category, img } = req.body;
+  const { title, details, category, img, location, fee, openTime, closeTime } =
+    req.body;
 
   if (!mongoose.Types.ObjectId.isValid(id))
     return res.status(404).send(`No leisure with id: ${id}`);
@@ -161,6 +181,10 @@ export const updateLeisure = async (req, res) => {
     details,
     category,
     img,
+    location,
+    fee,
+    openTime,
+    closeTime,
     _id: id,
   };
   await LeisureMessage.findByIdAndUpdate(id, updateLeisure, { new: true });

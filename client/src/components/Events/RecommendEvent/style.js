@@ -27,7 +27,7 @@ export default makeStyles({
   tags: {},
   titleSection: {},
   title: {
-    color: "#0097a7",
+    color: "#3949ab",
     fontWeight: "bold",
   },
   cardAction: {

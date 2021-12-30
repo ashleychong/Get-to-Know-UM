@@ -4,9 +4,9 @@ import { CircularProgress, Typography } from "@material-ui/core";
 import LeisureCard from "./LeisureCard";
 
 const LeisureCards = () => {
-  const leisures = useSelector((state) => state.leisures);
+  const { leisures, isLoading } = useSelector((state) => state.leisures);
 
-  if (!leisures?.length) {
+  if (!leisures?.length && !isLoading) {
     return "No listed Leisure";
   }
 

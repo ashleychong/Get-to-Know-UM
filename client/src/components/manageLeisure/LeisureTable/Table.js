@@ -9,6 +9,7 @@ import {
   InputAdornment,
   Chip,
   Avatar,
+  CircularProgress,
 } from "@material-ui/core";
 import useStyles from "./style";
 import { useDispatch, useSelector } from "react-redux";
@@ -24,7 +25,7 @@ const LeisureTable = (props) => {
   const { editInPopup } = props;
   const classes = useStyles();
   const user = JSON.parse(localStorage.getItem("profile"));
-  const leisures = useSelector((state) => state.leisures);
+  const { leisures, isLoading } = useSelector((state) => state.leisures);
   const headCells = [
     { id: "no", label: "No.", disableSorting: "true" },
     { id: "title", label: "Title" },
@@ -44,7 +45,7 @@ const LeisureTable = (props) => {
     dispatch(getLeisureTable(user.result.role));
   }, []);
 
-  if (!leisures.length) return "No leisures";
+  if (!leisures.length && !isLoading) return "No leisures";
 
   const handleSearch = (e) => {
     let target = e.target;
@@ -59,7 +60,9 @@ const LeisureTable = (props) => {
     });
   };
 
-  return (
+  return isLoading ? (
+    <CircularProgress />
+  ) : (
     <Paper className={classes.paper}>
       <Toolbar>
         <Input

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Grid, Button, Typography, Badge } from "@material-ui/core";
 import Events from "./Events";
 import Search from "./Search/Search";
@@ -8,6 +8,7 @@ import { useLocation } from "react-router-dom";
 import useStyles from "./style";
 import LoyaltyOutlinedIcon from "@material-ui/icons/LoyaltyOutlined";
 import { useHistory } from "react-router-dom";
+import PageHeader from "../PageHeader";
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -23,20 +24,25 @@ const EventHomePage = () => {
 
   return (
     <>
-      <Button
-        className={classes.btn}
-        variant="contained"
-        disabled={!user?.result}
-        onClick={() => history.push("/event/fav")}
-      >
-        <LoyaltyOutlinedIcon className={classes.fav} />
-        <Typography className={classes.word}>
-          &nbsp;&nbsp;&nbsp;Favourite
-        </Typography>
-      </Button>
+      <PageHeader title="Event" />
+      {user?.result?.name && (
+        <Button
+          className={classes.btn}
+          variant="contained"
+          disabled={!user?.result}
+          onClick={() => history.push("/event/fav")}
+        >
+          <LoyaltyOutlinedIcon className={classes.fav} />
+          <Typography className={classes.word}>
+            &nbsp;&nbsp;&nbsp;Favourite
+          </Typography>
+        </Button>
+      )}
       <Search />
-      <FilterButton />
-      <Events />
+      <FilterButton page={page} />
+      <div className={classes.container}>
+        <Events />
+      </div>
       {!searchQuery && (
         <Grid className={classes.pagination}>
           <Pagination page={page} />

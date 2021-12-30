@@ -37,6 +37,7 @@ export const FAV = "FAV";
 export const FETCH_EVENT_TABLE = "FETCH_EVENT_TABLE";
 export const FETCH_FAV_EVENTS = "FETCH_FAV_EVENTS";
 export const FETCH_BY_TAG_EVENT = "FETCH_BY_TAG_EVENT";
+export const FETCH_THIS_MONTH = "FETCH_THIS_MONTH";
 
 export const CREATE_CLUB = "CREATE_CLUB";
 export const UPDATE_CLUB = "UPDATE_CLUB";

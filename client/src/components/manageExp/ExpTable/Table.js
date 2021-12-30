@@ -99,10 +99,16 @@ const ExpTable = (props) => {
                     className={classes.statusExpired}
                     size="small"
                   />
-                ) : (
+                ) : exp.status == "approve" ? (
                   <Chip
                     label="Approve"
                     className={classes.statusUpcoming}
+                    size="small"
+                  />
+                ) : (
+                  <Chip
+                    label="Pending"
+                    className={classes.statusPending}
                     size="small"
                   />
                 )}

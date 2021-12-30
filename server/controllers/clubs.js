@@ -9,7 +9,7 @@ const router = express.Router();
 export const getClubList = async (req, res) => {
   const { page } = req.query;
   try {
-    const LIMIT = 8;
+    const LIMIT = 6;
     const startIndex = (Number(page) - 1) * LIMIT; // get the starting index of every page
     const total = await ClubMessage.countDocuments({});
     const clubs = await ClubMessage.find()

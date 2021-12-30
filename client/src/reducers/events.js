@@ -11,6 +11,7 @@ import {
   FAV,
   FETCH_FAV_EVENTS,
   FETCH_BY_TAG_EVENT,
+  FETCH_THIS_MONTH,
 } from "../constants/actionTypes";
 
 //reducer carry out state transition depends on the actions
@@ -39,6 +40,13 @@ export default (state = { isLoading: true, events: [] }, action) => {
       return { ...state, events: action.payload.data };
     case FETCH_BY_TAG_EVENT:
       return { ...state, events: action.payload.data };
+    case FETCH_THIS_MONTH:
+      return {
+        ...state,
+        events: action.payload.data,
+        currentPage: action.payload.currentPage,
+        numberOfPages: action.payload.numberOfPages,
+      };
     case FETCH_EVENT:
       return { ...state, event: action.payload.event };
     case CREATE_EVENT:

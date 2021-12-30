@@ -122,6 +122,7 @@ const ExpForm = ({ currentId, setCurrentId, setOpenPopup }) => {
               value={values.status}
               onChange={handleInputChange}
               color="primary"
+              defaultValue="pending"
             >
               <FormControlLabel
                 value="approve"
@@ -132,6 +133,12 @@ const ExpForm = ({ currentId, setCurrentId, setOpenPopup }) => {
                 value="disapprove"
                 control={<Radio />}
                 label="Disapprove"
+              />
+              <FormControlLabel
+                value="pending"
+                control={<Radio />}
+                label="Pending"
+                disabled
               />
             </RadioGroup>
             <div>

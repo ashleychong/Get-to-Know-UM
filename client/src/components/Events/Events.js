@@ -10,9 +10,9 @@ const Events = ({ setCurrentId }) => {
   return isLoading ? (
     <CircularProgress />
   ) : (
-    <Grid container alignItems="stretch" style={{ paddingTop: "1vh" }}>
+    <Grid container columns={{ xs: 9, sm: 8, md: 9, lg: 9, xl: 9 }}>
       {events.map((event) => (
-        <Grid key={event._id} item xs={12} sm={4} md={4} lg={3}>
+        <Grid key={event._id} item item xs={9} sm={6} md={4} lg={4} xl={4}>
           <Event event={event} setCurrentId={setCurrentId} />
         </Grid>
       ))}

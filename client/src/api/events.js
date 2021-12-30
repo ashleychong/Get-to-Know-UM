@@ -29,3 +29,5 @@ export const fetchFavEvents = (page) =>
 export const addFav = (id) => API.patch(`/event/addFav/${id}`);
 export const fetchEventsByTag = (tag) =>
   API.get(`/event/tag/search?tag=${tag.search || "none"}`);
+export const getThisMonthEvents = (page) =>
+  API.get(`/event/month?page=${page}`);

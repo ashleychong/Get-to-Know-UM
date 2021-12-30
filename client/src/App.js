@@ -40,6 +40,7 @@ import GPACalHome from "./components/GPA/GPACalHome";
 import LeisureHome from "./components/manageLeisure/LeisureHome";
 import ExpHome from "./components/manageExp/ExpHome";
 import FavEvent from "./components/Events/FavEvent";
+import NotFound from "./components/NotFound";
 
 const theme = createTheme({
   typography: {
@@ -109,6 +110,7 @@ function App() {
           <Route path="/food" exact component={Food} />
           <Route path="/event" exact component={EventHomePage} />
           <Route path="/event/search" exact component={EventHomePage} />
+          <Route path="/event/month" exact component={EventHomePage} />
           <Route path="/event/fav" exact component={FavEvent} />
           <Route
             path="/admin/foodNominations"
@@ -145,6 +147,7 @@ function App() {
             exact
             component={FoodNominationDetails}
           />
+          <Route path="*" exact component={NotFound} />
         </Switch>
       </ThemeProvider>
     </BrowserRouter>

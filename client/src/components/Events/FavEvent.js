@@ -24,8 +24,9 @@ const FavEvent = () => {
   return (
     <>
       <PageHeader title="My Favourite Events" />
-      <Events />
-
+      <div className={classes.container}>
+        <Events />
+      </div>
       <Grid className={classes.pagination}>
         <Pagination page={page} />
       </Grid>

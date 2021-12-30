@@ -9,9 +9,6 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import useStyles from "./style";
-import { useHistory } from "react-router-dom";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 
 const RecommendEvent = ({ event, setCurrentId }) => {
   const dispatch = useDispatch();

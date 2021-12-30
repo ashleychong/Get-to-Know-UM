@@ -60,16 +60,18 @@ const Event = ({ event, setCurrentId }) => {
           <Typography variant="subtitle2" className={classes.details}>
             {moment(event.startDate).format("ddd DD/MM/YYYY h:mma")}
           </Typography>
-          <Typography variant="h6" className={classes.title}>
-            {event.title}
-          </Typography>
+          <div className={classes.titleSpace}>
+            <Typography variant="h6" className={classes.title}>
+              {event.title}
+            </Typography>
+          </div>
           <Typography className={classes.details} variant="subtitle2">
             {event.venue}
           </Typography>
         </CardContent>
       </ButtonBase>
       <Button className={classes.btn} disabled={!user?.result} onClick={setFav}>
-        <Fav />
+        {user?.result?.name && <Fav />}
       </Button>
     </Card>
   );

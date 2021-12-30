@@ -16,7 +16,7 @@ import { useDispatch } from "react-redux";
 
 import { voteFood } from "../../actions/food";
 import SignInPopup from "./SignInPopup";
-import useStyles from "./FoodCardStyles";
+import useStyles from "./foodCardStyles";
 
 export default function FoodCard(props) {
   const { food, index } = props;
@@ -60,8 +60,7 @@ export default function FoodCard(props) {
   const handleVote = async () => {
     if (!user?.result?.name) {
       setOpenPopup(true);
-    }
-    else {
+    } else {
       dispatch(voteFood(food._id));
       console.log("Vote");
       setVotes([...food.votes, userId]);

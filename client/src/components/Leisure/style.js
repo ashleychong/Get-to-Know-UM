@@ -2,12 +2,12 @@ import { makeStyles } from "@material-ui/core/styles";
 
 export default makeStyles(() => ({
   title: {
-    fontWeight: "500",
-    margin: "50px 80px",
+    fontWeight: "bold",
+    margin: "30px 80px",
   },
   card1: {
     display: "flex",
-    flexDirection: "column",
+    flexDirection: "row",
     borderRadius: "10px",
     width: "60%",
     margin: "auto",
@@ -32,7 +32,7 @@ export default makeStyles(() => ({
     margin: "2em 1.5em",
   },
   word: {
-    fontWeight: "400",
-    fontSize: "30px",
+    fontWeight: "bold",
+    fontSize: "26px",
   },
 }));

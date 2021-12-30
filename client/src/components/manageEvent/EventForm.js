@@ -28,6 +28,8 @@ const initialValues = {
   contact: "",
   organizer: "",
   img: "",
+  audience: "",
+  fee: "",
 };
 
 const EventForm = ({ currentId, setCurrentId, setOpenPopup }) => {
@@ -61,6 +63,14 @@ const EventForm = ({ currentId, setCurrentId, setOpenPopup }) => {
         : "This field is required.";
     if ("organizer" in fieldValues)
       temp.organizer = fieldValues.organizer ? "" : "This field is required.";
+    if ("audience" in fieldValues)
+      temp.audience = fieldValues.audience ? "" : "This field is required.";
+    if ("fee" in fieldValues) {
+      temp.fee = fieldValues.fee ? "" : "This field is required.";
+      temp.fee = /^\d*\.?\d*$/.test(fieldValues.fee)
+        ? ""
+        : "Please input numbers only.";
+    }
     setErrors({
       ...temp,
     });
@@ -176,6 +186,23 @@ const EventForm = ({ currentId, setCurrentId, setOpenPopup }) => {
             value={values.organizer}
             onChange={handleInputChange}
             error={errors.organizer}
+            required
+          />
+          <Custom.Input
+            name="audience"
+            label="Audience"
+            value={values.audience}
+            onChange={handleInputChange}
+            error={errors.audience}
+            required
+          />
+          <Custom.Input
+            name="fee"
+            label="Fee"
+            value={values.fee}
+            onChange={handleInputChange}
+            error={errors.fee}
+            placeholder="RM"
             required
           />
           <div className={classes.fileInput}>

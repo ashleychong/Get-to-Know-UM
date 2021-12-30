@@ -5,12 +5,16 @@ import {
   FETCH_ALL_LEISURE,
   UPDATE_LEISURE,
   FETCH_LEISURE_TABLE,
+  START_LOADING,
+  END_LOADING,
 } from "../constants/leisureActionTypes";
 
 export const getLeisures = () => async (dispatch) => {
   try {
+    dispatch({ type: START_LOADING });
     const { data } = await api.fetchLeisures();
     dispatch({ type: FETCH_ALL_LEISURE, payload: data });
+    dispatch({ type: END_LOADING });
   } catch (error) {
     console.log(error.message);
   }
@@ -18,8 +22,10 @@ export const getLeisures = () => async (dispatch) => {
 
 export const getLeisureTable = (user) => async (dispatch) => {
   try {
+    dispatch({ type: START_LOADING });
     const { data } = await api.fetchLeisureTable(user);
     dispatch({ type: FETCH_LEISURE_TABLE, payload: data });
+    dispatch({ type: END_LOADING });
   } catch (error) {
     console.log(error.response);
   }

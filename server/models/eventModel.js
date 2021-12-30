@@ -16,6 +16,8 @@ const eventSchema = mongoose.Schema({
     type: [String],
     default: [],
   },
+  audience: String,
+  fee: Number,
 });
 
 ////to use the schema, need to convert it to model

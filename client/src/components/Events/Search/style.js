@@ -8,6 +8,6 @@ export default makeStyles((theme) => ({
     flexDirection: "column",
   },
   input: {
-    width: "800px",
+    width: "550px",
   },
 }));

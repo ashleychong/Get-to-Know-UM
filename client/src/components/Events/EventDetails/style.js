@@ -8,7 +8,6 @@ export default makeStyles((theme) => ({
   },
   card: {
     display: "flex",
-    width: "100%",
     [theme.breakpoints.down("sm")]: {
       flexWrap: "wrap",
       flexDirection: "column",
@@ -16,7 +15,10 @@ export default makeStyles((theme) => ({
   },
   section: {
     borderRadius: "20px",
-
+    flex: 1,
+  },
+  recommendSection: {
+    borderRadius: "20px",
     flex: 1,
   },
   imageSection: {
@@ -44,5 +46,6 @@ export default makeStyles((theme) => ({
     flexDirection: "row",
     margin: "auto",
     alignItems: "center",
+    justifyContent: "center",
   },
 }));

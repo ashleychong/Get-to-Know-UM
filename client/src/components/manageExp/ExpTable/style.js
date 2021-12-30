@@ -16,4 +16,8 @@ export default makeStyles((theme) => ({
     backgroundColor: "#00e676",
     color: "white",
   },
+  statusPending: {
+    backgroundColor: "blue",
+    color: "white",
+  },
 }));

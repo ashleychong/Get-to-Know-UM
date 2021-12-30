@@ -10,17 +10,17 @@ const router = express.Router();
 export const getEventList = async (req, res) => {
   const { page } = req.query;
   try {
-    const LIMIT = 8;
+    const LIMIT = 6;
     const startIndex = (Number(page) - 1) * LIMIT; // get the starting index of every page
     const today = new Date().toISOString();
     const total = await EventMessage.countDocuments({
-      startDate: { $gt: today },
+      endDate: { $gt: today },
     });
 
     const events = await EventMessage.find({
-      startDate: { $gt: today },
+      endDate: { $gt: today },
     })
-      .sort({ _id: -1 })
+      .sort({ startDate: 1 })
       .limit(LIMIT)
       .skip(startIndex);
 
@@ -37,22 +37,22 @@ export const getEventList = async (req, res) => {
 export const getFavEventList = async (req, res) => {
   const { page } = req.query;
   try {
-    const LIMIT = 8;
+    const LIMIT = 6;
     const startIndex = (Number(page) - 1) * LIMIT;
     const today = new Date().toISOString();
     const total = await EventMessage.countDocuments({
-      startDate: { $gt: today },
+      endDate: { $gt: today },
       fav: req.userId,
     });
 
     const events = await EventMessage.find({
-      startDate: { $gt: today },
+      endDate: { $gt: today },
       fav: req.userId,
     })
       .sort({ _id: -1 })
       .limit(LIMIT)
       .skip(startIndex);
-    console.log(events);
+
     res.json({
       currentPage: Number(page),
       numberOfPages: Math.ceil(total / LIMIT),
@@ -90,9 +90,9 @@ export const getEventsBySearch = async (req, res) => {
 
   try {
     const title = new RegExp(searchQuery, "i");
-    console.log(title);
+
     const events = await EventMessage.find({ title });
-    console.log(events);
+
     res.json(events);
   } catch (error) {
     res.status(404).json({ message: error.message });
@@ -104,10 +104,41 @@ export const getEventsByTag = async (req, res) => {
 
   try {
     const eventTag = new RegExp(tag, "i");
-    console.log(eventTag);
+
     const events = await EventMessage.find({ tags: eventTag });
-    console.log(events);
+
     res.json(events);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
+export const getThisMonthEvents = async (req, res) => {
+  const { page } = req.query;
+  try {
+    const LIMIT = 6;
+    const startIndex = (Number(page) - 1) * LIMIT;
+    const thismonth = (new Date().getMonth() + 1).toString();
+    const month = "-" + thismonth + "-";
+    const total = await EventMessage.countDocuments({
+      endDate: { $gt: new Date() },
+    });
+
+    const events = await EventMessage.find(
+      {
+        startDate: { $regex: month, $options: "i" },
+      },
+      function (err, docs) {}
+    )
+      .sort({ startDate: 1 })
+      .limit(LIMIT)
+      .skip(startIndex);
+
+    res.json({
+      data: events,
+      currentPage: Number(page),
+      numberOfPages: Math.ceil(total / LIMIT),
+    });
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
@@ -141,6 +172,8 @@ export const updateEvent = async (req, res) => {
     organizer,
     img,
     fav,
+    audience,
+    fee,
   } = req.body;
 
   if (!mongoose.Types.ObjectId.isValid(id))
@@ -156,6 +189,8 @@ export const updateEvent = async (req, res) => {
     organizer,
     img,
     fav,
+    audience,
+    fee,
     _id: id,
   };
   await EventMessage.findByIdAndUpdate(id, updateEvent, { new: true });

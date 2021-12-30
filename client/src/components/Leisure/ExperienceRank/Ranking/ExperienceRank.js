@@ -9,6 +9,9 @@ import {
   DialogContentText,
   DialogTitle,
   TextField,
+  Select,
+  MenuItem,
+  InputLabel,
 } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import { useDispatch, useSelector } from "react-redux";
@@ -29,7 +32,10 @@ const ExperienceRank = () => {
     title: "",
     description: "",
     img: "",
-    status: "disapprove",
+    status: "pending",
+    location: "",
+    charge: "",
+    duration: "",
   });
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
@@ -57,6 +63,9 @@ const ExperienceRank = () => {
       description: "",
       img: "",
       status: "",
+      location: "",
+      charge: "",
+      duration: "",
     });
   };
 
@@ -64,7 +73,7 @@ const ExperienceRank = () => {
     <>
       <Grid container>
         <Grid item xs={6} className={classes.root}>
-          <Typography className={classes.title} variant="h5">
+          <Typography className={classes.title}>
             Must Do Things For UM Students
           </Typography>
         </Grid>
@@ -82,7 +91,9 @@ const ExperienceRank = () => {
         {[]
           .concat(exps)
           .sort((a, b) => (a.likes.length > b.likes.length ? -1 : 1))
-          .filter((exp) => exp.status !== "disapprove")
+          .filter(
+            (exp) => exp.status !== "disapprove" && exp.status !== "pending"
+          )
           .map((exp, index) => (
             <Grid item key={exp._id} xs={12} className={classes.card}>
               <ExperienceCard exp={exp} index={index + 1} />
@@ -117,7 +128,7 @@ const ExperienceRank = () => {
           </DialogContent>
         </Dialog>
       ) : (
-        <Dialog maxWidth={"md"} open={open} onClose={handleClose}>
+        <Dialog open={open} onClose={handleClose}>
           <DialogTitle id="form-dialog-title">
             <div style={{ display: "flex" }}>
               <Typography variant="h6" component="div" style={{ flexGrow: 1 }}>
@@ -146,7 +157,6 @@ const ExperienceRank = () => {
                 }
               />
               <TextField
-                autoFocus
                 variant="outlined"
                 margin="dense"
                 label="Description"
@@ -159,11 +169,57 @@ const ExperienceRank = () => {
                   setExpData({ ...expData, description: e.target.value })
                 }
               />
-              <FileBase
-                type="file"
-                multiple={false}
-                onDone={({ base64 }) => setExpData({ ...expData, img: base64 })}
+              <TextField
+                variant="outlined"
+                margin="dense"
+                label="Location"
+                rows="2"
+                required
+                fullWidth
+                value={expData.location}
+                onChange={(e) =>
+                  setExpData({ ...expData, location: e.target.value })
+                }
               />
+              <TextField
+                variant="outlined"
+                margin="dense"
+                label="Charge"
+                required
+                fullWidth
+                value={expData.charge}
+                onChange={(e) =>
+                  setExpData({ ...expData, charge: e.target.value })
+                }
+              />
+              <div style={{ display: "flex", flexDirection: "column" }}>
+                <Select
+                  style={{ margin: "10px 0" }}
+                  variant="outlined"
+                  value={expData.duration}
+                  label="Duration"
+                  onChange={(e) =>
+                    setExpData({ ...expData, duration: e.target.value })
+                  }
+                >
+                  <MenuItem value={5}>5 minutes</MenuItem>
+                  <MenuItem value={10}>10 minutes</MenuItem>
+                  <MenuItem value={15}>15 minutes</MenuItem>
+                  <MenuItem value={20}>20 minutes</MenuItem>
+                  <MenuItem value={25}>25 minutes</MenuItem>
+                  <MenuItem value={30}>30 minutes</MenuItem>
+                  <MenuItem value={45}>45 minutes</MenuItem>
+                  <MenuItem value={60}>60 minutes</MenuItem>
+                </Select>
+
+                <FileBase
+                  type="file"
+                  multiple={false}
+                  onDone={({ base64 }) =>
+                    setExpData({ ...expData, img: base64 })
+                  }
+                />
+              </div>
             </div>
           </DialogContent>
           <DialogActions>

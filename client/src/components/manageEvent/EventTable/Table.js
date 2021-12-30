@@ -9,6 +9,7 @@ import {
   InputAdornment,
   Chip,
   Avatar,
+  CircularProgress,
 } from "@material-ui/core";
 import useStyles from "./style";
 import { useDispatch, useSelector } from "react-redux";
@@ -62,7 +63,9 @@ const EventTable = (props) => {
     });
   };
 
-  return (
+  return isLoading ? (
+    <CircularProgress />
+  ) : (
     <Paper className={classes.paper}>
       <Toolbar>
         <Input
