@@ -19,6 +19,9 @@ const EventHomePage = () => {
   const query = useQuery();
   const page = query.get("page") || 1;
   const searchQuery = query.get("searchQuery");
+  const date = query.get("date");
+  console.log(date);
+
   const user = JSON.parse(localStorage.getItem("profile"));
   const history = useHistory();
 
@@ -45,7 +48,7 @@ const EventHomePage = () => {
       </div>
       {!searchQuery && (
         <Grid className={classes.pagination}>
-          <Pagination page={page} />
+          <Pagination page={page} date={date} />
         </Grid>
       )}
     </>

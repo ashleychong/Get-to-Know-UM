@@ -11,12 +11,14 @@ import {
   getFavEventList,
   getEventsByTag,
   getThisMonthEvents,
+  getEventsByDateRange,
 } from "../controllers/events.js";
 import auth from "../middleware/auth.js";
 //create a new router obj for request handling
 const router = express.Router();
 
 //specify a callback fx when received a request to the specific endpoints
+router.get("/range", getEventsByDateRange);
 router.get("/month", getThisMonthEvents);
 router.get("/", getEventList);
 router.get("/:user", getEventTable);

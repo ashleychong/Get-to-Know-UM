@@ -61,7 +61,7 @@ const SideBar = () => {
     {
       text: "Dashboard",
       icon: <DashboardOutlined />,
-      path: "#",
+      path: "/admin/dashboard",
     },
     {
       text: "Cafe",

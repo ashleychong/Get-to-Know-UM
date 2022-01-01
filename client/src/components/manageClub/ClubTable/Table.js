@@ -18,6 +18,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import useTable from "../../Custom/useTable";
 import { Search } from "@material-ui/icons";
 import Input from "../../Custom/Input";
+import ConfirmDialog from "../../Custom/ConfirmDialog";
 
 const ClubTable = (props) => {
   const dispatch = useDispatch();
@@ -26,6 +27,11 @@ const ClubTable = (props) => {
   const user = JSON.parse(localStorage.getItem("profile"));
 
   const { clubs, isLoading } = useSelector((state) => state.clubs);
+  const [confirmDialog, setConfirmDialog] = useState({
+    isOpen: false,
+    title: "",
+    subTitle: "",
+  });
 
   const headCells = [
     { id: "no", label: "No.", disableSorting: "true" },
@@ -62,81 +68,104 @@ const ClubTable = (props) => {
     });
   };
 
+  const confirmRemove = (id) => {
+    setConfirmDialog({
+      ...confirmDialog,
+      isOpen: false,
+    });
+    dispatch(deleteClub(id));
+  };
+
   return (
-    <Paper className={classes.paper}>
-      <Toolbar>
-        <Input
-          label="Search Club"
-          className={classes.searchInput}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <Search />
-              </InputAdornment>
-            ),
-          }}
-          onChange={handleSearch}
-        />
-      </Toolbar>
-      <TblContainer>
-        <TblHead className={classes.row} />
-        <TableBody>
-          {recordsAfterPagingAndSorting().map((club, index) => (
-            <TableRow key={club._id}>
-              <TableCell component="th" scope="row">
-                {index + 1}
-              </TableCell>
-              <TableCell component="th" scope="row">
-                {club.title}
-              </TableCell>
-              <TableCell component="th" scope="row">
-                <Avatar
-                  src={
-                    club.img ? club.img : "https://source.unsplash.com/random"
-                  }
-                  alt={club?.img}
-                />
-              </TableCell>
-              <TableCell>
-                {club.clublink ? (
-                  <Chip
-                    label="Available"
-                    className={classes.status2}
-                    size="small"
+    <>
+      <Paper className={classes.paper}>
+        <Toolbar>
+          <Input
+            label="Search Club"
+            className={classes.searchInput}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Search />
+                </InputAdornment>
+              ),
+            }}
+            onChange={handleSearch}
+          />
+        </Toolbar>
+        <TblContainer>
+          <TblHead className={classes.row} />
+          <TableBody>
+            {recordsAfterPagingAndSorting().map((club, index) => (
+              <TableRow key={club._id}>
+                <TableCell component="th" scope="row">
+                  {index + 1}
+                </TableCell>
+                <TableCell component="th" scope="row">
+                  {club.title}
+                </TableCell>
+                <TableCell component="th" scope="row">
+                  <Avatar
+                    src={
+                      club.img ? club.img : "https://source.unsplash.com/random"
+                    }
+                    alt={club?.img}
                   />
-                ) : (
-                  <Chip
-                    label="Unavailable"
-                    className={classes.status1}
+                </TableCell>
+                <TableCell>
+                  {club.clublink ? (
+                    <Chip
+                      label="Available"
+                      className={classes.status2}
+                      size="small"
+                    />
+                  ) : (
+                    <Chip
+                      label="Unavailable"
+                      className={classes.status1}
+                      size="small"
+                    />
+                  )}
+                </TableCell>
+                <TableCell>
+                  <IconButton
                     size="small"
-                  />
-                )}
-              </TableCell>
-              <TableCell>
-                <IconButton
-                  size="small"
-                  color="primary"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    editInPopup(club);
-                  }}
-                >
-                  <EditIcon fontSize="small" />
-                </IconButton>
-                <IconButton
-                  size="small"
-                  color="secondary"
-                  onClick={() => dispatch(deleteClub(club._id))}
-                >
-                  <DeleteIcon fontSize="small" />
-                </IconButton>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </TblContainer>
-      <TblPagination />
-    </Paper>
+                    color="primary"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      editInPopup(club);
+                    }}
+                  >
+                    <EditIcon fontSize="small" />
+                  </IconButton>
+                  <IconButton
+                    size="small"
+                    color="secondary"
+                    onClick={() => {
+                      setConfirmDialog({
+                        isOpen: true,
+                        title: "Are you sure to delete this record?",
+                        subTitle: "You can't undo this operation",
+                        onConfirm: () => {
+                          confirmRemove(club._id);
+                        },
+                      });
+                    }}
+                  >
+                    <DeleteIcon fontSize="small" />
+                  </IconButton>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </TblContainer>
+        <TblPagination />
+      </Paper>
+      <ConfirmDialog
+        confirmDialog={confirmDialog}
+        setConfirmDialog={setConfirmDialog}
+      />
+    </>
   );
 };
 

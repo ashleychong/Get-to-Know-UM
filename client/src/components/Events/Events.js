@@ -7,6 +7,7 @@ const Events = ({ setCurrentId }) => {
   const { events, isLoading } = useSelector((state) => state.events);
   if (!events?.length && !isLoading) return "No events";
   console.log(events);
+
   return isLoading ? (
     <CircularProgress />
   ) : (

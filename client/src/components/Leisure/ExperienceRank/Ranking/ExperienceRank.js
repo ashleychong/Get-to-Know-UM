@@ -12,6 +12,7 @@ import {
   Select,
   MenuItem,
   InputLabel,
+  FormControl,
 } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import { useDispatch, useSelector } from "react-redux";
@@ -47,6 +48,11 @@ const ExperienceRank = () => {
 
   const handleClose = () => {
     setOpen(false);
+    clear();
+  };
+
+  const handleCloseForSuccessShare = () => {
+    setShare(false);
   };
 
   const handleShare = async (e) => {
@@ -115,6 +121,7 @@ const ExperienceRank = () => {
                 color="secondary"
                 onClick={() => {
                   setOpen(false);
+                  clear();
                 }}
               >
                 <CloseIcon />
@@ -129,106 +136,135 @@ const ExperienceRank = () => {
         </Dialog>
       ) : (
         <Dialog open={open} onClose={handleClose}>
-          <DialogTitle id="form-dialog-title">
-            <div style={{ display: "flex" }}>
-              <Typography variant="h6" component="div" style={{ flexGrow: 1 }}>
-                Share Your Experience
-              </Typography>
-              <Button onClick={handleClose} color="secondary">
-                <CloseIcon />
-              </Button>
-            </div>
-          </DialogTitle>
-          <DialogContent dividers>
-            <DialogContentText>
-              In your opinion, what is the must do things for UM students?
-            </DialogContentText>
-            <div className={classes.form}>
-              <TextField
-                autoFocus
-                variant="outlined"
-                margin="dense"
-                label="Title"
-                required
-                fullWidth
-                value={expData.title}
-                onChange={(e) =>
-                  setExpData({ ...expData, title: e.target.value })
-                }
-              />
-              <TextField
-                variant="outlined"
-                margin="dense"
-                label="Description"
-                rows="5"
-                multiline
-                required
-                fullWidth
-                value={expData.description}
-                onChange={(e) =>
-                  setExpData({ ...expData, description: e.target.value })
-                }
-              />
-              <TextField
-                variant="outlined"
-                margin="dense"
-                label="Location"
-                rows="2"
-                required
-                fullWidth
-                value={expData.location}
-                onChange={(e) =>
-                  setExpData({ ...expData, location: e.target.value })
-                }
-              />
-              <TextField
-                variant="outlined"
-                margin="dense"
-                label="Charge"
-                required
-                fullWidth
-                value={expData.charge}
-                onChange={(e) =>
-                  setExpData({ ...expData, charge: e.target.value })
-                }
-              />
-              <div style={{ display: "flex", flexDirection: "column" }}>
-                <Select
-                  style={{ margin: "10px 0" }}
-                  variant="outlined"
-                  value={expData.duration}
-                  label="Duration"
-                  onChange={(e) =>
-                    setExpData({ ...expData, duration: e.target.value })
-                  }
+          <form onSubmit={handleShare}>
+            <DialogTitle id="form-dialog-title">
+              <div style={{ display: "flex" }}>
+                <Typography
+                  variant="h6"
+                  component="div"
+                  style={{ flexGrow: 1 }}
                 >
-                  <MenuItem value={5}>5 minutes</MenuItem>
-                  <MenuItem value={10}>10 minutes</MenuItem>
-                  <MenuItem value={15}>15 minutes</MenuItem>
-                  <MenuItem value={20}>20 minutes</MenuItem>
-                  <MenuItem value={25}>25 minutes</MenuItem>
-                  <MenuItem value={30}>30 minutes</MenuItem>
-                  <MenuItem value={45}>45 minutes</MenuItem>
-                  <MenuItem value={60}>60 minutes</MenuItem>
-                </Select>
+                  Share Your Experience
+                </Typography>
+                <Button onClick={handleClose} color="secondary">
+                  <CloseIcon />
+                </Button>
+              </div>
+            </DialogTitle>
+            <DialogContent dividers>
+              <DialogContentText>
+                In your opinion, what is the must do things for UM students?
+              </DialogContentText>
 
-                <FileBase
-                  type="file"
-                  multiple={false}
-                  onDone={({ base64 }) =>
-                    setExpData({ ...expData, img: base64 })
+              <div className={classes.form}>
+                <TextField
+                  autoFocus
+                  variant="outlined"
+                  margin="dense"
+                  label="Title"
+                  required
+                  fullWidth
+                  value={expData.title}
+                  onChange={(e) =>
+                    setExpData({ ...expData, title: e.target.value })
                   }
                 />
+                <TextField
+                  variant="outlined"
+                  margin="dense"
+                  label="Description"
+                  rows="5"
+                  multiline
+                  required
+                  fullWidth
+                  value={expData.description}
+                  onChange={(e) =>
+                    setExpData({ ...expData, description: e.target.value })
+                  }
+                />
+                <TextField
+                  variant="outlined"
+                  margin="dense"
+                  label="Location"
+                  rows="2"
+                  required
+                  fullWidth
+                  value={expData.location}
+                  onChange={(e) =>
+                    setExpData({ ...expData, location: e.target.value })
+                  }
+                />
+                <TextField
+                  variant="outlined"
+                  margin="dense"
+                  label="Charge"
+                  required
+                  fullWidth
+                  placeholder="RM"
+                  type="number"
+                  value={expData.charge}
+                  onChange={(e) =>
+                    setExpData({ ...expData, charge: e.target.value })
+                  }
+                />
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                  <FormControl>
+                    <InputLabel style={{ padding: "5px 0 5px 15px" }}>
+                      Duration *
+                    </InputLabel>
+                    <Select
+                      style={{ margin: "10px 0" }}
+                      variant="outlined"
+                      value={expData.duration}
+                      label="Duration"
+                      required
+                      onChange={(e) =>
+                        setExpData({ ...expData, duration: e.target.value })
+                      }
+                    >
+                      <MenuItem value={5}>5 minutes</MenuItem>
+                      <MenuItem value={10}>10 minutes</MenuItem>
+                      <MenuItem value={15}>15 minutes</MenuItem>
+                      <MenuItem value={20}>20 minutes</MenuItem>
+                      <MenuItem value={25}>25 minutes</MenuItem>
+                      <MenuItem value={30}>30 minutes</MenuItem>
+                      <MenuItem value={45}>45 minutes</MenuItem>
+                      <MenuItem value={60}>60 minutes</MenuItem>
+                    </Select>
+                  </FormControl>
+                  <FileBase
+                    type="file"
+                    multiple={false}
+                    onDone={({ base64 }) =>
+                      setExpData({ ...expData, img: base64 })
+                    }
+                  />
+                </div>
               </div>
-            </div>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleShare} color="primary">
-              Share
-            </Button>
-          </DialogActions>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={clear} variant="contained">
+                Clear
+              </Button>
+              <Button type="submit" color="primary" variant="contained">
+                Share
+              </Button>
+            </DialogActions>
+          </form>
         </Dialog>
       )}
+      <Dialog open={share} onClose={handleCloseForSuccessShare}>
+        <DialogTitle>{"Pending Approval"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Every experience shared by the user must be approved by admin to
+            avoid the spreading of sensitive and misleading information.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseForSuccessShare}>Okay</Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 };

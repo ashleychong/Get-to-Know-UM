@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect } from "react";
 import {
   Card,
   CardContent,
@@ -25,8 +25,9 @@ const Event = ({ event, setCurrentId }) => {
 
   const setFav = () => {
     dispatch(addFav(event._id));
-    // setRefresh(!refresh);
-    // callback(refresh);
+    if (window.location.href.includes("fav")) {
+      window.location.reload();
+    }
   };
 
   const Fav = () => {
@@ -37,7 +38,6 @@ const Event = ({ event, setCurrentId }) => {
         <FavoriteBorderIcon />
       );
     }
-
     return <FavoriteBorderIcon />;
   };
 
@@ -58,7 +58,8 @@ const Event = ({ event, setCurrentId }) => {
             #{event.tags}
           </Typography>
           <Typography variant="subtitle2" className={classes.details}>
-            {moment(event.startDate).format("ddd DD/MM/YYYY h:mma")}
+            {moment(event.startDate).format("ddd DD/MM")} -
+            {moment(event.endDate).format("ddd DD/MM/YY")}
           </Typography>
           <div className={classes.titleSpace}>
             <Typography variant="h6" className={classes.title}>

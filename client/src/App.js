@@ -41,6 +41,7 @@ import LeisureHome from "./components/manageLeisure/LeisureHome";
 import ExpHome from "./components/manageExp/ExpHome";
 import FavEvent from "./components/Events/FavEvent";
 import NotFound from "./components/NotFound";
+import Dashboard from "./components/Admin/Dashboard/Dashboard";
 
 const theme = createTheme({
   typography: {
@@ -111,7 +112,9 @@ function App() {
           <Route path="/event" exact component={EventHomePage} />
           <Route path="/event/search" exact component={EventHomePage} />
           <Route path="/event/month" exact component={EventHomePage} />
+          <Route path="/event/range" exact component={EventHomePage} />
           <Route path="/event/fav" exact component={FavEvent} />
+          <Route path="/admin/dashboard" exact component={Dashboard} />
           <Route
             path="/admin/foodNominations"
             exact

@@ -101,7 +101,7 @@ const ClubDetails = () => {
                     TabIndicatorProps={{
                       style: {
                         backgroundColor: "#333996",
-                        color: "333996",
+                        color: "#333996",
                       },
                     }}
                   >

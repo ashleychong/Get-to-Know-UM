@@ -18,6 +18,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import { Search } from "@material-ui/icons";
 import Input from "../../Custom/Input";
 import useTable from "../../Custom/useTable";
+import ConfirmDialog from "../../Custom/ConfirmDialog";
 
 const ExpTable = (props) => {
   const dispatch = useDispatch();
@@ -25,6 +26,11 @@ const ExpTable = (props) => {
   const classes = useStyles();
   const user = JSON.parse(localStorage.getItem("profile"));
   const exps = useSelector((state) => state.exps);
+  const [confirmDialog, setConfirmDialog] = useState({
+    isOpen: false,
+    title: "",
+    subTitle: "",
+  });
   const headCells = [
     { id: "no", label: "No.", disableSorting: "true" },
     { id: "title", label: "Title" },
@@ -59,85 +65,108 @@ const ExpTable = (props) => {
     });
   };
 
+  const confirmRemove = (id) => {
+    setConfirmDialog({
+      ...confirmDialog,
+      isOpen: false,
+    });
+    dispatch(deleteExp(id));
+  };
+
   return (
-    <Paper className={classes.paper}>
-      <Toolbar>
-        <Input
-          label="Search Experience"
-          className={classes.searchInput}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <Search />
-              </InputAdornment>
-            ),
-          }}
-          onChange={handleSearch}
-        />
-      </Toolbar>
-      <TblContainer>
-        <TblHead className={classes.row} />
-        <TableBody>
-          {recordsAfterPagingAndSorting().map((exp, index) => (
-            <TableRow key={exp._id}>
-              <TableCell component="th" scope="row">
-                {index + 1}
-              </TableCell>
-              <TableCell component="th" scope="row">
-                {exp.title}
-              </TableCell>
-              <TableCell component="th" scope="row">
-                <Avatar
-                  src={exp?.img || "https://source.unsplash.com/random"}
-                  alt={exp?.img}
-                />
-              </TableCell>
-              <TableCell>
-                {exp.status == "disapprove" ? (
-                  <Chip
-                    label="Disapprove"
-                    className={classes.statusExpired}
-                    size="small"
+    <>
+      <Paper className={classes.paper}>
+        <Toolbar>
+          <Input
+            label="Search Experience"
+            className={classes.searchInput}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Search />
+                </InputAdornment>
+              ),
+            }}
+            onChange={handleSearch}
+          />
+        </Toolbar>
+        <TblContainer>
+          <TblHead className={classes.row} />
+          <TableBody>
+            {recordsAfterPagingAndSorting().map((exp, index) => (
+              <TableRow key={exp._id}>
+                <TableCell component="th" scope="row">
+                  {index + 1}
+                </TableCell>
+                <TableCell component="th" scope="row">
+                  {exp.title}
+                </TableCell>
+                <TableCell component="th" scope="row">
+                  <Avatar
+                    src={exp?.img || "https://source.unsplash.com/random"}
+                    alt={exp?.img}
                   />
-                ) : exp.status == "approve" ? (
-                  <Chip
-                    label="Approve"
-                    className={classes.statusUpcoming}
+                </TableCell>
+                <TableCell>
+                  {exp.status == "disapprove" ? (
+                    <Chip
+                      label="Disapprove"
+                      className={classes.statusExpired}
+                      size="small"
+                    />
+                  ) : exp.status == "approve" ? (
+                    <Chip
+                      label="Approve"
+                      className={classes.statusUpcoming}
+                      size="small"
+                    />
+                  ) : (
+                    <Chip
+                      label="Pending"
+                      className={classes.statusPending}
+                      size="small"
+                    />
+                  )}
+                </TableCell>
+                <TableCell>
+                  <IconButton
                     size="small"
-                  />
-                ) : (
-                  <Chip
-                    label="Pending"
-                    className={classes.statusPending}
+                    color="primary"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      editInPopup(exp);
+                    }}
+                  >
+                    <EditIcon fontSize="small" />
+                  </IconButton>
+                  <IconButton
                     size="small"
-                  />
-                )}
-              </TableCell>
-              <TableCell>
-                <IconButton
-                  size="small"
-                  color="primary"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    editInPopup(exp);
-                  }}
-                >
-                  <EditIcon fontSize="small" />
-                </IconButton>
-                <IconButton
-                  size="small"
-                  color="secondary"
-                  onClick={() => dispatch(deleteExp(exp._id))}
-                >
-                  <DeleteIcon fontSize="small" />
-                </IconButton>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </TblContainer>
-      <TblPagination />
-    </Paper>
+                    color="secondary"
+                    onClick={() => {
+                      setConfirmDialog({
+                        isOpen: true,
+                        title: "Are you sure to delete this record?",
+                        subTitle: "You can't undo this operation",
+                        onConfirm: () => {
+                          confirmRemove(exp._id);
+                        },
+                      });
+                    }}
+                  >
+                    <DeleteIcon fontSize="small" />
+                  </IconButton>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </TblContainer>
+        <TblPagination />
+      </Paper>
+      <ConfirmDialog
+        confirmDialog={confirmDialog}
+        setConfirmDialog={setConfirmDialog}
+      />
+    </>
   );
 };
 

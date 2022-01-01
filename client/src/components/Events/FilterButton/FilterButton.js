@@ -1,23 +1,35 @@
-import React, { useState } from "react";
-import { Button, TextField, Box } from "@material-ui/core";
+import React, { useState, useEffect } from "react";
+import { Button, TextField, Box, Typography } from "@material-ui/core";
 import useStyles from "./style";
 import { useHistory } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import AdapterDateFns from "@material-ui/lab/AdapterDateFns";
-import LocalizationProvider from "@material-ui/lab/LocalizationProvider";
-import DateRangePicker from "@material-ui/lab/DateRangePicker";
-import addWeeks from "date-fns/addWeeks";
+import SendIcon from "@material-ui/icons/Send";
+import { useDispatch, useSelector } from "react-redux";
+import { getEventsByDateRange } from "../../../actions/events";
+import ClearIcon from "@material-ui/icons/Clear";
+const initialValues = {
+  from: "",
+  to: "",
+};
 
-function getWeeksAfter(date, amount) {
-  return date ? addWeeks(date, amount) : undefined;
-}
-
-const FilterButton = (page) => {
+const FilterButton = () => {
+  const { event, events, isLoading } = useSelector((state) => state.events);
   const classes = useStyles();
   const history = useHistory();
   const dispatch = useDispatch();
-  const [value, setValue] = useState([null, null]);
+  const [date, setDate] = useState({
+    from: "",
+    to: "",
+  });
 
+  const dateString = date.from.toString() + "~" + date.to.toString();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    history.push(`/event/range?date=${dateString}&page=1`);
+  };
+  const clear = () => {
+    setDate(initialValues);
+  };
   return (
     <>
       <div className={classes.button}>
@@ -30,14 +42,7 @@ const FilterButton = (page) => {
         >
           All
         </Button>
-        <Button
-          className={classes.submitButton}
-          variant="contained"
-          color="primary"
-          size="medium"
-        >
-          This Week
-        </Button>
+
         <Button
           className={classes.submitButton}
           variant="contained"
@@ -49,23 +54,60 @@ const FilterButton = (page) => {
         >
           This Month
         </Button>
-        <LocalizationProvider dateAdapter={AdapterDateFns}>
-          <DateRangePicker
-            disablePast
-            value={value}
-            maxDate={getWeeksAfter(value[0], 4)}
-            onChange={(newValue) => {
-              setValue(newValue);
+      </div>
+      <Typography style={{ textAlign: "center", marginTop: "20px" }}>
+        Filter events by date range:{" "}
+      </Typography>
+      <div style={{ display: "flex", alignItems: "center", marginTop: "20px" }}>
+        <form
+          onSubmit={handleSubmit}
+          style={{ display: "flex", flexDirection: "row", margin: "auto" }}
+        >
+          <TextField
+            style={{ marginRight: "40px" }}
+            variant="outlined"
+            name="from"
+            label="From"
+            value={date.from}
+            type="date"
+            onChange={(e) => setDate({ ...date, from: e.target.value })}
+            required
+            inputProps={{
+              min: new Date().toISOString().slice(0, 10),
             }}
-            renderInput={(startProps, endProps) => (
-              <React.Fragment>
-                <TextField {...startProps} />
-                <Box sx={{ mx: 2 }}> to </Box>
-                <TextField {...endProps} />
-              </React.Fragment>
-            )}
+            InputLabelProps={{
+              shrink: true,
+            }}
           />
-        </LocalizationProvider>
+          <TextField
+            error={date.to && date.to < date.from ? true : false}
+            helperText={
+              date.to && date.to < date.from
+                ? "Date must greater than start date."
+                : ""
+            }
+            style={{ marginRight: "20px" }}
+            variant="outlined"
+            name="to"
+            label="To"
+            value={date.to}
+            type="date"
+            onChange={(e) => setDate({ ...date, to: e.target.value })}
+            required
+            inputProps={{
+              min: date.from,
+            }}
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
+          <Button type="submit">
+            <SendIcon style={{ color: "#3f51b5", margin: "10px 0" }} />
+          </Button>
+          <Button onClick={clear} style={{ color: "", margin: "10px 0" }}>
+            <ClearIcon />
+          </Button>
+        </form>
       </div>
     </>
   );

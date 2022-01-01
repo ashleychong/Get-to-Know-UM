@@ -63,10 +63,40 @@ export const getClubsBySearch = async (req, res) => {
 };
 
 export const addClub = async (req, res) => {
-  const club = req.body;
+  const {
+    title,
+    about,
+    event,
+    contact,
+    website,
+    insta,
+    email,
+    fb,
+    utube,
+    linkedin,
+    img,
+    clublink,
+    avgRating,
+  } = req.body;
+  const existingClub = await ClubMessage.findOne({ title });
 
+  if (existingClub) {
+    return res.status(400).send("Club is already exist.");
+  }
   const newClub = new ClubMessage({
-    ...club,
+    title,
+    about,
+    event,
+    contact,
+    website,
+    insta,
+    email,
+    fb,
+    utube,
+    linkedin,
+    img,
+    clublink,
+    avgRating,
   });
 
   try {

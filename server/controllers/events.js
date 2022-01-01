@@ -101,7 +101,6 @@ export const getEventsBySearch = async (req, res) => {
 
 export const getEventsByTag = async (req, res) => {
   const { tag } = req.query;
-
   try {
     const eventTag = new RegExp(tag, "i");
 
@@ -134,6 +133,44 @@ export const getThisMonthEvents = async (req, res) => {
       .limit(LIMIT)
       .skip(startIndex);
 
+    res.json({
+      data: events,
+      currentPage: Number(page),
+      numberOfPages: Math.ceil(total / LIMIT),
+    });
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
+export const getEventsByDateRange = async (req, res) => {
+  const { date, page } = req.query;
+  console.log("Fdsfs");
+  try {
+    const LIMIT = 6;
+    const startIndex = (Number(page) - 1) * LIMIT;
+    const fromDate = date.slice(0, 10) + "T00:00";
+    console.log(fromDate);
+    const toDate = date.slice(11, 21) + "T24:00";
+    const total = await EventMessage.countDocuments({
+      endDate: { $gt: new Date().toISOString() },
+      startDate: {
+        $lte: fromDate,
+        $lte: toDate,
+      },
+    });
+
+    const events = await EventMessage.find({
+      endDate: { $gt: new Date().toISOString() },
+      startDate: {
+        $lte: fromDate,
+        $lte: toDate,
+      },
+    })
+      .sort({ startDate: 1 })
+      .limit(LIMIT)
+      .skip(startIndex);
+    console.log(events);
     res.json({
       data: events,
       currentPage: Number(page),
