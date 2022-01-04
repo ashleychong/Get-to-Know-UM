@@ -2,16 +2,17 @@ import { makeStyles } from "@material-ui/core/styles";
 
 export default makeStyles(() => ({
   grid: {
-    alignItems: "center",
+    margin: "auto",
+    marginBottom: "20px",
   },
   card: {
     display: "flex",
     position: "relative",
-    margin: "0 120px 0 40px",
-    height: "200px",
+    margin: "0 250px 0 40px",
+    height: "250px",
   },
   box: {
-    width: "fit-content",
+    width: "700px",
   },
   details: {
     display: "flex",
@@ -19,7 +20,7 @@ export default makeStyles(() => ({
     flex: "1 1 auto",
   },
   cover: {
-    width: "300px",
+    width: "250px",
   },
   desc: {
     padding: "16px",
@@ -39,6 +40,5 @@ export default makeStyles(() => ({
     flexDirection: "row",
     left: "auto",
     right: "auto",
-    marginLeft: "120px",
   },
 }));

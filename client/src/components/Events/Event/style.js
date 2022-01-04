@@ -16,7 +16,7 @@ export default makeStyles({
     borderRadius: "15px",
     position: "relative",
     margin: "20px",
-    height: "350px",
+    height: "360px",
   },
   grid: {
     display: "flex",
@@ -25,9 +25,11 @@ export default makeStyles({
     fontWeight: "450",
   },
   tags: {},
-  titleSection: {},
+  titleSpace: {
+    height: "70px",
+  },
   title: {
-    color: "#0097a7",
+    color: "#3949ab",
     fontWeight: "bold",
   },
   cardAction: {

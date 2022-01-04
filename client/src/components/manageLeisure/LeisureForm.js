@@ -26,6 +26,10 @@ const initialValues = {
   title: "",
   details: "",
   category: "",
+  location: "",
+  fee: "",
+  openTime: "",
+  closeTime: "",
 };
 
 const getCategory = [
@@ -36,7 +40,7 @@ const getCategory = [
 const LeisureForm = ({ currentId, setCurrentId, setOpenPopup }) => {
   const leisure = useSelector((state) =>
     currentId
-      ? state.leisures.find((leisure) => leisure._id === currentId)
+      ? state.leisures.leisures.find((leisure) => leisure._id === currentId)
       : null
   );
   const user = JSON.parse(localStorage.getItem("profile"));
@@ -50,6 +54,14 @@ const LeisureForm = ({ currentId, setCurrentId, setOpenPopup }) => {
       temp.details = fieldValues.details ? "" : "This field is required.";
     if ("category" in fieldValues)
       temp.category = fieldValues.category ? "" : "This field is required.";
+    if ("location" in fieldValues)
+      temp.location = fieldValues.location ? "" : "This field is required.";
+    if ("fee" in fieldValues)
+      temp.fee = fieldValues.fee ? "" : "This field is required.";
+    if ("openTime" in fieldValues)
+      temp.openTime = fieldValues.openTime ? "" : "This field is required.";
+    if ("closeTime" in fieldValues)
+      temp.closeTime = fieldValues.closeTime ? "" : "This field is required.";
     setErrors({
       ...temp,
     });
@@ -100,8 +112,50 @@ const LeisureForm = ({ currentId, setCurrentId, setOpenPopup }) => {
             onChange={handleInputChange}
             error={errors.details}
             multiline
+            minRows={3}
             maxRows={6}
             required
+          />
+          <Custom.Input
+            name="location"
+            label="Location"
+            value={values.location}
+            onChange={handleInputChange}
+            error={errors.location}
+            required
+          />
+          <Custom.Input
+            name="fee"
+            label="Fee"
+            value={values.fee}
+            onChange={handleInputChange}
+            error={errors.fee}
+            placeholder="RM"
+            required
+          />
+          <Custom.Input
+            name="openTime"
+            type="time"
+            label="Opening Time"
+            value={values.openTime}
+            onChange={handleInputChange}
+            error={errors.openTime}
+            required
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
+          <Custom.Input
+            name="closeTime"
+            type="time"
+            label="Closing Time"
+            value={values.closeTime}
+            onChange={handleInputChange}
+            error={errors.closeTime}
+            required
+            InputLabelProps={{
+              shrink: true,
+            }}
           />
           <Select
             name="category"
@@ -110,6 +164,7 @@ const LeisureForm = ({ currentId, setCurrentId, setOpenPopup }) => {
             onChange={handleInputChange}
             options={getCategory}
             error={errors.category}
+            required
           />
           <div className={classes.fileInput}>
             <FileBase

@@ -9,7 +9,7 @@ const router = express.Router();
 export const getClubList = async (req, res) => {
   const { page } = req.query;
   try {
-    const LIMIT = 8;
+    const LIMIT = 6;
     const startIndex = (Number(page) - 1) * LIMIT; // get the starting index of every page
     const total = await ClubMessage.countDocuments({});
     const clubs = await ClubMessage.find()
@@ -63,10 +63,40 @@ export const getClubsBySearch = async (req, res) => {
 };
 
 export const addClub = async (req, res) => {
-  const club = req.body;
+  const {
+    title,
+    about,
+    event,
+    contact,
+    website,
+    insta,
+    email,
+    fb,
+    utube,
+    linkedin,
+    img,
+    clublink,
+    avgRating,
+  } = req.body;
+  const existingClub = await ClubMessage.findOne({ title });
 
+  if (existingClub) {
+    return res.status(400).send("Club is already exist.");
+  }
   const newClub = new ClubMessage({
-    ...club,
+    title,
+    about,
+    event,
+    contact,
+    website,
+    insta,
+    email,
+    fb,
+    utube,
+    linkedin,
+    img,
+    clublink,
+    avgRating,
   });
 
   try {

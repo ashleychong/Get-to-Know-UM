@@ -62,7 +62,7 @@ const SideBar = (props) => {
     {
       text: "Dashboard",
       icon: <DashboardOutlined />,
-      path: "#",
+      path: "/admin/dashboard",
     },
     {
       text: "Forum",

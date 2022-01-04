@@ -69,27 +69,29 @@ const PlanCal = () => {
       </Typography>
       <Custom.Form className={classes.cal}>
         <div className={classes.text}>
-          <Typography className={classes.title2}>Current GPA</Typography>
+          <Typography className={classes.title2}>Cumulative GPA</Typography>
           <Custom.Input
             required
             name="curGPA"
             value={values.curGPA}
             onChange={handleInputChange}
             error={errors.curGPA}
+            helperText="*Your current Cumulative GPA"
           />
         </div>
         <div className={classes.text}>
-          <Typography className={classes.title2}>Target GPA</Typography>
+          <Typography className={classes.title2}>Desired GPA</Typography>
           <Custom.Input
             required
             name="targetGPA"
             value={values.targetGPA}
             onChange={handleInputChange}
             error={errors.targetGPA}
+            helperText="*GPA that you wish to achieve."
           />
         </div>
         <div className={classes.text}>
-          <Typography className={classes.title2}>Current Credit</Typography>
+          <Typography className={classes.title2}>Credits earned:</Typography>
           <Custom.Input
             required
             name="curCdt"
@@ -98,10 +100,11 @@ const PlanCal = () => {
             value={values.curCdt}
             onChange={handleInputChange}
             error={errors.curCdt}
+            helperText="*Total credit hours that you have."
           />
         </div>
         <div className={classes.text}>
-          <Typography className={classes.title2}>Additional Credit</Typography>
+          <Typography className={classes.title2}>Planned Credit</Typography>
           <Custom.Input
             required
             name="addCdt"
@@ -110,6 +113,7 @@ const PlanCal = () => {
             value={values.addCdt}
             onChange={handleInputChange}
             error={errors.addCdt}
+            helperText="*Total credit hours of this semester."
           />
         </div>
         <div className={classes.btnGroup}>
@@ -136,10 +140,10 @@ const PlanCal = () => {
         <Card variant="outlined" className={classes.card2}>
           <CardContent className={classes.content}>
             <Typography variant="h6" className={classes.wording}>
-              Minimum GPA required to raise/maintain GPA is
+              {planGPA > 4 ? "" : "Minimum GPA required in this semester is"}
             </Typography>
             <Typography variant="h5" className={classes.gpa2}>
-              {planGPA}
+              {planGPA > 4 ? "GPA > 4.00. Try to lower your target." : planGPA}
             </Typography>
           </CardContent>
         </Card>

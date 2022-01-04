@@ -9,3 +9,5 @@ export const FETCH_LEISURE_TABLE = "FETCH_LEISURE_TABLE";
 export const UPDATE_EXP = "UPDATE_EXP";
 export const FETCH_EXP_TABLE = "FETCH_EXP_TABLE";
 export const DELETE_EXP = "DELETE_EXP";
+export const END_LOADING = "END_LOADING";
+export const START_LOADING = "START_LOADING";

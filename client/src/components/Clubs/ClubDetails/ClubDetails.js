@@ -73,229 +73,234 @@ const ClubDetails = () => {
   };
 
   return (
-    <Paper style={{ padding: "20px" }}>
-      <div className={classes.card}>
-        <div className={classes.section}>
-          <div className={classes.imageSection}>
-            <img
-              style={{ objectFit: "cover" }}
-              className={classes.media}
-              src={club.img}
-              alt={club.title}
-            />
-          </div>
-          <Typography className={classes.title} variant="h4">
-            {club.title}
-          </Typography>
-          <Divider style={{ marginTop: "20px" }} />
-          <Box sx={{ width: "100%", typography: "body1" }}>
-            <TabContext value={value}>
-              <Box
-                sx={{ borderBottom: 1, borderColor: "divider" }}
-                style={{ textAlign: "center" }}
-              >
-                <TabList
-                  onChange={handleChange}
-                  TabIndicatorProps={{
-                    style: {
-                      backgroundColor: "#333996",
-                    },
-                  }}
+    <>
+      <div style={{ marginBottom: "20px" }}></div>
+      <Paper style={{ padding: "20px", margin: "0 10vw" }}>
+        <div className={classes.card}>
+          <div className={classes.section}>
+            <div className={classes.imageSection}>
+              <img
+                style={{ objectFit: "cover" }}
+                className={classes.media}
+                src={club.img}
+                alt={club.title}
+              />
+            </div>
+            <Typography className={classes.title} variant="h4">
+              {club.title}
+            </Typography>
+            <Divider style={{ marginTop: "20px" }} />
+            <Box sx={{ width: "100%", typography: "body1" }}>
+              <TabContext value={value}>
+                <Box
+                  sx={{ borderBottom: 1, borderColor: "divider" }}
+                  style={{ textAlign: "center" }}
                 >
-                  <Tab label="About" value="1" />
-                  <Tab label="Event" value="2" />
-                  <Tab label="Contact" value="3" />
-                  <Tab label="Review" value="4" />
-                  <Tab label="Registration" value="5" />
-                </TabList>
-              </Box>
-              <TabPanel value="1">
-                <Typography className={classes.details}>
-                  {club.about}
-                </Typography>
-              </TabPanel>
-              <TabPanel value="2">
-                <Grid container spacing={5}>
-                  <Grid item xs={6} style={{ margin: "auto" }}>
-                    {events.map((event, index) => (
-                      <Card
-                        key={index}
-                        style={{
-                          display: "flex",
-                          flexDirection: "row",
-                        }}
-                      >
-                        <CardContent>
-                          <Typography
-                            color="textSecondary"
-                            style={{ fontSize: "17px" }}
-                          >
-                            {index + 1}
-                          </Typography>
-                        </CardContent>
-                        <div className={classes.desc}>
-                          <Typography variant="body1">{event}</Typography>
-                        </div>
-                      </Card>
-                    ))}
-                  </Grid>
-                </Grid>
-              </TabPanel>
-              <TabPanel value="3">
-                <Typography className={classes.details}>
-                  For any enquiries, please follow and contact us :
-                </Typography>
-                {club.website && (
-                  <div className={classes.contact}>
-                    <ButtonBase onClick={() => window.open(club?.website)}>
-                      <LanguageRounded /> &nbsp;&nbsp;&nbsp;{" "}
-                      <Typography> Website </Typography>
-                    </ButtonBase>
-                  </div>
-                )}
-                {club.insta && (
-                  <div className={classes.contact}>
-                    <ButtonBase onClick={() => window.open(club?.insta)}>
-                      <LanguageRounded /> &nbsp;&nbsp;&nbsp;{" "}
-                      <Typography> Instagram</Typography>
-                    </ButtonBase>
-                  </div>
-                )}
-                {club.fb && (
-                  <div className={classes.contact}>
-                    <ButtonBase onClick={() => window.open(club?.fb)}>
-                      <LanguageRounded /> &nbsp;&nbsp;&nbsp;{" "}
-                      <Typography> Facebook</Typography>
-                    </ButtonBase>
-                  </div>
-                )}
-                {club.utube && (
-                  <div className={classes.contact}>
-                    <ButtonBase onClick={() => window.open(club?.utube)}>
-                      <LanguageRounded /> &nbsp;&nbsp;&nbsp;{" "}
-                      <Typography> Youtube</Typography>
-                    </ButtonBase>
-                  </div>
-                )}
-                {club.linkedin && (
-                  <div className={classes.contact}>
-                    <ButtonBase onClick={() => window.open(club?.linkedin)}>
-                      <LanguageRounded /> &nbsp;&nbsp;&nbsp;{" "}
-                      <Typography> LinkedIn</Typography>
-                    </ButtonBase>
-                  </div>
-                )}
-                {club.email && (
-                  <div className={classes.email}>
-                    <MailOutlineRounded />
-                    <Typography>&nbsp;&nbsp;{club.email} </Typography>
-                  </div>
-                )}
-                {club.contact && (
-                  <div className={classes.email}>
-                    <LocalPhoneRounded />
-                    <Typography>&nbsp;&nbsp;{club.contact} </Typography>
-                  </div>
-                )}
-              </TabPanel>
-              <TabPanel value="4">
-                <Card className={classes.reviewsCard}>
-                  <div style={{ display: "flex", flexDirection: "row" }}>
-                    <Typography variant="h5" style={{ padding: "20px" }}>
-                      Rating :{" "}
-                    </Typography>
-                    <div className={classes.reviewBtn}>
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        size="small"
-                        onClick={() => {
-                          setOpenPopup(true);
-                        }}
-                      >
-                        Write a review
-                      </Button>
-                    </div>
-                  </div>
-                  <div className={classes.clubInfo} mb={2}>
-                    <Box className={classes.avgRating} ml={1}>
-                      {club?.avgRating?.toFixed(1)}
-                    </Box>
-                    <Box>
-                      <Rating
-                        value={club?.avgRating || 0}
-                        precision={0.1}
-                        readOnly
-                        size="large"
-                      />
-                    </Box>
-                  </div>
-
-                  <Reviews editInPopup={editInPopup} clubId={clubId} />
-                  <ReviewPopup
-                    openPopup={openPopup}
-                    setOpenPopup={setOpenPopup}
-                    clubId={clubId}
-                    currentReviewId={currentReviewId}
-                    setCurrentReviewId={setCurrentReviewId}
-                  />
-                </Card>
-              </TabPanel>
-              <TabPanel value="5">
-                {club.clublink && (
-                  <div>
-                    <Typography className={classes.details}>
-                      If you are interested, please join us :
-                    </Typography>
-                    <div className={classes.button}>
-                      <Button
-                        className={classes.submitButton}
-                        variant="contained"
-                        color="primary"
-                        size="medium"
-                        onClick={handleJoinClub}
-                      >
-                        Join Club
-                      </Button>
-                      <Dialog
-                        open={open}
-                        maxWidth="md"
-                        classes={{ paper: classes.dialogWrapper }}
-                      >
-                        <DialogTitle className={classes.dialogTitle}>
-                          <div style={{ display: "flex" }}>
+                  <TabList
+                    onChange={handleChange}
+                    TabIndicatorProps={{
+                      style: {
+                        backgroundColor: "#333996",
+                        color: "#333996",
+                      },
+                    }}
+                  >
+                    <Tab label="About" value="1" />
+                    <Tab label="Event" value="2" />
+                    <Tab label="Contact" value="3" />
+                    <Tab label="Review" value="4" />
+                    <Tab label="Registration" value="5" />
+                  </TabList>
+                </Box>
+                <TabPanel value="1">
+                  <Typography className={classes.details}>
+                    {club.about}
+                  </Typography>
+                </TabPanel>
+                <TabPanel value="2">
+                  <Grid container spacing={5}>
+                    <Grid item xs={6} style={{ margin: "auto" }}>
+                      {events.map((event, index) => (
+                        <Card
+                          key={index}
+                          style={{
+                            display: "flex",
+                            flexDirection: "row",
+                          }}
+                        >
+                          <CardContent>
                             <Typography
-                              variant="h6"
-                              component="div"
-                              style={{ flexGrow: 1 }}
+                              color="textSecondary"
+                              style={{ fontSize: "17px" }}
                             >
-                              Join {club.title}
+                              {index + 1}
                             </Typography>
-                            <Button
-                              color="secondary"
-                              onClick={() => {
-                                setOpen(false);
-                              }}
-                            >
-                              <CloseIcon />
-                            </Button>
+                          </CardContent>
+                          <div className={classes.desc}>
+                            <Typography variant="body1">{event}</Typography>
                           </div>
-                        </DialogTitle>
-                        <DialogContent dividers>
-                          <Typography variant="h6" align="center">
-                            Please sign in to join.
-                          </Typography>
-                        </DialogContent>
-                      </Dialog>
+                        </Card>
+                      ))}
+                    </Grid>
+                  </Grid>
+                </TabPanel>
+                <TabPanel value="3">
+                  <Typography className={classes.details}>
+                    For any enquiries, please follow and contact us :
+                  </Typography>
+                  {club.website && (
+                    <div className={classes.contact}>
+                      <ButtonBase onClick={() => window.open(club?.website)}>
+                        <LanguageRounded /> &nbsp;&nbsp;&nbsp;{" "}
+                        <Typography> Website </Typography>
+                      </ButtonBase>
                     </div>
-                  </div>
-                )}
-              </TabPanel>
-            </TabContext>
-          </Box>
+                  )}
+                  {club.insta && (
+                    <div className={classes.contact}>
+                      <ButtonBase onClick={() => window.open(club?.insta)}>
+                        <LanguageRounded /> &nbsp;&nbsp;&nbsp;{" "}
+                        <Typography> Instagram</Typography>
+                      </ButtonBase>
+                    </div>
+                  )}
+                  {club.fb && (
+                    <div className={classes.contact}>
+                      <ButtonBase onClick={() => window.open(club?.fb)}>
+                        <LanguageRounded /> &nbsp;&nbsp;&nbsp;{" "}
+                        <Typography> Facebook</Typography>
+                      </ButtonBase>
+                    </div>
+                  )}
+                  {club.utube && (
+                    <div className={classes.contact}>
+                      <ButtonBase onClick={() => window.open(club?.utube)}>
+                        <LanguageRounded /> &nbsp;&nbsp;&nbsp;{" "}
+                        <Typography> Youtube</Typography>
+                      </ButtonBase>
+                    </div>
+                  )}
+                  {club.linkedin && (
+                    <div className={classes.contact}>
+                      <ButtonBase onClick={() => window.open(club?.linkedin)}>
+                        <LanguageRounded /> &nbsp;&nbsp;&nbsp;{" "}
+                        <Typography> LinkedIn</Typography>
+                      </ButtonBase>
+                    </div>
+                  )}
+                  {club.email && (
+                    <div className={classes.email}>
+                      <MailOutlineRounded />
+                      <Typography>&nbsp;&nbsp;{club.email} </Typography>
+                    </div>
+                  )}
+                  {club.contact && (
+                    <div className={classes.email}>
+                      <LocalPhoneRounded />
+                      <Typography>&nbsp;&nbsp;{club.contact} </Typography>
+                    </div>
+                  )}
+                </TabPanel>
+                <TabPanel value="4">
+                  <Card className={classes.reviewsCard}>
+                    <div style={{ display: "flex", flexDirection: "row" }}>
+                      <Typography variant="h5" style={{ padding: "20px" }}>
+                        Rating :{" "}
+                      </Typography>
+                      <div className={classes.reviewBtn}>
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          size="small"
+                          onClick={() => {
+                            setOpenPopup(true);
+                          }}
+                        >
+                          Write a review
+                        </Button>
+                      </div>
+                    </div>
+                    <div className={classes.clubInfo} mb={2}>
+                      <Box className={classes.avgRating} ml={1}>
+                        {club?.avgRating?.toFixed(1)}
+                      </Box>
+                      <Box>
+                        <Rating
+                          value={club?.avgRating || 0}
+                          precision={0.1}
+                          readOnly
+                          size="large"
+                        />
+                      </Box>
+                    </div>
+
+                    <Reviews editInPopup={editInPopup} clubId={clubId} />
+                    <ReviewPopup
+                      openPopup={openPopup}
+                      setOpenPopup={setOpenPopup}
+                      clubId={clubId}
+                      currentReviewId={currentReviewId}
+                      setCurrentReviewId={setCurrentReviewId}
+                    />
+                  </Card>
+                </TabPanel>
+                <TabPanel value="5">
+                  {club.clublink && (
+                    <div>
+                      <Typography className={classes.details}>
+                        If you are interested, please join us :
+                      </Typography>
+                      <div className={classes.button}>
+                        <Button
+                          className={classes.submitButton}
+                          variant="contained"
+                          color="primary"
+                          size="medium"
+                          onClick={handleJoinClub}
+                        >
+                          Join Club
+                        </Button>
+                        <Dialog
+                          open={open}
+                          maxWidth="md"
+                          classes={{ paper: classes.dialogWrapper }}
+                        >
+                          <DialogTitle className={classes.dialogTitle}>
+                            <div style={{ display: "flex" }}>
+                              <Typography
+                                variant="h6"
+                                component="div"
+                                style={{ flexGrow: 1 }}
+                              >
+                                Join {club.title}
+                              </Typography>
+                              <Button
+                                color="secondary"
+                                onClick={() => {
+                                  setOpen(false);
+                                }}
+                              >
+                                <CloseIcon />
+                              </Button>
+                            </div>
+                          </DialogTitle>
+                          <DialogContent dividers>
+                            <Typography variant="h6" align="center">
+                              Please sign in to join.
+                            </Typography>
+                          </DialogContent>
+                        </Dialog>
+                      </div>
+                    </div>
+                  )}
+                </TabPanel>
+              </TabContext>
+            </Box>
+          </div>
         </div>
-      </div>
-    </Paper>
+      </Paper>
+      <div style={{ marginBottom: "20px" }}></div>
+    </>
   );
 };
 export default ClubDetails;

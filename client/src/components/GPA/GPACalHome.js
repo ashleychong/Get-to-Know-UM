@@ -7,6 +7,7 @@ import TabPanel from "@material-ui/lab/TabPanel";
 import Calc from "./calculator";
 import useStyles from "./style";
 import PlanCal from "./PlanCal";
+import PageHeader from "../PageHeader";
 
 const GPACalHome = () => {
   const classes = useStyles();
@@ -18,6 +19,7 @@ const GPACalHome = () => {
 
   return (
     <>
+      <PageHeader title="GPA Calculator" />
       <Paper className={classes.paper} elevation={3}>
         <TabContext value={value}>
           <Box sx={{ borderBottom: 1, borderColor: "divider" }}>

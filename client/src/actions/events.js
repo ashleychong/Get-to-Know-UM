@@ -12,6 +12,8 @@ import {
   FAV,
   FETCH_FAV_EVENTS,
   FETCH_BY_TAG_EVENT,
+  FETCH_THIS_MONTH,
+  FETCH_BY_DATE_RANGE,
 } from "../constants/actionTypes";
 
 //Action Creators are function that return an action
@@ -86,6 +88,32 @@ export const getEventsByTag = (tag) => async (dispatch) => {
     dispatch({ type: END_LOADING });
   } catch (error) {
     console.log(error.message);
+  }
+};
+
+export const getThisMonthEvents = (page) => async (dispatch) => {
+  try {
+    dispatch({ type: START_LOADING });
+
+    const { data } = await api.getThisMonthEvents(page);
+    console.log(data);
+    dispatch({ type: FETCH_THIS_MONTH, payload: data });
+    dispatch({ type: END_LOADING });
+  } catch (error) {
+    console.log(error.response);
+  }
+};
+
+export const getEventsByDateRange = (date, page) => async (dispatch) => {
+  try {
+    dispatch({ type: START_LOADING });
+
+    const { data } = await api.getEventsByDateRange(date, page);
+    console.log(data);
+    dispatch({ type: FETCH_BY_DATE_RANGE, payload: data });
+    dispatch({ type: END_LOADING });
+  } catch (error) {
+    console.log(error.response);
   }
 };
 

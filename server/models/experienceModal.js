@@ -10,7 +10,13 @@ const expSchema = mongoose.Schema({
     type: [String],
     default: [],
   },
-  status: String,
+  status: {
+    type: String,
+    default: "pending",
+  },
+  location: String,
+  charge: Number,
+  duration: Number,
 });
 
 const Experience = mongoose.model("Experience", expSchema);

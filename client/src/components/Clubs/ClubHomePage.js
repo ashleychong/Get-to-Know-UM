@@ -5,6 +5,7 @@ import Search from "./Search/Search";
 import Pagination from "./Pagination";
 import { useLocation } from "react-router-dom";
 import useStyles from "./style";
+import PageHeader from "../PageHeader";
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -17,8 +18,11 @@ const ClubHomePage = () => {
   const searchQuery = query.get("searchQuery");
   return (
     <>
+      <PageHeader title="Club" />
       <Search />
-      <Clubs />
+      <div className={classes.container}>
+        <Clubs />
+      </div>
       {!searchQuery && (
         <Grid className={classes.pagination}>
           <Pagination page={page} />

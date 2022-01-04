@@ -23,26 +23,30 @@ const EventDetails = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    dispatch(getEvent(id));
-  }, [id]);
-
-  useEffect(() => {
     if (event) {
       dispatch(getEventsByTag({ search: event?.tags }));
     }
   }, [event]);
 
+  useEffect(() => {
+    dispatch(getEvent(id));
+  }, [id]);
+
   if (!event) return null;
+
+  const openEvent = (_id) => history.push(`/event/${_id}`);
 
   const recommendedEvents = events
     .filter(({ _id }) => _id !== event._id)
     .slice(0, 6);
 
-  const openEvent = (_id) => history.push(`/event/${_id}`);
+  const reLength = recommendedEvents.length;
+  const today = new Date().toISOString();
 
   return (
-    <Paper style={{ padding: "20px" }} elevation={6}>
-      <div className={classes.card}>
+    <>
+      <div style={{ marginBottom: "20px" }}></div>
+      <Paper style={{ padding: "20px", margin: "0 10vw" }}>
         <div className={classes.section}>
           <div className={classes.header}>
             <div className={classes.imageSection}>
@@ -56,28 +60,26 @@ const EventDetails = () => {
             <Typography
               className={classes.title}
               variant="h4"
-              style={{ margin: "auto" }}
+              style={{ marginLeft: "50px" }}
             >
               {event.title}
-              <Typography
-                gutterBottom
-                color="textSecondary"
-                variant="body1"
-                component="p"
-              >
+              <Typography color="textSecondary" variant="body1">
                 #{event.tags}
+              </Typography>
+              <Typography gutterBottom style={{}}>
+                {/* {event.startDate - today} days to go... */}
               </Typography>
             </Typography>
           </div>
-          <Divider style={{ margin: "20px 0" }} />
+          <Divider style={{ margin: "16px 0" }} />
 
-          <Grid className={classes.grid} container spacing={5}>
+          <Grid container spacing={5}>
             <Grid item xs={12}>
               <Card className={classes.card}>
-                <CardContent style={{}}>
+                <CardContent>
                   <Typography
-                    color="textSecondary"
-                    style={{ fontSize: "17px" }}
+                    color="primary"
+                    style={{ fontSize: "17px", fontWeight: "bold" }}
                   >
                     Description
                   </Typography>
@@ -89,8 +91,8 @@ const EventDetails = () => {
               <Card className={classes.card}>
                 <CardContent>
                   <Typography
-                    color="textSecondary"
-                    style={{ fontSize: "17px" }}
+                    color="primary"
+                    style={{ fontSize: "17px", fontWeight: "bold" }}
                   >
                     Date
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -106,8 +108,8 @@ const EventDetails = () => {
               <Card className={classes.card}>
                 <CardContent>
                   <Typography
-                    color="textSecondary"
-                    style={{ fontSize: "17px" }}
+                    color="primary"
+                    style={{ fontSize: "17px", fontWeight: "bold" }}
                   >
                     Venue&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                   </Typography>
@@ -119,8 +121,34 @@ const EventDetails = () => {
               <Card className={classes.card}>
                 <CardContent>
                   <Typography
-                    color="textSecondary"
-                    style={{ fontSize: "17px" }}
+                    color="primary"
+                    style={{ fontSize: "17px", fontWeight: "bold" }}
+                  >
+                    Audience&nbsp;&nbsp;&nbsp;
+                  </Typography>
+                </CardContent>
+                <div className={classes.desc}>
+                  <Typography variant="body1">{event.audience}</Typography>
+                </div>
+              </Card>
+              <Card className={classes.card}>
+                <CardContent>
+                  <Typography
+                    color="primary"
+                    style={{ fontSize: "17px", fontWeight: "bold" }}
+                  >
+                    Fee&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  </Typography>
+                </CardContent>
+                <div className={classes.desc}>
+                  <Typography variant="body1">RM{event.fee}</Typography>
+                </div>
+              </Card>
+              <Card className={classes.card}>
+                <CardContent>
+                  <Typography
+                    color="primary"
+                    style={{ fontSize: "17px", fontWeight: "bold" }}
                   >
                     Contact&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                   </Typography>
@@ -131,29 +159,35 @@ const EventDetails = () => {
               </Card>
             </Grid>
           </Grid>
-        </div>
-      </div>
-      {!!recommendedEvents.length && (
-        <div className={classes.section}>
-          <Divider style={{ margin: "20px 0" }} />
-          <Typography variant="h5">You might also like:</Typography>
 
-          <Grid container alignItems="stretch" style={{ paddingTop: "1vh" }}>
-            {recommendedEvents.map((event) => (
+          {!!reLength && (
+            <div className={classes.recommendSection}>
+              <Divider style={{ margin: "20px 0" }} />
+              <Typography variant="h5">You might also like:</Typography>
+
               <Grid
-                key={event._id}
-                item
-                lg={2}
-                style={{ cursor: "pointer" }}
-                onClick={() => openEvent(event._id)}
+                container
+                alignItems="stretch"
+                style={{ paddingTop: "1vh" }}
               >
-                <RecommendEvent event={event} />
+                {recommendedEvents.map((event) => (
+                  <Grid
+                    key={event._id}
+                    item
+                    lg={3}
+                    style={{ cursor: "pointer" }}
+                    onClick={() => openEvent(event._id)}
+                  >
+                    <RecommendEvent event={event} />
+                  </Grid>
+                ))}
               </Grid>
-            ))}
-          </Grid>
+            </div>
+          )}
         </div>
-      )}
-    </Paper>
+      </Paper>
+      <div style={{ marginBottom: "20px" }}></div>
+    </>
   );
 };
 export default EventDetails;

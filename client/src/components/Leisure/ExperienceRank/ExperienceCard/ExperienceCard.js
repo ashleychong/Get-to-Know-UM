@@ -9,6 +9,10 @@ import {
   Grid,
   Box,
 } from "@material-ui/core";
+
+import RoomIcon from "@material-ui/icons/Room";
+import AccessTimeIcon from "@material-ui/icons/AccessTime";
+import LocalAtmIcon from "@material-ui/icons/LocalAtm";
 import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 import ThumbUpAltOutlined from "@material-ui/icons/ThumbUpAltOutlined";
 import useStyles from "./style";
@@ -46,14 +50,48 @@ const ExperienceCard = (props) => {
     );
   };
 
+  const Rank = (index) => {
+    if (index == 1) {
+      return (
+        <img
+          style={{ height: "50px", width: "60px ", margin: "auto" }}
+          src="https://cdn-icons-png.flaticon.com/512/2583/2583344.png"
+        />
+      );
+    } else {
+      return (
+        <Typography className={classes.ranking} variant="h4">
+          {index}
+        </Typography>
+      );
+    }
+  };
+
   return (
     <>
-      <Grid className={classes.grid} container spacing={5}>
+      <Grid className={classes.grid} container>
         <Grid item xs={12}>
           <div className={classes.position}>
-            <Typography className={classes.ranking} variant="h4">
-              {index}
-            </Typography>
+            {index > 3 ? (
+              <Typography className={classes.ranking} variant="h4">
+                {index}
+              </Typography>
+            ) : index == 1 ? (
+              <img
+                style={{ height: "50px", width: "60px ", margin: "auto" }}
+                src="https://cdn-icons-png.flaticon.com/512/2583/2583344.png"
+              />
+            ) : index == 2 ? (
+              <img
+                style={{ height: "50px", width: "60px ", margin: "auto" }}
+                src="https://cdn-icons-png.flaticon.com/512/2583/2583319.png"
+              />
+            ) : (
+              <img
+                style={{ height: "50px", width: "60px ", margin: "auto" }}
+                src="https://cdn-icons-png.flaticon.com/512/2583/2583434.png"
+              />
+            )}
 
             <Card className={classes.card}>
               <CardMedia
@@ -64,8 +102,12 @@ const ExperienceCard = (props) => {
 
               <Box className={classes.box}>
                 <div className={classes.details}>
-                  <CardContent className={classes.content}>
-                    <Typography component="h5" variant="h5">
+                  <CardContent>
+                    <Typography
+                      variant="h5"
+                      color="primary"
+                      style={{ fontWeight: "bold" }}
+                    >
                       {exp.title}{" "}
                       <Button
                         className={classes.btn}
@@ -79,9 +121,43 @@ const ExperienceCard = (props) => {
                     </Typography>
                   </CardContent>
                   <div className={classes.desc}>
-                    <Typography variant="body1" color="textSecondary">
-                      {exp.description}
-                    </Typography>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                      }}
+                    >
+                      <RoomIcon style={{ color: "red" }} />
+                      <Typography style={{ color: "grey" }}>
+                        &nbsp;&nbsp;{exp.location}
+                      </Typography>
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                      }}
+                    >
+                      <LocalAtmIcon style={{ color: "green" }} />
+                      <Typography style={{ color: "grey" }}>
+                        &nbsp;&nbsp;
+                        {exp.charge == 0 ? "Free" : `RM${exp.charge}`}
+                      </Typography>
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                      }}
+                    >
+                      <AccessTimeIcon style={{ color: "indigo" }} />
+                      <Typography style={{ color: "grey" }}>
+                        &nbsp;&nbsp;{exp.duration} mins
+                      </Typography>
+                    </div>
+                    <Typography variant="body1">{exp.description}</Typography>
+
+                    <Typography></Typography>
                   </div>
                 </div>
               </Box>

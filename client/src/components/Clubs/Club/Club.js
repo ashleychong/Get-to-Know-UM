@@ -14,7 +14,7 @@ const Club = ({ club, setCurrentId }) => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const history = useHistory();
-  const openClub = () => history.push(`club/${club._id}`);
+  const openClub = () => history.push(`/club/${club._id}`);
 
   return (
     <Card className={classes.card}>

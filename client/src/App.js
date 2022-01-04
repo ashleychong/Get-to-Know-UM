@@ -43,7 +43,9 @@ import ForumReportsHome from "./components/Admin/ForumReports/ForumReportsHome";
 import RequestResetPassword from "./components/Auth/RequestResetPassword";
 import VerifyResetPasswordLink from "./components/Auth/VerifyResetPasswordLink";
 import ResetPasswordError from "./components/Auth/ResetPasswordError";
-import NotFound from "./components/ErrorPage/404";
+// import NotFound from "./components/ErrorPage/404";
+import NotFound from "./components/NotFound";
+import Dashboard from "./components/Admin/Dashboard/Dashboard";
 
 const theme = createTheme({
   typography: {
@@ -78,6 +80,7 @@ function App() {
             <Switch>
               <Route path="/auth" exact component={() => (!user ? <Auth /> : <Redirect to="/admin/courses" />)} />
               <Route path="/" exact component={() => <Redirect to="/admin/courses" />} />
+              <Route path="/admin/dashboard" exact component={Dashboard} />
               <Route path="/admin/profile" exact component={UserProfile} />
               <Route path="/admin/club/:page?" component={ClubHome} />
               <Route path="/admin/event" exact component={EventHome} />
@@ -113,6 +116,8 @@ function App() {
               <Route path="/food" exact component={Food} />
               <Route path="/event" exact component={EventHomePage} />
               <Route path="/event/search" exact component={EventHomePage} />
+              <Route path="/event/month" exact component={EventHomePage} />
+              <Route path="/event/range" exact component={EventHomePage} />
               <Route path="/event/fav" exact component={FavEvent} />
               <Route path="/cafe/:cafeId" exact component={CafeDetails} />
               <Route path="/cafe" exact component={CafeHome} />
@@ -131,7 +136,6 @@ function App() {
             </Switch>
           )}
           <Route path="/" exact component={() => isAdmin ? ( <AdminCourseHome /> ) : ( <Redirect to="/home" /> )}/>
-          {/* <Route path="/" exact component={() => <Redirect to="/home" />} /> */}
         </>
       </ThemeProvider>
     </BrowserRouter>

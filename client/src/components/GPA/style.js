@@ -40,7 +40,7 @@ export default makeStyles(() => ({
     display: "flex",
     flexDirection: "row",
     justifyContent: "center",
-    margin: "10px 0 10px 0",
+    margin: "20px 0 10px 0",
   },
   card: {
     border: "2px dashed grey",

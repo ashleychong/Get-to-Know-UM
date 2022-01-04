@@ -5,6 +5,10 @@ const leisureSchema = mongoose.Schema({
   details: [String],
   category: String,
   img: String,
+  location: String,
+  fee: String,
+  openTime: String,
+  closeTime: String,
 });
 
 const Leisure = mongoose.model("Leisure", leisureSchema);

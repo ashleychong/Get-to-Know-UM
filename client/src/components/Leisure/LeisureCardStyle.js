@@ -8,7 +8,7 @@ export default makeStyles((theme) => ({
     display: "flex",
     position: "relative",
     margin: "0 140px",
-    height: "200px",
+    height: "250px",
   },
   box: {
     width: "fit-content",
@@ -22,6 +22,6 @@ export default makeStyles((theme) => ({
     width: "200px",
   },
   desc: {
-    padding: theme.spacing(2),
+    padding: "0 16px 16px 16px",
   },
 }));

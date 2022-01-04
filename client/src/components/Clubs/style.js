@@ -6,4 +6,12 @@ export default makeStyles((theme) => ({
     display: "flex",
     margin: "10px 0",
   },
+  container: {
+    [theme.breakpoints.down("sm")]: {
+      margin: theme.spacing(3),
+    },
+    [theme.breakpoints.up("sm")]: {
+      margin: "24px 10vw",
+    },
+  },
 }));
