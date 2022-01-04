@@ -7,7 +7,6 @@ import {
   Grid,
   Divider,
   Typography,
-  Paper,
   CircularProgress,
   Box,
 } from "@material-ui/core";
@@ -18,7 +17,6 @@ import {
   approveFoodNomimation,
   declineFoodNomimation,
 } from "../../../actions/foodNominations";
-import { createFood } from "../../../actions/food";
 import Custom from "../../Custom/Custom";
 import Layout from "../Layout/Layout";
 import PageHeader from "../../PageHeader";
@@ -54,18 +52,19 @@ const FoodNominationDetails = () => {
 
   return isLoading ? (
     <Layout>
-      <Paper elevation={6}>
-        <CircularProgress size="7em" />
-      </Paper>
+      <Box ml={5} mt={5}>
+        <CircularProgress />
+      </Box>
     </Layout>
   ) : (
     <>
       <Layout>
-        <PageHeader title="Food Approval Request" />
-        {/* <div className={classes.header}>
-          <Typography variant="h4">Food Approval Request</Typography>
-        </div> */}
-        <Box mt={4} mb={2}>
+        <Box className={classes.root}>
+          <div className={classes.header}>
+            <Typography style={{ fontWeight: 500 }} variant="h4">
+              Food Approval Request
+            </Typography>
+          </div>
           <Grid container spacing={1}>
             <Grid item xs={12} md={4}>
               <div className={classes.detailsImgCtn}>
@@ -111,20 +110,16 @@ const FoodNominationDetails = () => {
                     </Box>
                   </Box>
                   <div style={({ display: "flex" }, { textAlign: "center" })}>
-                    <Custom.ActionButton
-                      color="approval"
+                    <Custom.Button
+                      color="primary"
                       onClick={() => handleApproval()}
-                      className={classes.btn}
-                    >
-                      approve
-                    </Custom.ActionButton>
-                    <Custom.ActionButton
-                      color="decline"
-                      className={classes.btn}
-                      onclick={() => handleDeclination()}
-                    >
-                      decline
-                    </Custom.ActionButton>
+                      text="Approve"
+                    />
+                    <Custom.Button
+                      color="secondary"
+                      text="Decline"
+                      onClick={() => handleDeclination()}
+                    />
                   </div>
                 </CardContent>
               </Card>

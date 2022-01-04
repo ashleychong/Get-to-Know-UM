@@ -1,4 +1,3 @@
-// import * as api from "../api/index.js";
 import * as api from "../api/courses.js";
 import {
   START_LOADING,

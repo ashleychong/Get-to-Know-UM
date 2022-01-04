@@ -1,38 +1,38 @@
 import { makeStyles } from "@material-ui/core/styles";
 
 export default makeStyles((theme) => ({
-    MuiEngagementCard: {
-        transition: "0.3s",
-        maxWidth: 304,
-        margin: "auto",
-        boxShadow: "0 8px 40px -12px rgba(0,0,0,0.3)",
-        "&:hover": {
-            boxShadow: "0 16px 70px -12.125px rgba(0,0,0,0.3)",
-        },
-        MuiCardMediaRoot: {
-            paddingTop: "56.25%",
-        },
-        MuiCardContentRoot: {
-            textAlign: "left",
-            padding: theme.spacing.unit * 3,
-        },
-        MuiDividerRoot: {
-            margin: `${theme.spacing.unit * 3}px 0`,
-        },
-        MuiTypographyHeading: {
-            fontWeight: "bold",
-        },
-        MuiTypographySubheading: {
-            lineHeight: 1.8,
-        },
-        MuiAvatarRoot: {
-            display: "inline-block",
-            border: "2px solid white",
-            "&:not(:first-of-type)": {
-                marginLeft: -theme.spacing.unit,
-            },
-        },
-    }
+  MuiEngagementCard: {
+    transition: "0.3s",
+    maxWidth: 304,
+    margin: "auto",
+    boxShadow: "0 8px 40px -12px rgba(0,0,0,0.3)",
+    "&:hover": {
+      boxShadow: "0 16px 70px -12.125px rgba(0,0,0,0.3)",
+    },
+    MuiCardMediaRoot: {
+      paddingTop: "56.25%",
+    },
+    MuiCardContentRoot: {
+      textAlign: "left",
+      padding: theme.spacing.unit * 3,
+    },
+    MuiDividerRoot: {
+      margin: `${theme.spacing.unit * 3}px 0`,
+    },
+    MuiTypographyHeading: {
+      fontWeight: "bold",
+    },
+    MuiTypographySubheading: {
+      lineHeight: 1.8,
+    },
+    MuiAvatarRoot: {
+      display: "inline-block",
+      border: "2px solid white",
+      "&:not(:first-of-type)": {
+        marginLeft: -theme.spacing.unit,
+      },
+    },
+  },
 }));
 
 /* eslint-disable max-len */
@@ -55,7 +55,6 @@ export default makeStyles((theme) => ({
 
 // const EngagementCard01 = () => {
 //   const classes = useStyles();
-
 
 //   return (
 //   <Card className={classes.MuiEngagementCard}>
@@ -125,5 +124,3 @@ export default makeStyles((theme) => ({
 //   name: "Engagement Card",
 //   description: "Show people's engagement",
 // };
-
-

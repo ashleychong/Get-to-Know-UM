@@ -4,7 +4,12 @@ export default makeStyles((theme) => ({
   container: {
     display: "flex",
     alignItems: "center",
-    padding: "1rem 2rem",
+    [theme.breakpoints.down("sm")]: {
+      padding: "1rem 1rem",
+    },
+    [theme.breakpoints.up("sm")]: {
+      padding: "1rem 2rem",
+    },
   },
   ranking: {
     // textAlign: "center",
@@ -14,7 +19,8 @@ export default makeStyles((theme) => ({
     display: "flex",
     flexWrap: "nowrap",
     [theme.breakpoints.down("sm")]: {
-      marginBottom: "0.8rem",
+      // marginBottom: "0.8rem",
+      alignItems: "center",
     },
     [theme.breakpoints.up("sm")]: {
       alignItems: "center",
@@ -27,13 +33,32 @@ export default makeStyles((theme) => ({
       marginLeft: "1.7rem",
     },
     [theme.breakpoints.up("sm")]: {
+      height: 70,
+      width: 70,
+      marginLeft: "1rem",
+    },
+    [theme.breakpoints.up("md")]: {
       height: 80,
       width: 80,
-      marginLeft: "2.5rem",
+      marginLeft: "1.7rem",
+    },
+  },
+  contentBox: {
+    alignItems: "center",
+    display: "flex",
+    [theme.breakpoints.down("sm")]: {
+      marginLeft: "4px",
+      marginRight: "4px",
+      marginTop: "1rem",
+    },
+    [theme.breakpoints.up("sm")]: {
+      marginLeft: "16px",
+      marginRight: "24px",
+      paddingRight: "8px",
     },
   },
   votes: {
-    color: "#00a1d6",
+    color: "rgba(107,94,250,1)",
     fontWeight: 600,
     fontSize: "1.3rem",
   },

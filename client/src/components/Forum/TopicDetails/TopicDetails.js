@@ -18,15 +18,18 @@ const TopicDetails = () => {
   const { topic, isLoading } = useSelector((state) => state.topics);
   const [openPopup, setOpenPopup] = useState(false);
   const [currentPostId, setCurrentPostId] = useState(0);
+  const user = JSON.parse(localStorage.getItem("profile"));
 
   useEffect(() => {
-    console.log(`Topic id is ${topicId}`);
+    // console.log(`Topic id is ${topicId}`);
     dispatch(getTopic(topicId));
+    dispatch(getPosts(topicId));
+
   },[dispatch]);
 
-  useEffect(() => {
-    dispatch(getPosts(topicId));
-  }, [topic]);
+  // useEffect(() => {
+  //   dispatch(getPosts(topicId));
+  // }, [topic]);
 
   const editInPopup = (post) => {
     setCurrentPostId(post._id);
@@ -48,8 +51,8 @@ const TopicDetails = () => {
   return (
     <>
       <CssBaseline />
-      <Grid container justify="space-between" alignItems="stretch" spacing={3}>
-        <Grid item xs={12} sm={12} md={9} lg={9} xl={9}>
+      <Grid container justifyContent="space-between" alignItems="stretch" spacing={3}>
+        <Grid item xs={12} sm={12} md={9} lg={9} xl={9} className={classes.container}>
           {/* <Paper elevation={3}>
                 <Typography gutterBottom variant="h6">
                   Forum Topics
@@ -66,7 +69,7 @@ const TopicDetails = () => {
             <DefaultPost topic={topic} />
             <Posts editInPopup={editInPopup} topicId={topicId} />
             <Divider style={{ margin: "20px 0" }} />
-            <ReplyBox topicId={topicId} />
+            {user?.result?.role === "student" && <ReplyBox topicId={topicId} />}
             <EditPopup
               title="Edit post"
               openPopup={openPopup}
@@ -77,11 +80,6 @@ const TopicDetails = () => {
             />
           </Paper>
         </Grid>
-        {/* <Grid item md={3} lg={3} xl={3}>
-                <Paper>
-                    <Typography>Space</Typography>
-                </Paper>    
-            </Grid> */}
       </Grid>
     </>
   );

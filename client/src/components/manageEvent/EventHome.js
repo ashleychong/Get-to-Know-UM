@@ -26,13 +26,19 @@ const EventHome = () => {
     return (
       <>
         <CssBaseline />
-        <Layout>
+        <Layout pageHeaderTitle="Events">
           <>
-            <PageHeader title="Event">
-              {user?.result?.role === "admin" && (
+            <div className={classes.pageContent}>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "flex-end",
+                  marginBottom: "6vh",
+                }}
+              >
                 <Button
-                  className={classes.newButton}
-                  variant="outlined"
+                  color="primary"
+                  variant="contained"
                   startIcon={<AddIcon />}
                   onClick={() => {
                     setOpenPopup(true);
@@ -40,9 +46,7 @@ const EventHome = () => {
                 >
                   Create a new event
                 </Button>
-              )}
-            </PageHeader>
-            <div className={classes.pageContent}>
+              </div>
               <EventTable editInPopup={editInPopup} />
             </div>
             <EventPopup

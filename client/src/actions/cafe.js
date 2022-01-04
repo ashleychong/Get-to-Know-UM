@@ -3,6 +3,7 @@ import {
   START_LOADING,
   END_LOADING,
   FETCH_CAFES,
+  FETCH_CAFES_BY_PAGES,
   FETCH_CAFE,
   CREATE_CAFE,
   UPDATE_CAFE,
@@ -16,6 +17,25 @@ export const getAllCafes = () => async (dispatch) => {
     const { data } = await api.fetchAllCafes();
 
     dispatch({ type: FETCH_CAFES, payload: data });
+    dispatch({ type: END_LOADING });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getAllCafesByPages = (page) => async (dispatch) => {
+  try {
+    dispatch({ type: START_LOADING });
+
+    const {
+      data: { data, currentPage, numberOfPages },
+    } = await api.fetchAllCafesByPages(page);
+
+    dispatch({
+      type: FETCH_CAFES_BY_PAGES,
+      payload: { data, currentPage, numberOfPages },
+    });
+
     dispatch({ type: END_LOADING });
   } catch (error) {
     console.log(error);

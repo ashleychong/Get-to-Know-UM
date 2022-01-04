@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
-import { Typography, Grid, Button } from "@material-ui/core";
+import { Typography, Grid, Button, Box } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import moment from "moment";
@@ -35,7 +35,7 @@ const Topic = ({ topic, editInPopup }) => {
         </Typography>
         <Grid container alignItems="center">
           <Grid>
-            <Typography variant="subtitle2" component="div">
+            <Typography variant="subtitle1" component="div">
               {`Started by ${topic.username} ・ ${moment(
                 topic.createdAt
               ).format("lll")}`}

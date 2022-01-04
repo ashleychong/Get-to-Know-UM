@@ -39,7 +39,7 @@ const EditFoodPopup = ({
       <DialogTitle className={classes.dialogTitle}>
         <div style={{ display: "flex" }}>
           <Typography variant="h6" component="div" style={{ flexGrow: 1 }}>
-            Edit food details
+            "Edit food details"
           </Typography>
           <Custom.ActionButton
             color="secondary"

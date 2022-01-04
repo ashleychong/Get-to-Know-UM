@@ -27,12 +27,12 @@ const CafeCard = ({ imgSrc, imgAlt, title, desc, pagePath }) => {
       >
         <CardMedia style={{ height: 270 }} image={imgSrc} title={imgAlt} />
         <CardContent>
-          <Typography component="h3" variant="h5" gutterBottom>
+          <Typography component="h3" variant="h5" gutterBottom color="primary">
             {title}
           </Typography>
-          <Typography variant="body2" color="textSecondary">
+          {/* <Typography variant="body2" color="textSecondary">
             {desc}
-          </Typography>
+          </Typography> */}
         </CardContent>
       </ButtonBase>
     </Card>

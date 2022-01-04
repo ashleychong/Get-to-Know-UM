@@ -48,8 +48,8 @@ const CourseForm = ({ currentCourseId, setCurrentCourseId, setOpenPopup }) => {
       temp.description = fieldValues.description
         ? ""
         : "This field is required.";
-    // if ("message" in fieldValues)
-    //     temp.message = fieldValues.message ? "" : "This field is required.";
+    if ("faculty" in fieldValues)
+        temp.faculty = fieldValues.faculty ? "" : "This field is required.";
     // if ("message" in fieldValues)
     //   temp.message = fieldValues.message ? "" : "This field is required.";
     setErrors({
@@ -110,6 +110,14 @@ const CourseForm = ({ currentCourseId, setCurrentCourseId, setOpenPopup }) => {
           value={values.courseCode}
           onChange={handleInputChange}
           error={errors.courseCode}
+          required
+        />
+        <Custom.Input
+          name="faculty"
+          label="Faculty"
+          value={values.faculty}
+          onChange={handleInputChange}
+          error={errors.faculty}
           required
         />
         <Custom.Input

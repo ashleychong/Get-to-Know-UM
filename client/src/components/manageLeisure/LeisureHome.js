@@ -26,13 +26,19 @@ const LeisureHome = () => {
     return (
       <>
         <CssBaseline />
-        <Layout>
+        <Layout pageHeaderTitle="Leisure">
           <>
-            <PageHeader title="Leisure">
-              {user?.result?.role === "admin" && (
+            <div className={classes.pageContent}>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "flex-end",
+                  marginBottom: "6vh",
+                }}
+              >
                 <Button
-                  className={classes.newButton}
-                  variant="outlined"
+                  color="primary"
+                  variant="contained"
                   startIcon={<AddIcon />}
                   onClick={() => {
                     setOpenPopup(true);
@@ -40,9 +46,7 @@ const LeisureHome = () => {
                 >
                   Create a new leisure
                 </Button>
-              )}
-            </PageHeader>
-            <div className={classes.pageContent}>
+              </div>
               <LeisureTable editInPopup={editInPopup} />
             </div>
             <LeisurePopup

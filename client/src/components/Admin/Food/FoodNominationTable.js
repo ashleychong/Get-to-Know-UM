@@ -10,8 +10,9 @@ import {
   InputAdornment,
   Chip,
   Avatar,
-  ButtonBase,
+  CircularProgress,
   IconButton,
+  Typography,
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { Search, ArrowForward, Edit, Delete } from "@material-ui/icons";
@@ -24,7 +25,7 @@ import {
   deleteFoodNomination,
 } from "../../../actions/foodNominations";
 import useTable from "../../Custom/useTable";
-import EditFoodPopup from "./ApprovedFood/EditFoodPopup";
+import EditFoodPopup from "./EditFoodPopup";
 
 const FoodNominationTable = () => {
   const dispatch = useDispatch();
@@ -65,7 +66,9 @@ const FoodNominationTable = () => {
   if (!foodNominations?.length && !isLoading) {
     return (
       <Box mx={2} my={3}>
-        No nominated food yet.
+        <Box mx={2} my={3}>
+          <Typography>No nominated food yet.</Typography>
+        </Box>
       </Box>
     );
   }
@@ -83,9 +86,11 @@ const FoodNominationTable = () => {
     });
   };
 
-  return (
-    <>
-      <Paper className={classes.paper}>
+  return isLoading ? (
+    <CircularProgress />
+  ) : (
+    <Box sx={{ width: "100%" }}>
+      <Paper className={classes.paper} sx={{ width: "100%" }}>
         <Toolbar>
           <Input
             label="Search food nomination"
@@ -101,7 +106,7 @@ const FoodNominationTable = () => {
           />
         </Toolbar>
         <TblContainer>
-          <TblHead className={classes.row} />
+          <TblHead />
           <TableBody>
             {recordsAfterPagingAndSorting().map((foodNomination, index) => (
               <TableRow key={foodNomination._id}>
@@ -145,7 +150,7 @@ const FoodNominationTable = () => {
                     <>
                       <IconButton
                         size="small"
-                        color="default"
+                        color="primary"
                         onClick={(e) => {
                           e.stopPropagation();
                           editInPopup(foodNomination?._id);
@@ -188,7 +193,7 @@ const FoodNominationTable = () => {
         openPopup={openPopup}
         setOpenPopup={setOpenPopup}
       />
-    </>
+    </Box>
   );
 };
 

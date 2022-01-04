@@ -24,11 +24,10 @@ import ExperienceRank from "./components/Leisure/ExperienceRank/Ranking/Experien
 import Layout from "./components/Layout";
 import ClubHome from "./components/manageClub/ClubHome";
 import EventHome from "./components/manageEvent/EventHome";
-import Food from "./components/Food/Food";
-import AdminFoodNomination from "./components/Admin/Food/FoodNominationPage";
+import Food from "./components/Food/FoodHome";
+import AdminFoodNomination from "./components/Admin/Food/AdminFoodHome";
 import FoodNominationDetails from "./components/Admin/Food/FoodNominationDetails";
 import AdminCafeHome from "./components/Admin/Cafe/AdminCafeHome";
-import AdminCafeDetails from "./components/Admin/Cafe/CafeDetails/CafeDetails";
 import CafeDetails from "./components/Cafe/CafeDetails/CafeDetails";
 import CafeHome from "./components/Cafe/CafeHome";
 import Calc from "./components/GPA/calculator";
@@ -40,6 +39,11 @@ import GPACalHome from "./components/GPA/GPACalHome";
 import LeisureHome from "./components/manageLeisure/LeisureHome";
 import ExpHome from "./components/manageExp/ExpHome";
 import FavEvent from "./components/Events/FavEvent";
+import ForumReportsHome from "./components/Admin/ForumReports/ForumReportsHome";
+import RequestResetPassword from "./components/Auth/RequestResetPassword";
+import VerifyResetPasswordLink from "./components/Auth/VerifyResetPasswordLink";
+import ResetPasswordError from "./components/Auth/ResetPasswordError";
+import NotFound from "./components/ErrorPage/404";
 
 const theme = createTheme({
   typography: {
@@ -62,90 +66,73 @@ const theme = createTheme({
 
 function App() {
   const user = useSelector((state) => state.auth.authData);
+  const isAdmin = user?.result?.role === "admin";
 
   return (
     <BrowserRouter>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         {user?.result?.role !== "admin" && <Header title="Get to Know UM" />}
-        <Switch>
-          <Route
-            path="/"
-            exact
-            component={() =>
-              user?.result?.role === "admin" ? (
-                <AdminCourseHome />
-              ) : (
-                <Redirect to="/home" />
-              )
-            }
-          />
-          {/* <Route path="/" exact component={() => <Redirect to="/home" />} /> */}
-          <Route path="/home" exact component={Home} />
-          <Route
-            path="/auth"
-            exact
-            component={() => (!user ? <Auth /> : <Redirect to="/home" />)}
-          />
-          {/* <Layout> */}
-          <Route path="/admin/club/:page?" component={ClubHome} />
-          <Route path="/admin/event" exact component={EventHome} />
-          <Route path="/admin/leisure" exact component={LeisureHome} />
-          <Route path="/admin/exp" exact component={ExpHome} />
-          <Route path="/admin/courses" exact component={AdminCourseHome} />
-          <Route
-            path="/admin/courses/search"
-            exact
-            component={AdminCourseHome}
-          />
-          {/* </Layout> */}
-          <Route path="/userProfile" exact component={UserProfile} />
-          <Route path="/forum" exact component={Forum} />
-          <Route path="/topics/search" exact component={Forum} />
-          <Route path="/forum/:topicId" exact component={TopicDetails} />
-          <Route path="/courses" exact component={Courses} />
-          <Route path="/courses/search" exact component={Courses} />
-          <Route path="/courses/:courseId" exact component={CourseDetails} />
-          <Route path="/food" exact component={Food} />
-          <Route path="/event" exact component={EventHomePage} />
-          <Route path="/event/search" exact component={EventHomePage} />
-          <Route path="/event/fav" exact component={FavEvent} />
-          <Route
-            path="/admin/foodNominations"
-            exact
-            component={AdminFoodNomination}
-          />
-          <Route
-            path="/admin/foodNominations/:foodNominationId"
-            exact
-            component={FoodNominationDetails}
-          />
-          <Route path="/admin/cafe" exact component={AdminCafeHome} />
-          <Route path="/admin/cafeDetails" exact component={AdminCafeDetails} />
-          <Route path="/cafe/:cafeId" exact component={CafeDetails} />
-          <Route path="/cafe" exact component={CafeHome} />
-          {/* <Route path="/courseDetails" exact component={CourseDetails}></Route> */}
-          <Route path="/event/:id" exact component={EventDetails} />
+        <>
+          {isAdmin ? (
+            <Switch>
+              <Route path="/auth" exact component={() => (!user ? <Auth /> : <Redirect to="/admin/courses" />)} />
+              <Route path="/" exact component={() => <Redirect to="/admin/courses" />} />
+              <Route path="/admin/profile" exact component={UserProfile} />
+              <Route path="/admin/club/:page?" component={ClubHome} />
+              <Route path="/admin/event" exact component={EventHome} />
+              <Route path="/admin/leisure" exact component={LeisureHome} />
+              <Route path="/admin/exp" exact component={ExpHome} />
+              <Route path="/admin/courses" exact component={AdminCourseHome} />
+              <Route path="/admin/courses/search" exact component={AdminCourseHome} />
+              <Route path="/admin/foodNominations" exact component={AdminFoodNomination} />
+              <Route path="/admin/foodNominations/:foodNominationId" exact component={FoodNominationDetails} />
+              <Route path="/admin/cafe" exact component={AdminCafeHome} />
+              <Route path="/admin/foodNomination" exact component={AdminFoodNomination} />
+              <Route path="/admin/foodNomination/:foodNominationId" exact component={FoodNominationDetails} />
+              <Route path="/admin/forumReports" exact component={ForumReportsHome} />
+              <Route path="/forum/:topicId" exact component={TopicDetails} />
+              <Route path="/notFound" component={NotFound} />
+              <Route path="*" exact component={() => <Redirect to="/notFound" />} /> 
+            </Switch>
+          ) : (
+            <Switch>
+              <Route path="/home" exact component={Home} />
+              <Route path="/" exact component={() => <Redirect to="/home" />} />
+              <Route path="/auth" exact component={() => (!user ? <Auth /> : <Redirect to="/home" />)} />
+              <Route path="/passwordResetRequest" component={RequestResetPassword} />
+              <Route path="/passwordReset" component={VerifyResetPasswordLink} />
+              <Route path="/passwordResetError" component={ResetPasswordError} />  
+              <Route path="/profile" exact component={UserProfile} />
+              <Route path="/forum" exact component={Forum} />
+              <Route path="/forum/search" exact component={Forum} />
+              <Route path="/forum/:topicId" exact component={TopicDetails} />
+              <Route path="/courses" exact component={Courses} />
+              <Route path="/courses/search" exact component={Courses} />
+              <Route path="/courses/:courseId" exact component={CourseDetails} />
+              <Route path="/food" exact component={Food} />
+              <Route path="/event" exact component={EventHomePage} />
+              <Route path="/event/search" exact component={EventHomePage} />
+              <Route path="/event/fav" exact component={FavEvent} />
+              <Route path="/cafe/:cafeId" exact component={CafeDetails} />
+              <Route path="/cafe" exact component={CafeHome} />
+              <Route path="/event/:id" exact component={EventDetails} />
 
-          <Route path="/gpa" exact component={GPACalHome} />
-          <Route path="/leisure" exact component={Leisure} />
-          <Route path="/leisure/ranking" exact component={ExperienceRank} />
-          <Route path="/leisure/inUM" exact component={LeisureCategory} />
-          <Route path="/leisure/nearUM" exact component={LeisureCategory} />
-          <Route path="/club" exact component={ClubHomePage} />
-          <Route path="/club/search" exact component={ClubHomePage} />
-          <Route path="/club/:clubId" exact component={ClubDetails} />
-          <Route
-            path="/admin/foodNomination"
-            exact
-            component={AdminFoodNomination}
-          />
-          <Route
-            path="/admin/foodNomination/:foodNominationId"
-            exact
-            component={FoodNominationDetails}
-          />
-        </Switch>
+              <Route path="/gpa" exact component={GPACalHome} />
+              <Route path="/leisure" exact component={Leisure} />
+              <Route path="/leisure/ranking" exact component={ExperienceRank} />
+              <Route path="/leisure/inUM" exact component={LeisureCategory} />
+              <Route path="/leisure/nearUM" exact component={LeisureCategory} />
+              <Route path="/club" exact component={ClubHomePage} />
+              <Route path="/club/search" exact component={ClubHomePage} />
+              <Route path="/club/:clubId" exact component={ClubDetails} />
+              <Route path="/notFound" component={NotFound} />
+              <Route path="*" exact component={() => <Redirect to="/notFound" />} />  
+            </Switch>
+          )}
+          <Route path="/" exact component={() => isAdmin ? ( <AdminCourseHome /> ) : ( <Redirect to="/home" /> )}/>
+          {/* <Route path="/" exact component={() => <Redirect to="/home" />} /> */}
+        </>
       </ThemeProvider>
     </BrowserRouter>
   );

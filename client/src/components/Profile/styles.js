@@ -8,6 +8,10 @@ export default makeStyles((theme) => ({
     maxWidth: "50%",
     alignItems: "center",
   },
+  pageContainer: {
+    // top left/right bottom
+    margin: "2em auto 3em",
+  },
   searchInput: {
     width: "75%",
   },
@@ -20,15 +24,19 @@ export default makeStyles((theme) => ({
     marginBottom: theme.spacing(2),
   },
   avatar: {
-    // width: "100%",
-    // maxWidth: "100px",
-    // height: "auto",
-    // maxHeight: "100px",
     width: "100px",
     height: "100px",
     fontSize: "35px",
+    marginBottom: "0.5em",
     color: theme.palette.getContrastText(deepPurple[500]),
     backgroundColor: deepPurple[500],
     textDecoration: "none",
+  },
+  uploadButton: {
+    fontWeight: 600,
+    fontSize: "1rem",
+  },
+  cardContent: {
+    padding: "32px",
   },
 }));

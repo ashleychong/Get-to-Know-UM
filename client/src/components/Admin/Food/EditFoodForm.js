@@ -59,6 +59,12 @@ const NominateFoodForm = ({
 
   const { values, setValues, errors, setErrors, handleInputChange, resetForm } =
     Custom.useForm(initialValues, true, validate);
+  
+    useEffect(() => {
+      if (foodNomination) {
+        setValues(foodNomination);
+      }
+    }, [foodNomination]);
 
   const clear = () => {
     setOpenPopup(false);

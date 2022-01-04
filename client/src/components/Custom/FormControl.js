@@ -27,6 +27,16 @@ export const useForm = (initialValues, validateOnChange = false, validate = {}) 
     if (validateOnChange) validate({ [name]: value });
   };
 
+  const handleAutocompleteInputChange = (event, value) => {
+    // MaterialUi Autocomplete will add the name to the outer div 
+    // so event.target.name is undefined
+    // directly specify the name "tags" to access the values
+    setValues({
+      ...values,
+      tags: value,
+    });
+  };
+
   const resetForm = () => {
     setValues(initialValues);
     setErrors({});
@@ -39,6 +49,7 @@ export const useForm = (initialValues, validateOnChange = false, validate = {}) 
     setErrors,
     handleInputChange,
     handleRatingInputChange,
+    handleAutocompleteInputChange,
     resetForm,
   };
 };

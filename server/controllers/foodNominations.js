@@ -10,6 +10,29 @@ export const getFoodNominations = async (req, res) => {
     res.status(404).json({ message: error.message });
   }
 };
+
+export const getApprovedFoodNominations = async (req, res) => {
+  const { page } = req.query;
+
+  try {
+    const LIMIT = 6;
+    const startIndex = (Number(page) - 1) * LIMIT; // get the starting index of every page
+
+    const total = await FoodNomination.countDocuments({});
+    const foodNominations = await FoodNomination.find({status: "approved"})
+      .sort({ _id: -1 })
+      .limit(LIMIT)
+      .skip(startIndex);
+
+    res.json({
+      data: foodNominations,
+      currentPage: Number(page),
+      numberOfPages: Math.ceil(total / LIMIT),
+    });
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
 export const getFoodNomination = async (req, res) => {
   const { id } = req.params;
   try {
@@ -91,5 +114,34 @@ export const declineFoodNomination = async (req, res) => {
     { new: true }
   );
   res.json(declinedNomination);
+};
+
+export const voteFood = async (req, res) => {
+  const { id } = req.params;
+
+  if (!req.userId) {
+    return res.json({ message: "Unauthenticated" });
+  }
+
+  if (!mongoose.Types.ObjectId.isValid(id))
+    return res.status(404).send(`No food nomination with id: ${id}`);
+
+  const foodNomination = await FoodNomination.findById(id);
+
+  const index = foodNomination.votes.findIndex((id) => id === String(req.userId));
+
+  if (index === -1) {
+    foodNomination.votes.push(req.userId);
+  } else {
+    foodNomination.votes = foodNomination.votes.filter((id) => id !== String(req.userId));
+  }
+  const updatedFood = await FoodNomination.findByIdAndUpdate(
+    id,
+    foodNomination,
+    {
+      new: true,
+    }
+  );
+  res.status(200).json(updatedFood);
 };
 

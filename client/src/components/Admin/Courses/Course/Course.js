@@ -25,7 +25,7 @@ export default function Course(props) {
   const user = JSON.parse(localStorage.getItem("profile"));
 
   return (
-    <Grid item className={classes.cardGrid} xs={12} md={4}>
+    <Grid item className={classes.cardGrid} xs={12} sm={6} md={4}>
       <CardActionArea component="a" href={`/courses/${course._id}`}>
         <Card className={classes.card}>
           <CardMedia

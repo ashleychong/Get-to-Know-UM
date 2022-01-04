@@ -2,7 +2,18 @@ import { makeStyles } from "@material-ui/core/styles";
 
 export default makeStyles((theme) => ({
   header: {
-    margin: "2rem 3rem",
+    [theme.breakpoints.down("sm")]: {
+      margin: "2.5rem 0",
+      textAlign: "center",
+    },
+    [theme.breakpoints.up("sm")]: {
+      margin: "2.5rem 0",
+    },
+  },
+  root: {
+    [theme.breakpoints.up("sm")]: {
+      margin: "7vh 5vw",
+    },
   },
   content: {
     [theme.breakpoints.down("sm")]: {
@@ -17,7 +28,7 @@ export default makeStyles((theme) => ({
       margin: "0 1rem",
     },
     [theme.breakpoints.up("sm")]: {
-      margin: "0 5rem",
+      margin: "0 3rem",
       padding: "20px 30px",
     },
   },

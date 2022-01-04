@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AddIcon from "@material-ui/icons/Add";
 import useStyles from "./styles";
-import PageHeader from "../PageHeader";
 import ClubPopup from "./ClubPopup";
 import Layout from "../Admin/Layout/Layout";
 import ClubTable from "./ClubTable/Table";
@@ -28,23 +27,29 @@ const ClubHome = () => {
     return (
       <>
         <CssBaseline />
-        <Layout>
+        <Layout pageHeaderTitle="Clubs">
           <>
-            <PageHeader title="Club">
-              {user?.result?.role === "admin" && (
-                <Button
-                  className={classes.newButton}
-                  variant="outlined"
-                  startIcon={<AddIcon />}
-                  onClick={() => {
-                    setOpenPopup(true);
-                  }}
-                >
-                  Create a new club
-                </Button>
-              )}
-            </PageHeader>
             <div className={classes.pageContent}>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "flex-end",
+                  marginBottom: "6vh",
+                }}
+              >
+                {user?.result?.role === "admin" && (
+                  <Button
+                    color="primary"
+                    variant="contained"
+                    startIcon={<AddIcon />}
+                    onClick={() => {
+                      setOpenPopup(true);
+                    }}
+                  >
+                    Create club
+                  </Button>
+                )}
+              </div>
               <ClubTable editInPopup={editInPopup} />
             </div>
             <ClubPopup

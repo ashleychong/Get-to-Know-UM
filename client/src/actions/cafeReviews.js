@@ -6,8 +6,9 @@ import {
   CREATE_CAFE_REVIEW,
   UPDATE_CAFE_REVIEW,
   DELETE_CAFE_REVIEW,
+  UPDATE_CAFE,
+  FETCH_CAFE,
 } from "../constants/cafeActionTypes.js";
-import { UPDATE_CAFE, FETCH_CAFE } from "../constants/cafeActionTypes.js";
 
 export const getCafeReviews = (cafeId) => async (dispatch) => {
   try {

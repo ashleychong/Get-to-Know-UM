@@ -4,9 +4,14 @@ const useStyles = makeStyles((theme) => ({
   topicTitle: {
     "& .MuiTypography-h6": {
       textDecoration: "none",
+      fontWeight: 600,
+      "&:hover": {
+        // color: "#808080",
+        color: theme.palette.primary.main,
+      },
     },
-    "& .MuiTypography-subtitle2": {
-      opacity: "0.6",
+    "& .MuiTypography-subtitle1": {
+      opacity: "0.7",
     },
   },
   right: {

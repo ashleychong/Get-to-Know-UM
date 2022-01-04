@@ -34,6 +34,14 @@ const useStyles = makeStyles((theme) => ({
       letterSpacing: "0.02rem",
     },
   },
+  closeSidebar: {
+    backgroundColor: "rgba(255, 255, 255, 0.04)",
+    margin: "0",
+    "& .MuiButton-label": {
+      color: "#9CA3AF",
+      letterSpacing: "0.02rem",
+    },
+  },
 }));
 
 const ActionButton = (props) => {

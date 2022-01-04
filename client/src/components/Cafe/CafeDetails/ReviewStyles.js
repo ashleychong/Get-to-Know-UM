@@ -1,4 +1,6 @@
 import { makeStyles } from "@material-ui/core/styles";
+import { deepPurple } from "@material-ui/core/colors";
+
 
 export default makeStyles((theme) => ({
   reviewRoot: {
@@ -27,11 +29,17 @@ export default makeStyles((theme) => ({
       width: "72px",
       marginBottom: "1rem",
     },
+    color: theme.palette.getContrastText(deepPurple[500]),
+    backgroundColor: deepPurple[500],
   },
   ratingBox: {
     display: "flex",
     paddingBottom: "0.4rem",
     alignItems: "flex-end",
+    [theme.breakpoints.down("sm")]: {
+      marginTop: "16px",
+      marginBottom: "4px",
+    },
   },
   reviewDate: {
     paddingLeft: "10px",

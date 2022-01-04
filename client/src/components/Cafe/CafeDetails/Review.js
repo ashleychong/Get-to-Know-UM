@@ -22,17 +22,17 @@ const Review = ({ editInPopup, cafeId, review }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const user = JSON.parse(localStorage.getItem("profile"));
+  const author = review?.userData[0];
 
   return (
     <>
       <Grid container className={classes.reviewRoot}>
         <Grid item xs={12} md={2}>
           <Box className={classes.userInfo}>
-            <Avatar
-              className={classes.userAvatar}
-              src={user?.result?.image || "https://source.unsplash.com/random"}
-            ></Avatar>
-            <Typography variant="subtitle1">{review?.username}</Typography>
+            <Avatar className={classes.userAvatar} src={author?.image}>
+              {author?.name?.charAt(0)}
+            </Avatar>
+            <Typography variant="subtitle1">{author?.name}</Typography>
           </Box>
         </Grid>
         <Grid item xs={12} md={10}>

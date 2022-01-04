@@ -23,9 +23,8 @@ const ExpHome = () => {
     return (
       <>
         <CssBaseline />
-        <Layout>
+        <Layout pageHeaderTitle="Experience">
           <>
-            <PageHeader title="Experience"></PageHeader>
             <div className={classes.pageContent}>
               <ExpTable editInPopup={editInPopup} />
             </div>

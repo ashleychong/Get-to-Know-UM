@@ -13,6 +13,30 @@ export const getAllCafes = async (req, res) => {
   }
 };
 
+export const getAllCafesByPages = async (req, res) => {
+  const { page } = req.query;
+
+  try {
+    const LIMIT = 6;
+    const startIndex = (Number(page) - 1) * LIMIT; // get the starting index of every page
+
+    const total = await Cafe.countDocuments({});
+    const cafes = await Cafe.find()
+      .sort({ _id: -1 })
+      .limit(LIMIT)
+      .skip(startIndex);
+
+    res.json({
+      data: cafes,
+      currentPage: Number(page),
+      numberOfPages: Math.ceil(total / LIMIT),
+    });
+
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
 export const getCafe = async (req, res) => {
   const { id } = req.params;
   try {

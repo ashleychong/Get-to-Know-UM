@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Grid, Typography} from "@material-ui/core";
+import { Grid, Typography, } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 import Custom from "../../Custom/Custom";
@@ -181,6 +181,7 @@ const ReviewForm = ({
         value={values.deliveryRating}
         onChange={handleRatingInputChange}
         error={errors.deliveryRating}
+        tooltipText="1: Extremely not well delivered, 5: Extremely well delivered"
       />
       <Custom.RatingInput
         name="difficultyRating"
@@ -188,6 +189,7 @@ const ReviewForm = ({
         value={values.difficultyRating}
         onChange={handleRatingInputChange}
         error={errors.difficultyRating}
+        tooltipText="1: Extremely difficult, 5: Extremely simple"
       />
       <Custom.RatingInput
         name="enjoymentRating"
@@ -195,6 +197,7 @@ const ReviewForm = ({
         value={values.enjoymentRating}
         onChange={handleRatingInputChange}
         error={errors.enjoymentRating}
+        tooltipText="1: Extremely unenjoyable, 5: Extremely enjoyable"
       />
       <Custom.RatingInput
         name="overallRating"

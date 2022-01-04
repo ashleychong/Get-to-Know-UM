@@ -1,72 +1,60 @@
-import React, { useState, useEffect } from "react";
-import { Paper, Toolbar, CssBaseline, Grid, Typography, Table, TableBody, TableRow, TableCell } from "@material-ui/core";
-import PersonIcon from "@material-ui/icons/Person";
+import React from "react";
+import {
+  CssBaseline,
+  Grid,
+  Typography,
+} from "@material-ui/core";
 import { useSelector } from "react-redux";
 
-import PageHeader from './../PageHeader';
 import useStyles from "./styles";
-import EditProfilePopup from './EditProfilePopup';
-import Custom from './../Custom/Custom';
-import { Avatar } from '@material-ui/core/';
+import Layout from "../Admin/Layout/Layout";
+import PageHeader from "./../PageHeader";
+import ProfileAvatarCard from "./ProfileAvatarCard";
+import ProfileDetailsCard from "./ProfileDetailsCard";
+import ChangePasswordCard from "./ChangePasswordCard";
 
 const UserProfile = () => {
-    const classes = useStyles();
-    const user = useSelector((state) => state.auth.authData.result);
-    const [openUpdateProfilePopup, setOpenUpdateProfilePopup] = useState(false);
+  const classes = useStyles();
+  const user = useSelector((state) => state.auth.authData.result);
 
-    if (!user) {
-        return (
-            <Typography>
-                Loading
-            </Typography>
-        );
-    }
+  if (!user) {
+    return <Typography>Not logged in</Typography>;
+  }
 
-    return (
-        <>
-            <CssBaseline />
-            <PageHeader title="Profile" />
-            <Paper className={classes.pageContent}>
-                <Grid container justify="center">
-                    <Avatar className={classes.avatar} alt={user.name} src={user.image}>
-                        {user.name.charAt(0)}
-                    </Avatar>
-                    {/* {user.image ?
-                        (<Avatar className={classes.avatar} src={user.image} />)
-                        : (<Avatar>
-                            {user.name.charAt(0)}
-                        </Avatar>)} */}
-                </Grid>
-                <Table className={classes.table}>
-                    <TableBody>
-                        <TableRow>
-                            <TableCell>Full Name</TableCell>
-                            <TableCell>{ user.name }</TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell>Matric Number</TableCell>
-                            <TableCell>{ user.matricNumber }</TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell>Email</TableCell>
-                            <TableCell>{ user.email }</TableCell>
-                        </TableRow>
-                    </TableBody>
-                </Table>
-                <Custom.Button
-                    text="Edit Profile"
-                    variant="contained"
-                    onClick={() => {
-                        setOpenUpdateProfilePopup(true);
-                    }}
-                />
-                <EditProfilePopup
-                    openUpdateProfilePopup={openUpdateProfilePopup}
-                    setOpenUpdateProfilePopup={setOpenUpdateProfilePopup}
-                />
-            </Paper>
-        </>
-    )
+  return user?.role === "admin" ? (
+    <>
+      <CssBaseline />
+      <Layout pageHeaderTitle="Profile">
+        <Grid container>
+          <Grid item xs={12} sm={9} className={classes.pageContainer}>
+            <ProfileAvatarCard user={user} />
+          </Grid>
+          <Grid item xs={12} sm={9} className={classes.pageContainer}>
+            <ProfileDetailsCard user={user} />
+          </Grid>
+          <Grid item xs={12} sm={9} className={classes.pageContainer}>
+            <ChangePasswordCard user={user} />
+          </Grid>
+        </Grid>
+      </Layout>
+    </>
+  ) : (
+    <>
+      <CssBaseline />
+      <PageHeader title="Profile" />
+      <Grid container>
+        <Grid item xs={12} sm={9} className={classes.pageContainer}>
+          <ProfileAvatarCard user={user} />
+        </Grid>
+        <Grid item xs={12} sm={9} className={classes.pageContainer}>
+          <ProfileDetailsCard user={user} />
+        </Grid>
+        <Grid item xs={12} sm={9} className={classes.pageContainer}>
+          <ChangePasswordCard user={user} />
+        </Grid>
+      </Grid>
+    </>
+  );
 };
 
 export default UserProfile;

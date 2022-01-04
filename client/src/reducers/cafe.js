@@ -2,6 +2,7 @@ import {
   START_LOADING,
   END_LOADING,
   FETCH_CAFES,
+  FETCH_CAFES_BY_PAGES,
   FETCH_CAFE,
   CREATE_CAFE,
   UPDATE_CAFE,
@@ -22,6 +23,13 @@ const cafeReducer = (state = { isLoading: false, cafes: [], reviews: {} }, actio
         return {
           ...state,
           cafes: action.payload,
+        };
+      case FETCH_CAFES_BY_PAGES:
+        return {
+          ...state,
+          cafes: action.payload.data,
+          currentPage: action.payload.currentPage,
+          numberOfPages: action.payload.numberOfPages,
         };
       case FETCH_CAFE:
         return { ...state, cafe: action.payload.cafe };

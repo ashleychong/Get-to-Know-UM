@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   InputAdornment,
@@ -8,19 +8,15 @@ import {
   Button,
   CssBaseline,
   TextField,
-  FormControlLabel,
-  Checkbox,
   Grid,
   Typography,
   Container,
   Box,
-  FormHelperText,
 } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import { makeStyles } from "@material-ui/core/styles";
-import Visibility from "@material-ui/icons/Visibility";
-import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import { Visibility, VisibilityOff } from "@material-ui/icons";
 
 import { signIn, signUp } from "../../actions/auth";
 import Custom from "../Custom/Custom";
@@ -33,6 +29,10 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     alignItems: "center",
   },
+  title: {
+    fontWeight: 600,
+    margin: "2vh 0",
+  },
   avatar: {
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
@@ -44,9 +44,16 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  optionButtonContainer: {
+    display: "flex",
+    justifyContent: "flex-end",
+  },
+  optionButton: {
+    textTransform: "none",
+  },
 }));
 
-const initialState = {
+const initialValues = {
   firstName: "",
   lastName: "",
   matricNumber: "",
@@ -56,7 +63,7 @@ const initialState = {
 };
 
 export default function SignUp() {
-  const [form, setForm] = useState(initialState);
+  const [form, setForm] = useState(initialValues);
   const [isSignup, setIsSignup] = useState(false);
   const dispatch = useDispatch();
   const history = useHistory();
@@ -64,7 +71,6 @@ export default function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
   const handleShowPassword = () => setShowPassword(!showPassword);
   const { errors: authError  } = useSelector((state) => state.auth);
-  // const [errorMessage, setErrorMessage] = useState("");
 
    const validate = (fieldValues = values) => {
      let temp = { ...errors };
@@ -80,7 +86,7 @@ export default function SignUp() {
       const emailValid = fieldValues.email.match(
         /^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i
       );
-      temp.email = emailValid ? "" : "Invalid email format.";
+       temp.email = emailValid ? "" : "Invalid email format.";
      }
      if ("password" in fieldValues) {
        const passwordValid = fieldValues.password.match(
@@ -102,14 +108,14 @@ export default function SignUp() {
    };
 
   const { values, setValues, errors, setErrors, handleInputChange, resetForm } =
-    Custom.useForm(initialState, true, validate);
+    Custom.useForm(initialValues, true, validate);
 
   // useEffect(() => {
   //   setErrorMessage(errors);
   // }, [errors]);
 
   const switchMode = () => {
-    setForm(initialState);
+    setForm(initialValues);
     setIsSignup((prevIsSignup) => !prevIsSignup);
     setShowPassword(false);
   };
@@ -132,9 +138,6 @@ export default function SignUp() {
     }
   };
 
-  const handleChange = (e) =>
-    setForm({ ...form, [e.target.name]: e.target.value });
-
   return (
     <>
       <CssBaseline />
@@ -143,7 +146,7 @@ export default function SignUp() {
           <Avatar className={classes.avatar}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography component="h1" variant="h5">
+          <Typography variant="h4" className={classes.title}>
             {isSignup ? "Sign Up" : "Sign In"}
           </Typography>
           {authError && (
@@ -158,7 +161,7 @@ export default function SignUp() {
                   <Grid item xs={12} sm={6}>
                     <TextField
                       name="firstName"
-                      label="First Name"
+                      label="First name"
                       variant="outlined"
                       // required
                       fullWidth
@@ -173,7 +176,7 @@ export default function SignUp() {
                   <Grid item xs={12} sm={6}>
                     <TextField
                       name="lastName"
-                      label="Last Name"
+                      label="Last name"
                       variant="outlined"
                       // required
                       fullWidth
@@ -187,7 +190,7 @@ export default function SignUp() {
                   <Grid item xs={12}>
                     <TextField
                       name="matricNumber"
-                      label="Matric Number"
+                      label="Matric number"
                       variant="outlined"
                       // required
                       fullWidth
@@ -203,7 +206,7 @@ export default function SignUp() {
               <Grid item xs={12}>
                 <TextField
                   name="email"
-                  label="Email Address"
+                  label="Email address"
                   variant="outlined"
                   // required
                   fullWidth
@@ -211,11 +214,7 @@ export default function SignUp() {
                   value={values.email}
                   onChange={handleInputChange}
                 />
-                {errors.email && (
-                  <Custom.ErrorLabelText
-                    error={errors.email}
-                  />
-                )}
+                {errors.email && <Custom.ErrorLabelText error={errors.email} />}
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -239,16 +238,14 @@ export default function SignUp() {
                   autoComplete={isSignup ? undefined : "current-password"}
                 />
                 {isSignup && errors.password && (
-                  <Custom.ErrorLabelText
-                    error={errors.password}
-                  />
+                  <Custom.ErrorLabelText error={errors.password} />
                 )}
               </Grid>
               <Grid item xs={12}>
                 {isSignup && (
                   <TextField
                     name="confirmPassword"
-                    label="Repeat Password"
+                    label="Repeat password"
                     variant="outlined"
                     // required
                     fullWidth
@@ -258,9 +255,7 @@ export default function SignUp() {
                   />
                 )}
                 {isSignup && errors.confirmPassword && (
-                  <Custom.ErrorLabelText
-                    error={errors.confirmPassword}
-                  />
+                  <Custom.ErrorLabelText error={errors.confirmPassword} />
                 )}
               </Grid>
             </Grid>
@@ -273,14 +268,25 @@ export default function SignUp() {
             >
               {isSignup ? "Sign Up" : "Sign In"}
             </Button>
-            <Grid container justifyContent="flex-end">
-              <Grid item>
-                <Button onClick={switchMode}>
+            <Grid container>
+              <Grid item xs={12} className={classes.optionButtonContainer}>
+                <Button onClick={switchMode} className={classes.optionButton}>
                   {isSignup
                     ? "Already have an account? Sign in"
                     : "Don't have an account? Sign Up"}
                 </Button>
               </Grid>
+              {!isSignup && (
+                <Grid item xs={12} className={classes.optionButtonContainer}>
+                  <Button
+                    className={classes.optionButton}
+                    component={Link}
+                    to="/passwordResetRequest"
+                  >
+                    Forgot your password?
+                  </Button>
+                </Grid>
+              )}
             </Grid>
           </form>
         </div>

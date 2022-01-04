@@ -8,6 +8,8 @@ import {
   UPDATE_TOPIC,
   DELETE_TOPIC,
   FETCH_TOPICS_BY_SEARCH,
+  FETCH_TOPIC_TAGS,
+  UPDATE_TOPIC_TAGS,
 } from "./../constants/actionTypes";
 
 export const getTopics = (page) => async (dispatch) => {
@@ -24,6 +26,18 @@ export const getTopics = (page) => async (dispatch) => {
     });
     dispatch({ type: END_LOADING });
     
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getTopicTags = () => async (dispatch) => {
+  try {
+    const { data } = await api.fetchTopicTags();
+    // console.log("get tags action");
+    // console.log(data);
+    dispatch({ type: FETCH_TOPIC_TAGS, payload: data });
+
   } catch (error) {
     console.log(error);
   }
@@ -46,7 +60,7 @@ export const getTopicsBySearch = (searchQuery) => async (dispatch) => {
   try {
     dispatch({ type: START_LOADING });
     const { data } = await api.fetchTopicsBySearch(searchQuery);
-    console.log(data);
+    // console.log(data);
 
     dispatch({ type: FETCH_TOPICS_BY_SEARCH, payload: { data } });
     dispatch({ type: END_LOADING });
@@ -61,9 +75,10 @@ export const createTopic = (topic, history) => async (dispatch) => {
 
     const { data } = await api.createTopic(topic);
     dispatch({ type: CREATE_TOPIC, payload: data });
+    dispatch({ type: UPDATE_TOPIC_TAGS, payload: data?.tags });
 
     dispatch({ type: END_LOADING });
-    // history.push(`/topics/${data._id}`);
+    // history.push(`/forum/${data._id}`);
   } catch (error) {
     console.log(error);
   }
@@ -71,17 +86,24 @@ export const createTopic = (topic, history) => async (dispatch) => {
 
 export const updateTopic = (id, topic) => async (dispatch) => {
   try {
-    const { data } = await api.updateTopic(id, topic);
-    dispatch({ type: UPDATE_TOPIC, payload: data });
+    const { data: {updatedTopic, tagList} } = await api.updateTopic(id, topic);    
+    dispatch({ type: UPDATE_TOPIC, payload: updatedTopic });
+    dispatch({ type: FETCH_TOPIC_TAGS, payload: tagList });
+
   } catch (error) {
     console.log(error);
   }
 };
 
-export const deleteTopic = (id) => async (dispatch) => {
+export const deleteTopic = (id, router) => async (dispatch) => {
   try {
-    await api.deleteTopic(id);
+    const { data: { tags } } = await api.deleteTopic(id);
+  
     dispatch({ type: DELETE_TOPIC, payload: id });
+    dispatch({ type: FETCH_TOPIC_TAGS, payload: tags });
+    
+    router.push("/forum");
+
   } catch (error) {
     console.log(error);
   }

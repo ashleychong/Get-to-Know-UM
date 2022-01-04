@@ -3,12 +3,14 @@ import {
   START_LOADING,
   END_LOADING,
   FETCH_FOOD_NOMINATIONS,
+  FETCH_APPROVED_FOOD_NOMINATIONS,
   FETCH_FOOD_NOMINATION,
   CREATE_FOOD_NOMINATION,
   UPDATE_FOOD_NOMINATION,
   DELETE_FOOD_NOMINATION,
   APPROVE_FOOD_NOMINATION,
   DECLINE_FOOD_NOMINATION,
+  VOTE_FOOD_NOMINATION,
 } from "../constants/foodNominationActionTypes";
 
 export const getFoodNominations = () => async (dispatch) => {
@@ -25,6 +27,24 @@ export const getFoodNominations = () => async (dispatch) => {
   }
 };
 
+export const getApprovedFoodNominations = (page) => async (dispatch) => {
+  try {
+    dispatch({ type: START_LOADING });
+
+    const {
+      data: { data, currentPage, numberOfPages },
+    } = await api.fetchApprovedFoodNominations(page);
+
+    dispatch({
+      type: FETCH_APPROVED_FOOD_NOMINATIONS,
+      payload: { data, currentPage, numberOfPages },
+    });
+
+    dispatch({ type: END_LOADING });
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 export const getFoodNomination = (id) => async (dispatch) => {
   try {
@@ -82,8 +102,18 @@ export const approveFoodNomimation = (id) => async (dispatch) => {
 
 export const declineFoodNomimation = (id) => async (dispatch) => {
   try {
+
     const { data } = await api.declineFoodNomimation(id);
     dispatch({ type: DECLINE_FOOD_NOMINATION, payload: data });
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const voteFoodNomination = (id) => async (dispatch) => {
+  try {
+    const { data } = await api.voteFoodNomimation(id);
+    dispatch({ type: VOTE_FOOD_NOMINATION, payload: data });
+    
   } catch (error) {
     console.log(error);
   }

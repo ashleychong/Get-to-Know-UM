@@ -1,6 +1,7 @@
 export const START_LOADING = "cafe/START_LOADING";
 export const END_LOADING = "cafe/END_LOADING";
 export const FETCH_CAFES = "FETCH_CAFES";
+export const FETCH_CAFES_BY_PAGES = "FETCH_CAFES_BY_PAGES";
 export const FETCH_CAFE = "FETCH_CAFE";
 export const CREATE_CAFE = "CREATE_CAFE";
 export const UPDATE_CAFE = "UPDATE_CAFE";

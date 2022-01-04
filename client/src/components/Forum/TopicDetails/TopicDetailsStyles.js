@@ -1,6 +1,9 @@
 import { makeStyles } from "@material-ui/core/styles";
 
 export default makeStyles((theme) => ({
+  container: {
+    margin: "0 auto",
+  },
   pageContent: {
     [theme.breakpoints.down("sm")]: {
       marginLeft: theme.spacing(2),
@@ -34,8 +37,8 @@ export default makeStyles((theme) => ({
     [theme.breakpoints.up("sm")]: {
       marginLeft: theme.spacing(5),
       marginRight: theme.spacing(5),
-      marginTop: theme.spacing(5),
-      padding: theme.spacing(1),
+      marginTop: theme.spacing(6),
+      padding: theme.spacing(3),
     },
   },
   titleText: {
@@ -48,5 +51,8 @@ export default makeStyles((theme) => ({
     padding: "20px",
     borderRadius: "15px",
     height: "39vh",
+  },
+  message: {
+    textAlign: "justify",
   },
 }));

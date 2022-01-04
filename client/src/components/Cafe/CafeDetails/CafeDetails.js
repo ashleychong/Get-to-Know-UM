@@ -32,6 +32,7 @@ const CafeDetails = () => {
 
   useEffect(() => {
     dispatch(getCafeReviews(cafeId));
+    // console.log("dispatch get cafe reviews");
   }, [cafe]);
 
   const editInPopup = (review) => {

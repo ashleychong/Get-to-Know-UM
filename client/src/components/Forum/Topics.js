@@ -1,12 +1,20 @@
 import { useSelector } from "react-redux";
-import { Grid, CircularProgress, Divider, Container } from "@material-ui/core";
+import { Grid, CircularProgress, Divider, Container, Typography, } from "@material-ui/core";
 
 import Topic from "./Topic/Topic";
 
 const Topics = ({ editInPopup }) => {
   const { topics, isLoading } = useSelector((state) => state.topics);
 
-  if (!topics.length && !isLoading) return "No topics";
+  if (!topics.length && !isLoading) {
+    return (
+      <div style={{ margin: "20px", textAlign: "center" }}>
+        <Typography variant="h6">
+          No topics found.
+        </Typography>
+      </div>
+    );
+  }
 
   return isLoading ? (
     <CircularProgress />

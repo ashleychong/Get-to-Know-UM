@@ -52,7 +52,7 @@ export const getFavEventList = async (req, res) => {
       .sort({ _id: -1 })
       .limit(LIMIT)
       .skip(startIndex);
-    console.log(events);
+    // console.log(events);
     res.json({
       currentPage: Number(page),
       numberOfPages: Math.ceil(total / LIMIT),
@@ -90,9 +90,9 @@ export const getEventsBySearch = async (req, res) => {
 
   try {
     const title = new RegExp(searchQuery, "i");
-    console.log(title);
+    // console.log(title);
     const events = await EventMessage.find({ title });
-    console.log(events);
+    // console.log(events);
     res.json(events);
   } catch (error) {
     res.status(404).json({ message: error.message });
@@ -104,9 +104,9 @@ export const getEventsByTag = async (req, res) => {
 
   try {
     const eventTag = new RegExp(tag, "i");
-    console.log(eventTag);
+    // console.log(eventTag);
     const events = await EventMessage.find({ tags: eventTag });
-    console.log(events);
+    // console.log(events);
     res.json(events);
   } catch (error) {
     res.status(404).json({ message: error.message });

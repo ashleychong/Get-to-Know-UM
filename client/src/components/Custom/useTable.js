@@ -4,6 +4,7 @@ import {
   TableHead,
   TableRow,
   TableCell,
+  TableContainer,
   makeStyles,
   TablePagination,
   TableSortLabel,
@@ -34,7 +35,9 @@ export default function useTable(records, headCells, filterFn) {
   const [orderBy, setOrderBy] = useState();
 
   const TblContainer = (props) => (
-    <Table className={classes.table}>{props.children}</Table>
+    <TableContainer>
+      <Table className={classes.table}>{props.children}</Table>
+    </TableContainer>
   );
 
   const TblHead = (props) => {

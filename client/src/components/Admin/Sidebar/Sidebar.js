@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import decode from "jwt-decode";
 import {
   Button,
@@ -14,6 +14,7 @@ import {
   useMediaQuery,
 } from "@material-ui/core";
 import {
+  Close,
   DashboardOutlined,
   EventAvailableOutlined,
   LocalLibraryOutlined,
@@ -22,21 +23,22 @@ import {
   StarRateRounded,
   FastfoodOutlined,
   LocalDiningOutlined,
+  ForumOutlined,
 } from "@material-ui/icons";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory, useLocation, Link } from "react-router-dom";
 
 import useStyles from "./styles";
+import Custom from "../../Custom/Custom";
 import * as actionType from "../../../constants/actionTypes";
-import admin from "../../../assets/images/admin.png";
 
-const SideBar = () => {
+const SideBar = (props) => {
+  const { downSm, isSidebarOpen, handleDrawerToggle } = props;
   const classes = useStyles();
   const history = useHistory();
   const location = useLocation();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.authData);
-  const smUp = useMediaQuery((theme) => theme.breakpoints.up("sm"));
 
   const logout = () => {
     console.log("Logged out");
@@ -44,7 +46,6 @@ const SideBar = () => {
 
     history.push("/");
   };
-
   useEffect(() => {
     const token = user?.token;
 
@@ -62,6 +63,11 @@ const SideBar = () => {
       text: "Dashboard",
       icon: <DashboardOutlined />,
       path: "#",
+    },
+    {
+      text: "Forum",
+      icon: <ForumOutlined />,
+      path: "/admin/forumReports",
     },
     {
       text: "Cafe",
@@ -109,21 +115,51 @@ const SideBar = () => {
           height: "100%",
         }}
       >
-        <Typography variant="h5" className={classes.header}>
-          Admin Portal
-        </Typography>
-        <div className={classes.userDetails}>
-          <Avatar
-            className={classes.profile}
-            alt={user?.result?.name}
-            src={user?.result?.image || admin}
-          />
+        {downSm && (
+          <div
+            style={{
+              padding: "24px 16px",
+              display: "flex",
+              justifyContent: "flex-end",
+            }}
+          >
+            <Custom.ActionButton
+              color="closeSidebar"
+              onClick={handleDrawerToggle}
+            >
+              <Close />
+            </Custom.ActionButton>
+          </div>
+        )}
+        <div className={classes.adminInfo}>
+          <Typography variant="h5" className={classes.header}>
+            Admin Portal
+          </Typography>
+          <div>
+            <Avatar
+              className={classes.avatar}
+              alt={user?.result?.name}
+              src={user?.result?.image}
+              component={Link}
+              to="/admin/profile"
+            >
+              {user?.result?.name?.charAt(0)}
+            </Avatar>
+          </div>
+          <Typography
+            className={classes.username}
+            component={Link}
+            to="/admin/profile"
+          >
+            {user?.result?.name}
+          </Typography>
         </div>
-        <Typography className={classes.username}>
-          {" "}
-          {user?.result?.name}{" "}
-        </Typography>
-        <Divider />
+        <Divider
+          style={{
+            backgroundColor: "#2D3748",
+            margin: "24px 0",
+          }}
+        />
         <List className={classes.list}>
           {itemsList.map((item) => (
             <ListItem
@@ -144,18 +180,49 @@ const SideBar = () => {
         </List>
         <div className={classes.logoutDiv}>
           <Button
+            onClick={logout}
+            fullWidth
+            style={{
+              marginTop: 16,
+              backgroundColor: "#10B981",
+              color: "white",
+              textTransform: "none",
+              fontWeight: "600",
+              fontSize: "0.9rem",
+              letterSpacing: "0.01rem",
+            }}
+            variant="contained"
+          >
+            Log out
+          </Button>
+          {/* <Button
             variant="contained"
             className={classes.logoutBtn}
             onClick={logout}
           >
             Logout
-          </Button>
+          </Button> */}
         </div>
       </Box>
     </>
   );
 
-  return (
+  return downSm ? (
+    <Drawer
+      variant="temporary"
+      anchor="left"
+      open={isSidebarOpen}
+      onClose={handleDrawerToggle}
+      classes={{
+        paper: classes.drawerPaper,
+      }}
+      ModalProps={{
+        keepMounted: true, // Better open performance on mobile.
+      }}
+    >
+      {content}
+    </Drawer>
+  ) : (
     <Drawer
       className={classes.drawer}
       variant="permanent"

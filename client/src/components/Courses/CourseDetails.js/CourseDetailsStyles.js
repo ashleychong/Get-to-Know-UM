@@ -84,6 +84,7 @@ export default makeStyles((theme) => ({
   },
   paragraph: {
     color: "rgba(95,96,101,1)",
+    textAlign: "justify",
   },
   root: {
     [theme.breakpoints.down("sm")]: {

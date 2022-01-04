@@ -13,7 +13,7 @@ const CafeCards = () => {
   ) : (
     <>
       {cafes?.map((cafe) => (
-        <Grid key={cafe._id} item xs={12} sm={12} md={6} lg={3}>
+        <Grid key={cafe._id} item xs={12} sm={6} md={4}>
           <CafeCard
             imgSrc={cafe.image}
             imgAlt={cafe.title}

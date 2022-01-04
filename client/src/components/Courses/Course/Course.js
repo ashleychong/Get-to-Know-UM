@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     },
     flexDirection: "column",
     justifyContent: "space-between",
-    height: "auto",
+    height: "100%",
   },
   cardDetails: {
     flex: 1,
@@ -49,6 +49,9 @@ const useStyles = makeStyles((theme) => ({
       marginRight: theme.spacing(1),
     },
   },
+  title: {
+    color: "rgba(107,94,250,1)",
+  },
 }));
 
 export default function FeaturedPost(props) {
@@ -57,8 +60,8 @@ export default function FeaturedPost(props) {
   const { course } = props;
 
   return (
-    <Grid item className={classes.cardGrid} xs={12} md={4}>
-      <CardActionArea component="a" href={`/courses/${course._id}`} >
+    <Grid item className={classes.cardGrid} xs={12} sm={6} md={4}>
+      <CardActionArea component="a" href={`/courses/${course._id}`} style={{height: "100%"}}>
         <Card className={classes.card}>
           <CardMedia
             className={classes.cardMedia}
@@ -66,13 +69,13 @@ export default function FeaturedPost(props) {
           />
           <div className={classes.cardDetails}>
             <CardContent>
-              <Typography component="h2" variant="h5">
+              <Typography component="h2" variant="h5" color="primary">
                 {course.title}
               </Typography>
               <Typography variant="subtitle1" color="textSecondary">
                 {course.courseCode}
               </Typography>
-              <Typography variant="body1">
+              <Typography variant="body1" style={{ textAlign: "justify" }}>
                 {course.description.split(" ").splice(0, 30).join(" ")}...
               </Typography>
             </CardContent>

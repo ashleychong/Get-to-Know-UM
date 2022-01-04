@@ -2,14 +2,63 @@ import mongoose from "mongoose";
 
 import CafeReview from "../models/cafeReview.js";
 import Cafe from "../models/cafe.js";
+import User from "../models/user.js";
+
 
 export const getCafeReviews = async (req, res) => {
   const { cafeId } = req.params;
 
   try {
-    const cafeReviews = await CafeReview.find({ cafeId }).sort({
+    // const cafeReviews = await CafeReview.find({ cafeId }).sort({
+    //   createdAt: "asc",
+    // });
+
+    const cafeReviews = await CafeReview.aggregate([
+      {
+        $match: { cafeId },
+      },
+      {
+        $lookup: {
+          from: "users",
+          let: {
+            user: "$userId",
+          },
+          pipeline: [
+            {
+              $match: {
+                $expr: {
+                  $eq: [
+                    "$_id",
+                    {
+                      $toObjectId: "$$user",
+                    },
+                  ],
+                },
+              },
+            },
+            {
+              $project: {
+                temp: {
+                  name: "$name",
+                  image: "$image",
+                },
+              },
+            },
+            {
+              $replaceRoot: {
+                newRoot: "$temp",
+              },
+            },
+          ],
+          as: "userData",
+        },
+      },
+    ]).sort({
       createdAt: "asc",
     });
+
+    // console.log(cafeReviews[0].userData);
+
     res.status(200).json(cafeReviews);
   } catch (error) {
     res.status(404).json({ message: error.message });
@@ -25,13 +74,64 @@ export const createCafeReview = async (req, res) => {
     createdAt: new Date().toISOString(),
   });
 
+
   try {
     await newCafeReview.save();
-    console.log(newCafeReview);
+    // console.log(newCafeReview);
+
+    const cafeReviewId = newCafeReview._id;
+
+    const combinedCafeReview = await CafeReview.aggregate([
+      {
+        $match: {
+          _id: mongoose.Types.ObjectId(cafeReviewId),
+        },
+      },
+      {
+        $lookup: {
+          from: "users",
+          let: {
+            user: "$userId",
+          },
+          pipeline: [
+            {
+              $match: {
+                $expr: {
+                  $eq: [
+                    "$_id",
+                    {
+                      $toObjectId: "$$user",
+                    },
+                  ],
+                },
+              },
+            },
+            {
+              $project: {
+                temp: {
+                  name: "$name",
+                  image: "$image",
+                },
+              },
+            },
+            {
+              $replaceRoot: {
+                newRoot: "$temp",
+              },
+            },
+          ],
+          as: "userData",
+        },
+      },
+    ]);
+
+    // console.log(combinedCafeReview);
+    const combinedNewCafeReview = combinedCafeReview[0];
 
     const updatedCafe = await updateCafeRating(cafeId);
 
-    res.status(201).json({newCafeReview, updatedCafe});
+    // res.status(201).json({ newCafeReview, updatedCafe });
+    res.status(201).json({ newCafeReview: combinedNewCafeReview, updatedCafe });
   } catch (error) {
     res.status(409).json({ message: error.message });
   }
@@ -49,6 +149,8 @@ export const updateCafeReview = async (req, res) => {
     { title, description, rating },
     { new: true }
   );
+
+  // console.log(updatedCafeReview);
 
   const updatedCafe = await updateCafeRating(cafeId);
 
@@ -74,12 +176,12 @@ const updateCafeRating = async (cafeId) => {
     { $group: { _id: null, average: { $avg: "$rating" } } },
   ]);
 
-  console.log(result);
+  // console.log(result);
 
   let avgRating = result[0].average;
   avgRating = Math.round(avgRating * 10) / 10;
 
-  console.log(avgRating);
+  // console.log(avgRating);
 
   const updatedCafe = await Cafe.findByIdAndUpdate(
     cafeId,

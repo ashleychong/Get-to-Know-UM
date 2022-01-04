@@ -22,7 +22,7 @@ export const getEvents = (page) => async (dispatch) => {
     dispatch({ type: START_LOADING });
 
     const { data } = await api.fetchEvents(page);
-    console.log(data);
+    // console.log(data);
     dispatch({ type: FETCH_EVENTS, payload: data });
     dispatch({ type: END_LOADING });
   } catch (error) {
@@ -35,7 +35,7 @@ export const getFavEvents = (page) => async (dispatch) => {
     dispatch({ type: START_LOADING });
     const user = JSON.parse(localStorage.getItem("profile"));
     const { data } = await api.fetchFavEvents(page, user?.token);
-    console.log(data);
+    // console.log(data);
 
     dispatch({ type: FETCH_FAV_EVENTS, payload: data });
     dispatch({ type: END_LOADING });
@@ -57,7 +57,7 @@ export const getEvent = (id) => async (dispatch) => {
   try {
     dispatch({ type: START_LOADING });
     const { data } = await api.fetchEvent(id);
-    console.log(data);
+    // console.log(data);
     dispatch({ type: FETCH_EVENT, payload: { event: data } });
   } catch (error) {
     console.log(error.message);
@@ -81,7 +81,7 @@ export const getEventsByTag = (tag) => async (dispatch) => {
     dispatch({ type: START_LOADING });
 
     const { data } = await api.fetchEventsByTag(tag);
-    console.log(data);
+    // console.log(data);
     dispatch({ type: FETCH_BY_TAG_EVENT, payload: { data } });
     dispatch({ type: END_LOADING });
   } catch (error) {

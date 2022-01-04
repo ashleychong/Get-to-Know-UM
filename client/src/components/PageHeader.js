@@ -1,5 +1,6 @@
 import React from "react";
-import { Paper, Card, Typography, makeStyles, Button } from "@material-ui/core";
+import { Paper, Card, Typography, makeStyles, IconButton, useMediaQuery, } from "@material-ui/core";
+import { Menu as MenuIcon} from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -8,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
   pageHeader: {
     padding: theme.spacing(1.2),
     display: "flex",
-    justifyContent: "space-between",
+    alignItems: "center",
     marginBottom: theme.spacing(2),
   },
   pageIcon: {
@@ -26,22 +27,25 @@ const useStyles = makeStyles((theme) => ({
 
 export default function PageHeader(props) {
   const classes = useStyles();
-  const { title, children } = props;
+  const { downSm, handleDrawerToggle, title, children } = props;
+
   return (
     <Paper elevation={0} square className={classes.root}>
       <div className={classes.pageHeader}>
-        {/* <Card className={classes.pageIcon}>{icon}</Card> */}
+        {downSm && (
+          <IconButton
+            style={{ padding: "8px" }}
+            onClick={handleDrawerToggle}
+          >
+            <MenuIcon />
+          </IconButton>
+        )}
         <div className={classes.pageTitle}>
           <Typography variant="h6" component="div">
             {title}
           </Typography>
-          {/* <Typography variant="subtitle2" component="div">
-            {subTitle}
-          </Typography> */}
         </div>
-        <div>
-          {children}
-        </div>
+        <div>{children}</div>
       </div>
     </Paper>
   );

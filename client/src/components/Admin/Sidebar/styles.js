@@ -1,11 +1,17 @@
 import { makeStyles } from "@material-ui/core/styles";
+import { deepPurple } from "@material-ui/core/colors";
 
-const drawerWidth = 256;
+const drawerWidth = 280;
 
 export default makeStyles((theme) => ({
+  adminInfo: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
   header: {
     color: "#FFFFFF",
-    padding: "30px 45px",
+    padding: "20px 0",
     fontWeight: 500,
   },
   drawer: {
@@ -20,20 +26,30 @@ export default makeStyles((theme) => ({
   username: {
     color: "#FFFFFF",
     textAlign: "center",
-    padding: "15px 0 30px",
+    textDecoration: "none",
+    padding: "20px 0",
     fontSize: 20,
   },
   drawerPaper: {
     width: drawerWidth,
     backgroundColor: "#111827",
   },
-
   list: {
     color: "#D1D5DB",
   },
-  profile: {
-    width: 100,
-    height: 100,
+  avatar: {
+    color: theme.palette.getContrastText(deepPurple[500]),
+    backgroundColor: deepPurple[500],
+    textDecoration: "none",
+    fontSize: "35px",
+    [theme.breakpoints.down("sm")]: {
+      height: "70px",
+      width: "70px",
+    },
+    [theme.breakpoints.up("sm")]: {
+      width: 100,
+      height: 100,
+    },
   },
   userDetails: {
     padding: "0 72px",
@@ -54,9 +70,7 @@ export default makeStyles((theme) => ({
     fontWeight: 600,
   },
   logoutDiv: {
-    display: "flex",
-    justifyContent: "center",
-    paddingTop: "2rem",
+    padding: "24px 16px 48px",
   },
   logoutBtn: {
     backgroundColor: "white",

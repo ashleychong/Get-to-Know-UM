@@ -11,9 +11,12 @@ import food from "./food";
 import umCourses from "./gpa";
 import leisures from "./leisure";
 import cafes from "./cafe";
+import forumReports from "./forumReports";
+
 export const reducers = combineReducers({
   auth,
   topics,
+  forumReports,
   courses,
   events,
   clubs,

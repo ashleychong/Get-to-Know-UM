@@ -10,10 +10,8 @@ import {
   Tab,
   Tooltip,
   Box,
-  CardContent,
   Divider,
 } from "@material-ui/core";
-import { Help } from "@material-ui/icons";
 
 import Layout from "../Layout/Layout";
 import PageHeader from "../../PageHeader";
