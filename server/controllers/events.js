@@ -90,7 +90,10 @@ export const getEventsBySearch = async (req, res) => {
   try {
     const title = new RegExp(searchQuery, "i");
 
-    const events = await EventMessage.find({ title });
+    const events = await EventMessage.find({
+      title,
+      endDate: { $gt: new Date().toISOString() },
+    });
 
     res.json(events);
   } catch (error) {

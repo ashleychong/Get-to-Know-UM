@@ -70,7 +70,7 @@ const Leisure = () => {
       </Typography>
       <div style={{ margin: "0 10vw" }}>
         <ImageList>
-          <ImageListItem style={{ padding: "20px" }}>
+          <ImageListItem style={{ width: "100%", padding: "20px" }}>
             <img
               src="https://innovationcloud.com/pub/blog/16085586899987_innovation_cloud_-_customer_experience.png"
               loading="lazy"

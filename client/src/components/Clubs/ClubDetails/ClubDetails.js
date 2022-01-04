@@ -86,9 +86,9 @@ const ClubDetails = () => {
                 alt={club.title}
               />
             </div>
-            <Typography className={classes.title} variant="h4">
-              {club.title}
-            </Typography>
+            <div className={classes.text}>
+              <Typography className={classes.title}>{club.title}</Typography>
+            </div>
             <Divider style={{ marginTop: "20px" }} />
             <Box sx={{ width: "100%", typography: "body1" }}>
               <TabContext value={value}>
@@ -113,9 +113,11 @@ const ClubDetails = () => {
                   </TabList>
                 </Box>
                 <TabPanel value="1">
-                  <Typography className={classes.details}>
-                    {club.about}
-                  </Typography>
+                  <div className={classes.text}>
+                    <Typography className={classes.details}>
+                      {club.about}
+                    </Typography>
+                  </div>
                 </TabPanel>
                 <TabPanel value="2">
                   <Grid container spacing={5}>
@@ -145,65 +147,67 @@ const ClubDetails = () => {
                   </Grid>
                 </TabPanel>
                 <TabPanel value="3">
-                  <Typography className={classes.details}>
+                  <Typography className={classes.details2}>
                     For any enquiries, please follow and contact us :
                   </Typography>
-                  {club.website && (
-                    <div className={classes.contact}>
-                      <ButtonBase onClick={() => window.open(club?.website)}>
-                        <LanguageRounded /> &nbsp;&nbsp;&nbsp;{" "}
-                        <Typography> Website </Typography>
-                      </ButtonBase>
-                    </div>
-                  )}
-                  {club.insta && (
-                    <div className={classes.contact}>
-                      <ButtonBase onClick={() => window.open(club?.insta)}>
-                        <LanguageRounded /> &nbsp;&nbsp;&nbsp;{" "}
-                        <Typography> Instagram</Typography>
-                      </ButtonBase>
-                    </div>
-                  )}
-                  {club.fb && (
-                    <div className={classes.contact}>
-                      <ButtonBase onClick={() => window.open(club?.fb)}>
-                        <LanguageRounded /> &nbsp;&nbsp;&nbsp;{" "}
-                        <Typography> Facebook</Typography>
-                      </ButtonBase>
-                    </div>
-                  )}
-                  {club.utube && (
-                    <div className={classes.contact}>
-                      <ButtonBase onClick={() => window.open(club?.utube)}>
-                        <LanguageRounded /> &nbsp;&nbsp;&nbsp;{" "}
-                        <Typography> Youtube</Typography>
-                      </ButtonBase>
-                    </div>
-                  )}
-                  {club.linkedin && (
-                    <div className={classes.contact}>
-                      <ButtonBase onClick={() => window.open(club?.linkedin)}>
-                        <LanguageRounded /> &nbsp;&nbsp;&nbsp;{" "}
-                        <Typography> LinkedIn</Typography>
-                      </ButtonBase>
-                    </div>
-                  )}
-                  {club.email && (
-                    <div className={classes.email}>
-                      <MailOutlineRounded />
-                      <Typography>&nbsp;&nbsp;{club.email} </Typography>
-                    </div>
-                  )}
-                  {club.contact && (
-                    <div className={classes.email}>
-                      <LocalPhoneRounded />
-                      <Typography>&nbsp;&nbsp;{club.contact} </Typography>
-                    </div>
-                  )}
+                  <div className={classes.text}>
+                    {club.website && (
+                      <div className={classes.contact}>
+                        <ButtonBase onClick={() => window.open(club?.website)}>
+                          <LanguageRounded /> &nbsp;&nbsp;&nbsp;{" "}
+                          <Typography> Website </Typography>
+                        </ButtonBase>
+                      </div>
+                    )}
+                    {club.insta && (
+                      <div className={classes.contact}>
+                        <ButtonBase onClick={() => window.open(club?.insta)}>
+                          <LanguageRounded /> &nbsp;&nbsp;&nbsp;{" "}
+                          <Typography> Instagram</Typography>
+                        </ButtonBase>
+                      </div>
+                    )}
+                    {club.fb && (
+                      <div className={classes.contact}>
+                        <ButtonBase onClick={() => window.open(club?.fb)}>
+                          <LanguageRounded /> &nbsp;&nbsp;&nbsp;{" "}
+                          <Typography> Facebook</Typography>
+                        </ButtonBase>
+                      </div>
+                    )}
+                    {club.utube && (
+                      <div className={classes.contact}>
+                        <ButtonBase onClick={() => window.open(club?.utube)}>
+                          <LanguageRounded /> &nbsp;&nbsp;&nbsp;{" "}
+                          <Typography> Youtube</Typography>
+                        </ButtonBase>
+                      </div>
+                    )}
+                    {club.linkedin && (
+                      <div className={classes.contact}>
+                        <ButtonBase onClick={() => window.open(club?.linkedin)}>
+                          <LanguageRounded /> &nbsp;&nbsp;&nbsp;{" "}
+                          <Typography> LinkedIn</Typography>
+                        </ButtonBase>
+                      </div>
+                    )}
+                    {club.email && (
+                      <div className={classes.email}>
+                        <MailOutlineRounded />
+                        <Typography>&nbsp;&nbsp;{club.email} </Typography>
+                      </div>
+                    )}
+                    {club.contact && (
+                      <div className={classes.email}>
+                        <LocalPhoneRounded />
+                        <Typography>&nbsp;&nbsp;{club.contact} </Typography>
+                      </div>
+                    )}
+                  </div>
                 </TabPanel>
                 <TabPanel value="4">
                   <Card className={classes.reviewsCard}>
-                    <div style={{ display: "flex", flexDirection: "row" }}>
+                    <div className={classes.review} style={{}}>
                       <Typography variant="h5" style={{ padding: "20px" }}>
                         Rating :{" "}
                       </Typography>

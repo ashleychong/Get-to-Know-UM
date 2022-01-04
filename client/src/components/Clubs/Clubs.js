@@ -12,9 +12,9 @@ const Clubs = (setCurrentId) => {
   return isLoading ? (
     <CircularProgress />
   ) : (
-    <Grid container columns={{ xs: 9, sm: 8, md: 9, lg: 9, xl: 9 }}>
+    <Grid container>
       {clubs.map((club) => (
-        <Grid key={club._id} item xs={9} sm={6} md={4} lg={4} xl={4}>
+        <Grid key={club._id} item xs={12} sm={12} md={4} lg={4} xl={4}>
           <Club club={club} setCurrentId={setCurrentId} />
         </Grid>
       ))}

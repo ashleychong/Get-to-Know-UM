@@ -8,6 +8,10 @@ export default makeStyles((theme) => ({
     flexDirection: "column",
   },
   input: {
-    width: "550px",
+    [theme.breakpoints.up("sm")]: {
+      width: "550px",
+    },
+
+    width: "300px",
   },
 }));

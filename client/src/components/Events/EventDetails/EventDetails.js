@@ -57,11 +57,7 @@ const EventDetails = () => {
                 alt={event.title}
               />
             </div>
-            <Typography
-              className={classes.title}
-              variant="h4"
-              style={{ marginLeft: "50px" }}
-            >
+            <Typography className={classes.title}>
               {event.title}
               <Typography color="textSecondary" variant="body1">
                 #{event.tags}

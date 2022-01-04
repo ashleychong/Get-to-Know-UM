@@ -9,26 +9,18 @@ const initialValues = {
   curCdt: "",
   addCdt: "",
 };
-
 const PlanCal = () => {
   const classes = useStyles();
   const [click, setClick] = useState(false);
   const [planGPA, setPlan] = useState(0.0);
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
-    if ("curGPA" in fieldValues) {
+    if ("curGPA" in fieldValues)
       temp.curGPA = fieldValues.curGPA ? "" : "This field is required.";
-      temp.curGPA = fieldValues.curGPA.match(/^[-+]?[0-9]+\.[0-9]+$/)
-        ? ""
-        : "Please fill in decimal number only.";
-      temp.curGPA = fieldValues.curGPA < 4.0 ? "" : "Please input valid GPA.";
-    }
-    if ("targetGPA" in fieldValues) {
+    if ("targetGPA" in fieldValues)
       temp.targetGPA = fieldValues.targetGPA ? "" : "This field is required.";
-      temp.targetGPA = fieldValues.targetGPA.match(/^[-+]?[0-9]+\.[0-9]+$/)
-        ? ""
-        : "Please fill in decimal number only.";
-    }
+    // if ("targetGPA" in fieldValues)
+    //   temp.targetGPA = fieldValues.targetGPA > 4 ? "Pls input GPA <4.00" : "";
     if ("curCdt" in fieldValues)
       temp.curCdt = fieldValues.curCdt ? "" : "This field is required.";
     if ("addCdt" in fieldValues)
@@ -47,9 +39,12 @@ const PlanCal = () => {
   const clear = () => {
     setValues(initialValues);
     setClick(false);
+    setErrors({});
   };
+  console.log(errors);
 
   const calculate = (e) => {
+    validate();
     setClick(true);
     let totalCdt = parseFloat(values.curCdt) + parseFloat(values.addCdt);
     let target = parseFloat(values.targetGPA);
@@ -73,9 +68,15 @@ const PlanCal = () => {
           <Custom.Input
             required
             name="curGPA"
+            type="number"
+            inputProps={{
+              min: 0.0,
+              maxLength: 4.0,
+              step: "0.01",
+            }}
             value={values.curGPA}
             onChange={handleInputChange}
-            error={errors.curGPA}
+            error={values.curGPA > 4 ? "Pls input GPA <= 4.00" : errors.curGPA}
             helperText="*Your current Cumulative GPA"
           />
         </div>
@@ -84,9 +85,17 @@ const PlanCal = () => {
           <Custom.Input
             required
             name="targetGPA"
+            type="number"
+            inputProps={{
+              min: 0.0,
+              maxLength: 4.0,
+              step: "0.01",
+            }}
             value={values.targetGPA}
             onChange={handleInputChange}
-            error={errors.targetGPA}
+            error={
+              values.targetGPA > 4 ? "Pls input GPA <= 4.00" : errors.targetGPA
+            }
             helperText="*GPA that you wish to achieve."
           />
         </div>
@@ -136,18 +145,26 @@ const PlanCal = () => {
           </Button>
         </div>
       </Custom.Form>
-      {click && (
-        <Card variant="outlined" className={classes.card2}>
-          <CardContent className={classes.content}>
-            <Typography variant="h6" className={classes.wording}>
-              {planGPA > 4 ? "" : "Minimum GPA required in this semester is"}
-            </Typography>
-            <Typography variant="h5" className={classes.gpa2}>
-              {planGPA > 4 ? "GPA > 4.00. Try to lower your target." : planGPA}
-            </Typography>
-          </CardContent>
-        </Card>
-      )}
+      {click &&
+        values.curGPA != "" &&
+        values.curGPA <= 4 &&
+        values.curCdt != "" &&
+        values.targetGPA != "" &&
+        values.targetGPA <= 4 &&
+        values.addCdt != "" && (
+          <Card variant="outlined" className={classes.card2}>
+            <CardContent className={classes.content}>
+              <Typography variant="h6" className={classes.wording}>
+                {planGPA > 4 ? "" : "Minimum GPA required in this semester is"}
+              </Typography>
+              <Typography variant="h5" className={classes.gpa2}>
+                {planGPA > 4
+                  ? "GPA > 4.00. Try to lower your target."
+                  : planGPA}
+              </Typography>
+            </CardContent>
+          </Card>
+        )}
     </>
   );
 };

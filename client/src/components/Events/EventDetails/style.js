@@ -22,7 +22,11 @@ export default makeStyles((theme) => ({
     flex: 1,
   },
   imageSection: {
-    width: "20%",
+    [theme.breakpoints.up("sm")]: {
+      width: "20%",
+      height: "10%",
+    },
+    width: "50%",
     height: "10%",
   },
   about: {
@@ -30,9 +34,6 @@ export default makeStyles((theme) => ({
     margin: "0 0 8px",
     width: "200",
     whiteSpace: "pre-line",
-  },
-  title: {
-    fontWeight: "600",
   },
   info: {
     fontWeight: "500",
@@ -47,5 +48,15 @@ export default makeStyles((theme) => ({
     margin: "auto",
     alignItems: "center",
     justifyContent: "center",
+  },
+  title: {
+    [theme.breakpoints.up("sm")]: {
+      marginLeft: "50px",
+      fontWeight: "600",
+      fontSize: "34px",
+    },
+    marginLeft: "10px",
+    fontWeight: "600",
+    fontSize: "20px",
   },
 }));

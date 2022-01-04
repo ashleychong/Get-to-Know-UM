@@ -59,12 +59,9 @@ const FilterButton = () => {
         Filter events by date range:{" "}
       </Typography>
       <div style={{ display: "flex", alignItems: "center", marginTop: "20px" }}>
-        <form
-          onSubmit={handleSubmit}
-          style={{ display: "flex", flexDirection: "row", margin: "auto" }}
-        >
+        <form onSubmit={handleSubmit} className={classes.form}>
           <TextField
-            style={{ marginRight: "40px" }}
+            className={classes.from}
             variant="outlined"
             name="from"
             label="From"
@@ -101,12 +98,14 @@ const FilterButton = () => {
               shrink: true,
             }}
           />
-          <Button type="submit">
-            <SendIcon style={{ color: "#3f51b5", margin: "10px 0" }} />
-          </Button>
-          <Button onClick={clear} style={{ color: "", margin: "10px 0" }}>
-            <ClearIcon />
-          </Button>
+          <div>
+            <Button type="submit">
+              <SendIcon style={{ color: "#3f51b5", margin: "10px 0" }} />
+            </Button>
+            <Button onClick={clear} style={{ color: "", margin: "10px 0" }}>
+              <ClearIcon />
+            </Button>
+          </div>
         </form>
       </div>
     </>

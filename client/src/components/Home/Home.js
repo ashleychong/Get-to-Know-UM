@@ -93,19 +93,19 @@ const features1 = [
     title: "Forum",
     description:
       "Communicate and discuss with friends. Ask questions or help to answer doubts.",
-    icon: "https://cdn-icons.flaticon.com/png/512/2725/premium/2725696.png?token=exp=1641038605~hmac=eb8cc92a869d9b84113616381ed82aac",
+    icon: "https://cdn-icons-png.flaticon.com/512/745/745205.png",
     link: "/forum",
   },
   {
     title: "Club",
     description: "Get information related to clubs of University of Malaya.",
-    icon: "https://cdn-icons.flaticon.com/png/512/3343/premium/3343808.png?token=exp=1641039148~hmac=03c91e1a9873f5c7589211636bb65d97",
+    icon: "https://cdn-icons-png.flaticon.com/512/4629/4629699.png",
     link: "/club",
   },
   {
     title: "Event",
     description: "Access a variety of events to enrich your univesity life.",
-    icon: "https://cdn-icons.flaticon.com/png/512/2558/premium/2558944.png?token=exp=1641039282~hmac=ae90a0a4a4876e225533e70cab279f28",
+    icon: "https://cdn-icons-png.flaticon.com/512/3771/3771178.png",
     link: "/event",
   },
   {
@@ -121,20 +121,20 @@ const features2 = [
   {
     title: "Food",
     description: "Sharing is caring. Share the best food in UM with UM folks.",
-    icon: "https://cdn-icons.flaticon.com/png/512/2515/premium/2515183.png?token=exp=1641039995~hmac=32e5e5b4e4f31bf477571d5972b360a8",
+    icon: "https://cdn-icons-png.flaticon.com/512/706/706164.png",
     link: "/food",
   },
   {
     title: "Course",
     description:
       "Know more about the courses offer by UM and leave a review if you already took the course.",
-    icon: "https://cdn-icons.flaticon.com/png/512/2436/premium/2436874.png?token=exp=1641040026~hmac=8c5d82053aa952a9d9281fdb6c91d044",
+    icon: "https://cdn-icons-png.flaticon.com/512/2000/2000920.png",
     link: "/courses",
   },
   {
     title: "Calculator",
     description: "Calculate your grade point average and plan your result.",
-    icon: "https://cdn-icons.flaticon.com/png/512/3097/premium/3097709.png?token=exp=1641040045~hmac=a4847653864e26d3bca854c10bd621f5",
+    icon: "https://cdn-icons-png.flaticon.com/512/2374/2374370.png",
     link: "/calculator",
   },
 ];

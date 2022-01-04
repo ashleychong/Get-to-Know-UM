@@ -8,11 +8,19 @@ export default makeStyles((theme) => ({
   },
   fav: { color: "black" },
   btn: {
+    [theme.breakpoints.up("sm")]: {
+      position: "absolute",
+      backgroundColor: "#c5cae9",
+      right: "0",
+      marginTop: "30px",
+      marginRight: "20px",
+      borderRadius: "20px",
+    },
     position: "absolute",
     backgroundColor: "#c5cae9",
     right: "0",
-    marginTop: "30px",
-    marginRight: "20px",
+    marginTop: "360px",
+    marginRight: "50px",
     borderRadius: "20px",
   },
   word: {
