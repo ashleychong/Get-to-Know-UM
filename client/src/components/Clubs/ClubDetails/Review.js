@@ -37,7 +37,7 @@ const Review = ({ editInPopup, clubId, review }) => {
           <Grid item xs={12} md={11}>
             <Box className={classes.ratingBox}>
               <Rating value={review?.rating} readOnly />
-              <Typography variant="subtitle2" className={classes.reviewDate}>
+              <Typography variant="caption" className={classes.reviewDate}>
                 {`${moment(review?.createdAt).format("lll")}`}
               </Typography>
             </Box>

@@ -69,102 +69,92 @@ const ExperienceCard = (props) => {
 
   return (
     <>
-      <Grid className={classes.grid} container>
-        <Grid item xs={12}>
-          <div className={classes.position}>
-            {index > 3 ? (
-              <Typography className={classes.ranking} variant="h4">
-                {index}
+      <div className={classes.position}>
+        {index > 3 ? (
+          <Typography className={classes.ranking} variant="h4">
+            {index}
+          </Typography>
+        ) : index == 1 ? (
+          <img
+            style={{ height: "50px", width: "60px ", margin: "auto" }}
+            src="https://cdn-icons-png.flaticon.com/512/2583/2583344.png"
+          />
+        ) : index == 2 ? (
+          <img
+            style={{ height: "50px", width: "60px ", margin: "auto" }}
+            src="https://cdn-icons-png.flaticon.com/512/2583/2583319.png"
+          />
+        ) : (
+          <img
+            style={{ height: "50px", width: "60px ", margin: "auto" }}
+            src="https://cdn-icons-png.flaticon.com/512/2583/2583434.png"
+          />
+        )}
+
+        <Card className={classes.card}>
+          <CardMedia
+            className={classes.cover}
+            image={exp.img}
+            alt={exp.title}
+          />
+
+          <Box className={classes.box}>
+            <CardContent>
+              <Typography className={classes.expTitle}>
+                {exp.title}{" "}
+                <Button
+                  className={classes.btn}
+                  size="small"
+                  color="primary"
+                  disabled={!user?.result}
+                  onClick={() => dispatch(likeExp(exp._id))}
+                >
+                  <Likes />
+                </Button>
               </Typography>
-            ) : index == 1 ? (
-              <img
-                style={{ height: "50px", width: "60px ", margin: "auto" }}
-                src="https://cdn-icons-png.flaticon.com/512/2583/2583344.png"
-              />
-            ) : index == 2 ? (
-              <img
-                style={{ height: "50px", width: "60px ", margin: "auto" }}
-                src="https://cdn-icons-png.flaticon.com/512/2583/2583319.png"
-              />
-            ) : (
-              <img
-                style={{ height: "50px", width: "60px ", margin: "auto" }}
-                src="https://cdn-icons-png.flaticon.com/512/2583/2583434.png"
-              />
-            )}
+            </CardContent>
+            <div className={classes.desc}>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                }}
+              >
+                <RoomIcon style={{ color: "red" }} />
+                <Typography style={{ color: "grey" }}>
+                  &nbsp;&nbsp;{exp.location}
+                </Typography>
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                }}
+              >
+                <LocalAtmIcon style={{ color: "green" }} />
+                <Typography style={{ color: "grey" }}>
+                  &nbsp;&nbsp;
+                  {exp.charge == 0 ? "Free" : `RM${exp.charge}`}
+                </Typography>
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                }}
+              >
+                <AccessTimeIcon style={{ color: "indigo" }} />
+                <Typography style={{ color: "grey" }}>
+                  &nbsp;&nbsp;{exp.duration} mins
+                </Typography>
+              </div>
+              <Typography variant="body1">{exp.description}</Typography>
 
-            <Card className={classes.card}>
-              <CardMedia
-                className={classes.cover}
-                image={exp.img}
-                title={exp.title}
-              />
-
-              <Box className={classes.box}>
-                <div className={classes.details}>
-                  <CardContent>
-                    <Typography
-                      variant="h5"
-                      color="primary"
-                      style={{ fontWeight: "bold" }}
-                    >
-                      {exp.title}{" "}
-                      <Button
-                        className={classes.btn}
-                        size="small"
-                        color="primary"
-                        disabled={!user?.result}
-                        onClick={() => dispatch(likeExp(exp._id))}
-                      >
-                        <Likes />
-                      </Button>
-                    </Typography>
-                  </CardContent>
-                  <div className={classes.desc}>
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "row",
-                      }}
-                    >
-                      <RoomIcon style={{ color: "red" }} />
-                      <Typography style={{ color: "grey" }}>
-                        &nbsp;&nbsp;{exp.location}
-                      </Typography>
-                    </div>
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "row",
-                      }}
-                    >
-                      <LocalAtmIcon style={{ color: "green" }} />
-                      <Typography style={{ color: "grey" }}>
-                        &nbsp;&nbsp;
-                        {exp.charge == 0 ? "Free" : `RM${exp.charge}`}
-                      </Typography>
-                    </div>
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "row",
-                      }}
-                    >
-                      <AccessTimeIcon style={{ color: "indigo" }} />
-                      <Typography style={{ color: "grey" }}>
-                        &nbsp;&nbsp;{exp.duration} mins
-                      </Typography>
-                    </div>
-                    <Typography variant="body1">{exp.description}</Typography>
-
-                    <Typography></Typography>
-                  </div>
-                </div>
-              </Box>
-            </Card>
-          </div>
-        </Grid>
-      </Grid>
+              <Typography></Typography>
+            </div>
+          </Box>
+        </Card>
+      </div>
     </>
   );
 };

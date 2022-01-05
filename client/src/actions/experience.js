@@ -4,12 +4,16 @@ import {
   UPDATE_EXP,
   FETCH_EXP_TABLE,
   DELETE_EXP,
+  START_LOADING,
+  END_LOADING,
 } from "../constants/leisureActionTypes";
 
 export const getExps = () => async (dispatch) => {
   try {
+    dispatch({ type: START_LOADING });
     const { data } = await api.fetchExps();
     dispatch({ type: FETCH_ALL, payload: data });
+    dispatch({ type: END_LOADING });
   } catch (error) {
     console.log(error.message);
   }
@@ -17,8 +21,10 @@ export const getExps = () => async (dispatch) => {
 
 export const getExpTable = (user) => async (dispatch) => {
   try {
+    dispatch({ type: START_LOADING });
     const { data } = await api.fetchExpTable(user);
     dispatch({ type: FETCH_EXP_TABLE, payload: data });
+    dispatch({ type: END_LOADING });
   } catch (error) {
     console.log(error.response);
   }

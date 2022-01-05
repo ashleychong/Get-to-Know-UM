@@ -1,4 +1,5 @@
 import { makeStyles } from "@material-ui/core/styles";
+import { ImportantDevices } from "@material-ui/icons";
 
 export default makeStyles((theme) => ({
   title: {
@@ -27,7 +28,9 @@ export default makeStyles((theme) => ({
     padding: "50px",
   },
   root: {
-    margin: "4vh 7vh",
+    [theme.breakpoints.up("sm")]: {
+      margin: "4vh 7vh",
+    },
   },
   firstRow: {
     display: "flex",
@@ -40,10 +43,15 @@ export default makeStyles((theme) => ({
       fontWeight: "bold",
       fontSize: "26px",
     },
-    fontWeight: "bold",
-    fontSize: "20px",
+    [theme.breakpoints.down("sm")]: {
+      fontWeight: "bold",
+      fontSize: "24px",
+    },
   },
-  imagelist: {
-    padding: "20px",
+  listist: {
+    [theme.breakpoints.up("sm")]: {},
+    [theme.breakpoints.down("sm")]: {
+      width: "100% !important",
+    },
   },
 }));

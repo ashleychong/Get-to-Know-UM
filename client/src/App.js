@@ -78,8 +78,18 @@ function App() {
         <>
           {isAdmin ? (
             <Switch>
-              <Route path="/auth" exact component={() => (!user ? <Auth /> : <Redirect to="/admin/courses" />)} />
-              <Route path="/" exact component={() => <Redirect to="/admin/courses" />} />
+              <Route
+                path="/auth"
+                exact
+                component={() =>
+                  !user ? <Auth /> : <Redirect to="/admin/courses" />
+                }
+              />
+              <Route
+                path="/"
+                exact
+                component={() => <Redirect to="/admin/dashboard" />}
+              />
               <Route path="/admin/dashboard" exact component={Dashboard} />
               <Route path="/admin/profile" exact component={UserProfile} />
               <Route path="/admin/club/:page?" component={ClubHome} />
@@ -87,32 +97,77 @@ function App() {
               <Route path="/admin/leisure" exact component={LeisureHome} />
               <Route path="/admin/exp" exact component={ExpHome} />
               <Route path="/admin/courses" exact component={AdminCourseHome} />
-              <Route path="/admin/courses/search" exact component={AdminCourseHome} />
-              <Route path="/admin/foodNominations" exact component={AdminFoodNomination} />
-              <Route path="/admin/foodNominations/:foodNominationId" exact component={FoodNominationDetails} />
+              <Route
+                path="/admin/courses/search"
+                exact
+                component={AdminCourseHome}
+              />
+              <Route
+                path="/admin/foodNominations"
+                exact
+                component={AdminFoodNomination}
+              />
+              <Route
+                path="/admin/foodNominations/:foodNominationId"
+                exact
+                component={FoodNominationDetails}
+              />
               <Route path="/admin/cafe" exact component={AdminCafeHome} />
-              <Route path="/admin/foodNomination" exact component={AdminFoodNomination} />
-              <Route path="/admin/foodNomination/:foodNominationId" exact component={FoodNominationDetails} />
-              <Route path="/admin/forumReports" exact component={ForumReportsHome} />
+              <Route
+                path="/admin/foodNomination"
+                exact
+                component={AdminFoodNomination}
+              />
+              <Route
+                path="/admin/foodNomination/:foodNominationId"
+                exact
+                component={FoodNominationDetails}
+              />
+              <Route
+                path="/admin/forumReports"
+                exact
+                component={ForumReportsHome}
+              />
               <Route path="/forum/:topicId" exact component={TopicDetails} />
               <Route path="/notFound" component={NotFound} />
-              <Route path="*" exact component={() => <Redirect to="/notFound" />} /> 
+              <Route
+                path="*"
+                exact
+                component={() => <Redirect to="/notFound" />}
+              />
             </Switch>
           ) : (
             <Switch>
               <Route path="/home" exact component={Home} />
               <Route path="/" exact component={() => <Redirect to="/home" />} />
-              <Route path="/auth" exact component={() => (!user ? <Auth /> : <Redirect to="/home" />)} />
-              <Route path="/passwordResetRequest" component={RequestResetPassword} />
-              <Route path="/passwordReset" component={VerifyResetPasswordLink} />
-              <Route path="/passwordResetError" component={ResetPasswordError} />  
+              <Route
+                path="/auth"
+                exact
+                component={() => (!user ? <Auth /> : <Redirect to="/home" />)}
+              />
+              <Route
+                path="/passwordResetRequest"
+                component={RequestResetPassword}
+              />
+              <Route
+                path="/passwordReset"
+                component={VerifyResetPasswordLink}
+              />
+              <Route
+                path="/passwordResetError"
+                component={ResetPasswordError}
+              />
               <Route path="/profile" exact component={UserProfile} />
               <Route path="/forum" exact component={Forum} />
               <Route path="/forum/search" exact component={Forum} />
               <Route path="/forum/:topicId" exact component={TopicDetails} />
               <Route path="/courses" exact component={Courses} />
               <Route path="/courses/search" exact component={Courses} />
-              <Route path="/courses/:courseId" exact component={CourseDetails} />
+              <Route
+                path="/courses/:courseId"
+                exact
+                component={CourseDetails}
+              />
               <Route path="/food" exact component={Food} />
               <Route path="/event" exact component={EventHomePage} />
               <Route path="/event/search" exact component={EventHomePage} />
@@ -132,10 +187,20 @@ function App() {
               <Route path="/club/search" exact component={ClubHomePage} />
               <Route path="/club/:clubId" exact component={ClubDetails} />
               <Route path="/notFound" component={NotFound} />
-              <Route path="*" exact component={() => <Redirect to="/notFound" />} />  
+              <Route
+                path="*"
+                exact
+                component={() => <Redirect to="/notFound" />}
+              />
             </Switch>
           )}
-          <Route path="/" exact component={() => isAdmin ? ( <AdminCourseHome /> ) : ( <Redirect to="/home" /> )}/>
+          <Route
+            path="/"
+            exact
+            component={() =>
+              isAdmin ? <AdminCourseHome /> : <Redirect to="/home" />
+            }
+          />
         </>
       </ThemeProvider>
     </BrowserRouter>

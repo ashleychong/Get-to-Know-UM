@@ -77,35 +77,30 @@ const ExperienceRank = () => {
 
   return (
     <>
-      <Grid container>
-        <Grid item xs={6} className={classes.root}>
-          <Typography className={classes.title}>
-            Must Do Things For UM Students
-          </Typography>
-        </Grid>
-        <Grid item xs={4} className={classes.root}>
-          <Button
-            className={classes.submitButton}
-            variant="contained"
-            color="primary"
-            size="medium"
-            onClick={handleClickOpen}
-          >
-            Share Experience
-          </Button>
-        </Grid>
-        {[]
-          .concat(exps)
-          .sort((a, b) => (a.likes.length > b.likes.length ? -1 : 1))
-          .filter(
-            (exp) => exp.status !== "disapprove" && exp.status !== "pending"
-          )
-          .map((exp, index) => (
-            <Grid item key={exp._id} xs={12} className={classes.card}>
-              <ExperienceCard exp={exp} index={index + 1} />
-            </Grid>
-          ))}
-      </Grid>
+      <Typography className={classes.title}>
+        Must Do Things For UM Students
+      </Typography>
+
+      <Button
+        className={classes.submitButton}
+        variant="contained"
+        color="primary"
+        size="medium"
+        onClick={handleClickOpen}
+      >
+        Share Experience
+      </Button>
+
+      {[]
+        .concat(exps)
+        .sort((a, b) => (a.likes.length > b.likes.length ? -1 : 1))
+        .filter(
+          (exp) => exp.status !== "disapprove" && exp.status !== "pending"
+        )
+        .map((exp, index) => (
+          <ExperienceCard key={exp.title} exp={exp} index={index + 1} />
+        ))}
+
       {!user?.result?.name ? (
         <Dialog
           open={open}
