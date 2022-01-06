@@ -75,13 +75,13 @@ export default function SignUp() {
    const validate = (fieldValues = values) => {
      let temp = { ...errors };
      if ("firstName" in fieldValues)
-       temp.firstName = fieldValues.firstName ? "" : "This field is required.";
+       temp.firstName = fieldValues.firstName ? "" : "Invalid first name.";
      if ("lastName" in fieldValues)
-       temp.lastName = fieldValues.lastName ? "" : "This field is required.";
+       temp.lastName = fieldValues.lastName ? "" : "Invalid last name.";
      if ("matricNumber" in fieldValues)
        temp.matricNumber = fieldValues.matricNumber
          ? ""
-         : "This field is required.";
+         : "Invalid matric number.";
      if ("email" in fieldValues) {
       const emailValid = fieldValues.email.match(
         /^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i

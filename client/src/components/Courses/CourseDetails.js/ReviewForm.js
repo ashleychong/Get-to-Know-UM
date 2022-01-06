@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Grid, Typography, } from "@material-ui/core";
+import { Grid, Typography, Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 import Custom from "../../Custom/Custom";
@@ -146,16 +146,16 @@ const ReviewForm = ({
     <Custom.Form onSubmit={handleSubmit}>
       <Typography gutterBottom>This course was taken in</Typography>
       <Grid container spacing={1}>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={6} style={{marginBottom: "10px"}}>
           <Custom.DropDown
             name="semester"
             label="Semester"
             value={values.semester}
             onChange={handleInputChange}
             options={[
-              { id: "1", title: "Semester 1" },
-              { id: "2", title: "Semester 2" },
-              { id: "3", title: "Special Semester" },
+              "Semester 1",
+              "Semester 2",
+              "Special Semester",
             ]}
             error={errors.semester}
           />
@@ -167,9 +167,9 @@ const ReviewForm = ({
             value={values.year}
             onChange={handleInputChange}
             options={[
-              { id: "1", title: "2019" },
-              { id: "2", title: "2020" },
-              { id: "3", title: "2021" },
+              "2019/2020",
+              "2020/2021",
+              "2021/2022",
             ]}
             error={errors.year}
           />

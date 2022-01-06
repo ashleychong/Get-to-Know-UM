@@ -19,11 +19,11 @@ const CafeCard = ({ imgSrc, imgAlt, title, desc, pagePath }) => {
   }
 
   return (
-    <Card style={{ maxWidth: 480 }}>
+    <Card style={{ height: "100%" }}>
       <ButtonBase
         component="span"
         onClick={openCafe}
-        style={{ display: "block", textAlign: "initial" }}
+        style={{ display: "block", textAlign: "initial", height: "100%" }}
       >
         <CardMedia style={{ height: 270 }} image={imgSrc} title={imgAlt} />
         <CardContent>

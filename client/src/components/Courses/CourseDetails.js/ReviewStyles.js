@@ -12,8 +12,16 @@ export default makeStyles((theme) => ({
   reviewInfo: {
     // paddingLeft: "0.4rem",
     display: "flex",
-    justifyContent: "space-between",
+    [theme.breakpoints.down("xs")]: {
+      flexDirection: "column",
+    },
+    [theme.breakpoints.up("xs")]: {
+      justifyContent: "space-between",
+    },
     "& .text": {
+      [theme.breakpoints.down("xs")]: {
+        marginTop: "6px",
+      },
       fontWeight: "600",
     },
   },

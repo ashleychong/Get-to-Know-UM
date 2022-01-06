@@ -4,7 +4,17 @@ import Course from "../models/course.js";
 import CourseReview from "../models/courseReview.js";
 
 export const getCourses = async (req, res) => {
-    const { page } = req.query;
+  try {
+    const courses = await Course.find();
+    
+    res.status(200).json(courses);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
+export const getCoursesByPage = async (req, res) => {
+  const { page } = req.query;
 
   try {
     const LIMIT = 6;
@@ -21,21 +31,42 @@ export const getCourses = async (req, res) => {
       currentPage: Number(page),
       numberOfPages: Math.ceil(total / LIMIT),
     });
-
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
 };
 
 export const getCoursesBySearch = async (req, res) => {
-  const { searchQuery } = req.query;
+  const { searchQuery, faculty } = req.query;
+  // console.log(searchQuery);
+  // console.log(faculty);
+
+  let searchStr = "";
+  if (searchQuery === "none") {
+    searchStr = /(.*?)/;
+  } else {
+    searchStr = new RegExp(searchQuery, "i");
+  }
+
+  let facultyStr = "";
+  if (faculty === "none") {
+    facultyStr = /(.*?)/;
+  } else {
+    facultyStr = faculty;
+  }
 
   try {
-    const search = new RegExp(searchQuery, "i");
 
     const courses = await Course.find({
-      $or: [{ title: search }, { courseCode: search }],
+      $and: [
+        {
+          $or: [{ title: searchStr }, { courseCode: searchStr }],
+          faculty: facultyStr,
+        },
+      ],
     });
+
+    // console.log(courses);
 
     res.status(200).json(courses);
   } catch (error) {
@@ -45,8 +76,14 @@ export const getCoursesBySearch = async (req, res) => {
 
 export const getCourse = async (req, res) => {
   const { id } = req.params;
+
   try {
     const course = await Course.findById(id);
+
+    if (!course) {
+      return res.status(404).send(`No course with id: ${id}`);
+    }
+
     res.status(200).json(course);
   } catch (error) {
     res.status(404).json({ message: error.message });

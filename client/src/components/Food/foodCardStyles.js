@@ -28,19 +28,19 @@ export default makeStyles((theme) => ({
   },
   avatar: {
     [theme.breakpoints.down("sm")]: {
-      height: 60,
-      width: 60,
-      marginLeft: "1.7rem",
-    },
-    [theme.breakpoints.up("sm")]: {
-      height: 70,
-      width: 70,
-      marginLeft: "1rem",
-    },
-    [theme.breakpoints.up("md")]: {
       height: 80,
       width: 80,
       marginLeft: "1.7rem",
+    },
+    [theme.breakpoints.up("sm")]: {
+      height: 95,
+      width: 95,
+      margin: "auto",
+    },
+    [theme.breakpoints.up("md")]: {
+      height: 110,
+      width: 110,
+      margin: "auto",
     },
   },
   contentBox: {
@@ -53,7 +53,7 @@ export default makeStyles((theme) => ({
     },
     [theme.breakpoints.up("sm")]: {
       marginLeft: "16px",
-      marginRight: "24px",
+      marginRight: "10px",
       paddingRight: "8px",
     },
   },

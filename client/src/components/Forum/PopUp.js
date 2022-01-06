@@ -23,7 +23,7 @@ const PopUp = (props) => {
     return (
         <Dialog open={openPopup} maxWidth="md" classes={{ paper: classes.dialogWrapper }}>
             <DialogTitle className={classes.dialogTitle}>
-                <div style={{ display: 'flex' }}>
+                <div style={{ display: 'flex', alignItems: "center" }}>
                     <Typography variant="h6" component="div" style={{ flexGrow: 1 }}>
                         {currentId === 0 ? "Create a new topic" : "Edit topic"}
                     </Typography>

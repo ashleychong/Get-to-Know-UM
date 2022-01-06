@@ -2,6 +2,7 @@ import {
   START_LOADING,
   END_LOADING,
   FETCH_COURSES,
+  FETCH_COURSES_BY_PAGE,
   FETCH_COURSES_BY_SEARCH,
   FETCH_COURSE,
   CREATE_COURSE,
@@ -23,6 +24,8 @@ const coursesReducer = (
     case END_LOADING:
       return { ...state, isLoading: false };
     case FETCH_COURSES:
+      return { ...state, courses: action.payload };
+    case FETCH_COURSES_BY_PAGE:
       return {
         ...state,
         courses: action.payload.data,

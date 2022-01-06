@@ -18,7 +18,7 @@ export const signIn = async (req, res) => {
 
     // email does not exist
     if (!existingUser)
-      return res.status(404).json({ message: "User does not exist." });
+      return res.status(404).json({ message: "Invalid email or password." });
 
     const isPasswordCorrect = await bcrypt.compare(
       password,

@@ -2,7 +2,7 @@ import { Box, Button, Container, Typography } from "@material-ui/core";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import { Link } from "react-router-dom";
 
-import errorImg from "../../assets/images/error401_light.svg";
+import errorImg from "../../assets/images/undraw_page_not_found_su7k.svg";
 import Custom from "../Custom/Custom";
 
 const ResetPasswordError = () => (

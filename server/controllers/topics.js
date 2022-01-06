@@ -64,6 +64,12 @@ export const getTags = async (req, res) => {
 export const getTopic = async (req, res) => {
   const { id } = req.params;
 
+  const existingTopic = await Topic.findById(id);
+
+  if (!existingTopic) {
+    return res.status(404).send(`No topic with id: ${id}`);
+  }
+
   try {
     const topic = await Topic.aggregate([
       {

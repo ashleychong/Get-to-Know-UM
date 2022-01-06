@@ -20,9 +20,7 @@ const FoodCards = () => {
       <CircularProgress />
     ) : (
       <Grid container>
-        <Grid item md={1} lg={2}></Grid>
-        {/* <Grid item xs={12} md={9} lg={8}> */}
-        <Grid item xs={12} md={10} lg={8}>
+          <Grid item xs={12} md={10} lg={9} style={{ margin: "2rem auto" }}>            
           <Paper>
             {[]
               .concat(foodList)
@@ -35,7 +33,6 @@ const FoodCards = () => {
               ))}
           </Paper>
         </Grid>
-        <Grid item md={1} lg={2}></Grid>
       </Grid>
     );
 };

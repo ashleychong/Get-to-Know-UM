@@ -43,8 +43,7 @@ import ForumReportsHome from "./components/Admin/ForumReports/ForumReportsHome";
 import RequestResetPassword from "./components/Auth/RequestResetPassword";
 import VerifyResetPasswordLink from "./components/Auth/VerifyResetPasswordLink";
 import ResetPasswordError from "./components/Auth/ResetPasswordError";
-// import NotFound from "./components/ErrorPage/404";
-import NotFound from "./components/NotFound";
+import NotFound from "./components/ErrorPage/404";
 import Dashboard from "./components/Admin/Dashboard/Dashboard";
 
 const theme = createTheme({
@@ -79,7 +78,7 @@ function App() {
           {isAdmin ? (
             <Switch>
               <Route path="/auth" exact component={() => (!user ? <Auth /> : <Redirect to="/admin/courses" />)} />
-              <Route path="/" exact component={() => <Redirect to="/admin/courses" />} />
+              <Route path="/" exact component={() => <Redirect to="/admin/dashboard" />} />
               <Route path="/admin/dashboard" exact component={Dashboard} />
               <Route path="/admin/profile" exact component={UserProfile} />
               <Route path="/admin/club/:page?" component={ClubHome} />

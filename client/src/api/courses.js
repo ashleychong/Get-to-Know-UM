@@ -1,8 +1,9 @@
 import api from "./index.js"
 
-export const fetchCourses = (page) => api.get(`/courses?page=${page}`);
+export const fetchCourses = () => api.get("/courses/admin");
+export const fetchCoursesByPage = (page) => api.get(`/courses?page=${page}`);
 export const fetchCoursesBySearch = (searchQuery) =>
-  api.get(`/courses/search?searchQuery=${searchQuery.search || "none"}`);
+  api.get(`/courses/search?searchQuery=${searchQuery.search || "none"}&faculty=${searchQuery.faculty || "none"}`);
 export const fetchCourse = (id) => api.get(`/courses/${id}`);
 export const createCourse = (newCourse) => api.post("/courses", newCourse);
 export const updateCourse = (id, updatedCourse) =>

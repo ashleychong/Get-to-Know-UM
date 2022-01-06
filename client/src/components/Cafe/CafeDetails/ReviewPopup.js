@@ -38,7 +38,7 @@ const ReviewPopup = ({
       classes={{ paper: classes.dialogWrapper }}
     >
       <DialogTitle className={classes.dialogTitle}>
-        <div style={{ display: "flex" }}>
+        <div style={{ display: "flex", alignItems: "center" }}>
           <Typography variant="h6" component="div" style={{ flexGrow: 1 }}>
             {currentReviewId ? "Edit review" : "Add a new review"}
           </Typography>

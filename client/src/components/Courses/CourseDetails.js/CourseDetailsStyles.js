@@ -33,9 +33,9 @@ export default makeStyles((theme) => ({
     lineHeight: "2.3rem",
   },
   faculty: {
-    marginTop: "0.5rem",
+    marginTop: "0.6rem",
     fontWeight: 500,
-    fontSize: "0.9rem",
+    fontSize: "1rem",
     lineHeight: "1.25rem",
     color: "rgba(165,166,170,1)",
   },

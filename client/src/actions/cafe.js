@@ -42,7 +42,7 @@ export const getAllCafesByPages = (page) => async (dispatch) => {
   }
 };
 
-export const getCafe = (id) => async (dispatch) => {
+export const getCafe = (id, router) => async (dispatch) => {
   try {
     dispatch({ type: START_LOADING });
 
@@ -52,6 +52,7 @@ export const getCafe = (id) => async (dispatch) => {
     dispatch({ type: END_LOADING });
   } catch (error) {
     console.log(error);
+    router.push("/notFound");
   }
 };
 

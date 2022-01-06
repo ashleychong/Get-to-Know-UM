@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import {
   CssBaseline,
   Grid,
@@ -9,6 +9,7 @@ import {
   Box,
   Button,
   Avatar,
+  CircularProgress,
 } from "@material-ui/core";
 import { Rating } from "@material-ui/lab";
 import MenuBookOutlinedIcon from "@material-ui/icons/MenuBookOutlined";
@@ -25,12 +26,13 @@ const CourseDetails = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const { courseId } = useParams();
+  const history = useHistory();
   const { course, isLoading } = useSelector((state) => state.courses);
   const [openPopup, setOpenPopup] = useState(false);
   const [currentReviewId, setCurrentReviewId] = useState(0);
 
   useEffect(() => {
-    dispatch(getCourse(courseId));
+    dispatch(getCourse(courseId, history));
   }, [dispatch]);
 
   useEffect(() => {
@@ -42,7 +44,11 @@ const CourseDetails = () => {
     setOpenPopup(true);
   };
 
-  return (
+  return isLoading ? (
+    <Box ml={5} mt={5}>
+      <CircularProgress />
+    </Box>
+  ) : (
     <>
       <CssBaseline />
       <div className={classes.header}>

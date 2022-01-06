@@ -95,6 +95,7 @@ const Review = ({ editInPopup, courseId, review }) => {
             <Box className={classes.actions}>
               <IconButton
                 aria-label="edit"
+                color="primary"
                 className={classes.iconButton}
                 onClick={(e) => {
                   e.stopPropagation();
@@ -105,6 +106,7 @@ const Review = ({ editInPopup, courseId, review }) => {
               </IconButton>
               <IconButton
                 aria-label="delete"
+                color="secondary"
                 className={classes.iconButton}
                 onClick={() =>
                   dispatch(deleteCourseReview(courseId, review._id))

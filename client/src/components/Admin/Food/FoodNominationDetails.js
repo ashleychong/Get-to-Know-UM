@@ -35,15 +35,11 @@ const FoodNominationDetails = () => {
   }, [dispatch]);
 
   const handleApproval = () => {
-    console.log("approve food");
-    // dispatch(createFood({ ...foodNomination }));
-    dispatch(approveFoodNomimation(foodNominationId));
-    history.push("/admin/foodNominations");
+    dispatch(approveFoodNomimation(foodNominationId, history));
   };
 
   const handleDeclination = () => {
-    dispatch(declineFoodNomimation(foodNominationId));
-    history.push("/admin/foodNominations");
+    dispatch(declineFoodNomimation(foodNominationId, history));
   };
 
   if (!foodNomination) {

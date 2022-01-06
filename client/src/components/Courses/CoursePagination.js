@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Pagination, PaginationItem } from "@material-ui/lab";
 import { Link } from "react-router-dom";
 
-import { getCourses } from "../../actions/courses";
+import { getCoursesByPage } from "../../actions/courses";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,7 +22,7 @@ const Paginate = ({ page }) => {
 
   useEffect(() => {
     if (page) {
-      dispatch(getCourses(page));
+      dispatch(getCoursesByPage(page));
     }
   }, [dispatch, page]);
 

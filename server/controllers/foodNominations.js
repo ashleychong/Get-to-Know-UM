@@ -4,8 +4,8 @@ import FoodNomination from "../models/foodNomination.js";
 
 export const getFoodNominations = async (req, res) => {
   try {
-    const foodNomination = await FoodNomination.find();
-    res.status(200).json(foodNomination);
+    const foodNominations = await FoodNomination.find();
+    res.status(200).json(foodNominations);
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
@@ -98,6 +98,7 @@ export const approveFoodNomination = async (req, res) => {
     { status: "approved" },
     { new: true }
   );
+  // console.log(approvedNomination);
   res.json(approvedNomination);
 };
 

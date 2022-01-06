@@ -41,7 +41,7 @@ export default function Course(props) {
                 {course.courseCode}
               </Typography>
               <Typography variant="body1">
-                {course.description.split(" ").splice(0, 30).join(" ")}...
+                {course.description.split(" ").splice(0, 30).join(" ")}…
               </Typography>
               {user?.result?.role === "admin" && (
                 <div className={classes.right}>

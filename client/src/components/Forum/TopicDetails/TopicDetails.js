@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Paper, Typography, CircularProgress, Divider, CssBaseline, Grid, Toolbar } from "@material-ui/core/";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 
 import useStyles from "./TopicDetailsStyles";
@@ -13,6 +13,7 @@ import { getTopic } from "../../../actions/topics";
 
 const TopicDetails = () => {
   const { topicId } = useParams();
+  const history = useHistory();
   const dispatch = useDispatch();
   const classes = useStyles();
   const { topic, isLoading } = useSelector((state) => state.topics);
@@ -22,7 +23,7 @@ const TopicDetails = () => {
 
   useEffect(() => {
     // console.log(`Topic id is ${topicId}`);
-    dispatch(getTopic(topicId));
+    dispatch(getTopic(topicId, history));
     dispatch(getPosts(topicId));
 
   },[dispatch]);
@@ -69,7 +70,7 @@ const TopicDetails = () => {
             <DefaultPost topic={topic} />
             <Posts editInPopup={editInPopup} topicId={topicId} />
             <Divider style={{ margin: "20px 0" }} />
-            {user?.result?.role === "student" && <ReplyBox topicId={topicId} />}
+            {user?.result?.role !== "admin" && <ReplyBox topicId={topicId} />}
             <EditPopup
               title="Edit post"
               openPopup={openPopup}

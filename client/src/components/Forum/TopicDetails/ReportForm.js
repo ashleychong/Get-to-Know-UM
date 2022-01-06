@@ -4,10 +4,11 @@ import { useHistory, useLocation } from "react-router-dom";
 import {
   Grid,
   Typography,
-  FormLabel,
   RadioGroup,
   FormControlLabel,
   Radio,
+  Box,
+  FormHelperText,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -42,7 +43,7 @@ const ReportForm = ({
     if ("reportRemark" in fieldValues)
       temp.reportRemark = fieldValues.reportRemark
         ? ""
-        : "This field is required.";
+        : "Please select a report category.";
 
     setErrors({
       ...temp,
@@ -128,6 +129,13 @@ const ReportForm = ({
               label="It threatens violence or physical harm"
             />
           </RadioGroup>
+          <Box mb={1}>
+            {errors.reportRemark && (
+              <FormHelperText style={{ color: "#f44336", fontSize: "0.8rem" }}>
+                {errors.reportRemark}
+              </FormHelperText>
+            )}
+          </Box>
         </Grid>
         <div style={{ marginTop: "3vh" }}>
           <Custom.Button type="submit" text="Submit" />

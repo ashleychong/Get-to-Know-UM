@@ -3,6 +3,7 @@ import {
   START_LOADING,
   END_LOADING,
   FETCH_COURSES,
+  FETCH_COURSES_BY_PAGE,
   FETCH_COURSES_BY_SEARCH,
   FETCH_COURSE,
   CREATE_COURSE,
@@ -10,16 +11,29 @@ import {
   DELETE_COURSE,
 } from "../constants/courseActionTypes";
 
-export const getCourses = (page) => async (dispatch) => {
+export const getCourses = () => async (dispatch) => {
+  try {
+    dispatch({ type: START_LOADING });
+
+    const { data } = await api.fetchCourses();
+    dispatch({ type: FETCH_COURSES, payload: data });
+
+    dispatch({ type: END_LOADING });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getCoursesByPage = (page) => async (dispatch) => {
   try {
     dispatch({ type: START_LOADING });
 
     const {
       data: { data, currentPage, numberOfPages },
-    } = await api.fetchCourses(page);
+    } = await api.fetchCoursesByPage(page);
 
     dispatch({
-      type: FETCH_COURSES,
+      type: FETCH_COURSES_BY_PAGE,
       payload: { data, currentPage, numberOfPages },
     });
     dispatch({ type: END_LOADING });
@@ -31,9 +45,11 @@ export const getCourses = (page) => async (dispatch) => {
 
 export const getCoursesBySearch = (searchQuery) => async (dispatch) => {
   try {
+    // console.log(searchQuery);
+
     dispatch({ type: START_LOADING });
     const { data } = await api.fetchCoursesBySearch(searchQuery);
-    console.log(data);
+    // console.log(data);
 
     dispatch({ type: FETCH_COURSES_BY_SEARCH, payload: { data } });
     dispatch({ type: END_LOADING });
@@ -42,7 +58,7 @@ export const getCoursesBySearch = (searchQuery) => async (dispatch) => {
   }
 };
 
-export const getCourse = (id) => async (dispatch) => {
+export const getCourse = (id, router) => async (dispatch) => {
   try {
     dispatch({ type: START_LOADING });
 
@@ -52,6 +68,7 @@ export const getCourse = (id) => async (dispatch) => {
     dispatch({ type: END_LOADING });
   } catch (error) {
     console.log(error);
+    router.push("/notFound");
   }
 };
 

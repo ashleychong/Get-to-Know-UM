@@ -39,8 +39,14 @@ export const getAllCafesByPages = async (req, res) => {
 
 export const getCafe = async (req, res) => {
   const { id } = req.params;
+
   try {
     const cafe = await Cafe.findById(id);
+
+    if (!cafe) {
+      return res.status(404).send(`No cafe with id: ${id}`);
+    }
+
     res.status(200).json(cafe);
   } catch (error) {
     res.status(404).json({ message: error.message });

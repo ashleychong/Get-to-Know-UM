@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import {
   CssBaseline,
   Grid,
@@ -22,12 +22,13 @@ const CafeDetails = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const { cafeId } = useParams();
+  const history = useHistory();
   const { cafe, isLoading } = useSelector((state) => state.cafes);
   const [openPopup, setOpenPopup] = useState(false);
   const [currentReviewId, setCurrentReviewId] = useState(0);
 
   useEffect(() => {
-    dispatch(getCafe(cafeId));
+    dispatch(getCafe(cafeId, history));
   }, [dispatch]);
 
   useEffect(() => {

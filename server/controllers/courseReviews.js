@@ -27,7 +27,7 @@ export const createCourseReview = async (req, res) => {
 
   try {
     await newCourseReview.save();
-    console.log(newCourseReview);
+    // console.log(newCourseReview);
 
     const updatedCourse = await updateCourseRating(courseId);
 
@@ -97,7 +97,7 @@ const updateCourseRating = async (courseId) => {
     },
   ]);
 
-  console.log(result);
+  // console.log(result);
 
   const avgOverallRating = Math.round(result[0].avgOverallRating * 10) / 10;
   const avgDeliveryRating = Math.round(result[0].avgDeliveryRating * 10) / 10;

@@ -43,7 +43,7 @@ export const getTopicTags = () => async (dispatch) => {
   }
 };
 
-export const getTopic = (id) => async (dispatch) => {
+export const getTopic = (id, router) => async (dispatch) => {
   try {
     dispatch({ type: START_LOADING });
 
@@ -53,6 +53,7 @@ export const getTopic = (id) => async (dispatch) => {
     dispatch({ type: END_LOADING });
   } catch (error) {
     console.log(error);
+    router.push("/notFound");
   }
 };
 

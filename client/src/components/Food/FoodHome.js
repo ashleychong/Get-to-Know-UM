@@ -29,7 +29,7 @@ export default function FoodHome() {
           <Grid item className={classes.button}>
             <Custom.Button
               style={{ margin: "2.3em 0.3em 1.7em 0" }}
-              text="Nominate food"
+              text="NOMINATE FOOD"
               variant="contained"
               color="primary"
               onClick={() => {

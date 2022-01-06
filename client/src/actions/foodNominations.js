@@ -91,20 +91,23 @@ export const deleteFoodNomination = (id) => async (dispatch) => {
   }
 };
 
-export const approveFoodNomimation = (id) => async (dispatch) => {
+export const approveFoodNomimation = (id, router) => async (dispatch) => {
   try {
     const { data } = await api.approveFoodNomimation(id);
+    console.log("approve food action");
+    // console.log(data);
     dispatch({ type: APPROVE_FOOD_NOMINATION, payload: data });
+    router.push("/admin/foodNominations");
   } catch (error) {
     console.log(error);
   }
 };
 
-export const declineFoodNomimation = (id) => async (dispatch) => {
+export const declineFoodNomimation = (id, router) => async (dispatch) => {
   try {
-
     const { data } = await api.declineFoodNomimation(id);
     dispatch({ type: DECLINE_FOOD_NOMINATION, payload: data });
+    router.push("/admin/foodNominations");
   } catch (error) {
     console.log(error);
   }
