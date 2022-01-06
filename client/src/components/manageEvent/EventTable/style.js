@@ -11,9 +11,13 @@ export default makeStyles((theme) => ({
   statusExpired: {
     backgroundColor: "#ab47bc",
     color: "white",
+    textTransform: "uppercase",
+    fontWeight: "bold",
   },
   statusUpcoming: {
     backgroundColor: "#00e676",
     color: "white",
+    textTransform: "uppercase",
+    fontWeight: "bold",
   },
 }));

@@ -37,7 +37,11 @@ const ClubTable = (props) => {
     { id: "no", label: "No.", disableSorting: "true" },
     { id: "title", label: "Title" },
     { id: "img", label: "Image", disableSorting: "true" },
-    { id: "registration", label: "Registration", disableSorting: "true" },
+    {
+      id: "registration",
+      label: "Registration Status",
+      disableSorting: "true",
+    },
     { id: "action", label: "Action", disableSorting: "true" },
   ];
   const [filterFn, setFilterFn] = useState({

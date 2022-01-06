@@ -39,7 +39,7 @@ const initialValues = {
 
 const ExpForm = ({ currentId, setCurrentId, setOpenPopup }) => {
   const exp = useSelector((state) =>
-    currentId ? state.exps.find((exp) => exp._id === currentId) : null
+    currentId ? state.exps.exps.find((exp) => exp._id === currentId) : null
   );
   const user = JSON.parse(localStorage.getItem("profile"));
   const dispatch = useDispatch();

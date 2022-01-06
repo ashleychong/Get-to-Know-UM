@@ -16,7 +16,7 @@ export default makeStyles({
     borderRadius: "15px",
     position: "relative",
     margin: "20px",
-    height: "300px",
+    height: "320px",
   },
   grid: {
     display: "flex",

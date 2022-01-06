@@ -1,18 +1,31 @@
 import { makeStyles } from "@material-ui/core/styles";
 
-export default makeStyles(() => ({
+export default makeStyles((theme) => ({
   grid: {
     margin: "auto",
     marginBottom: "20px",
   },
   card: {
-    display: "flex",
-    position: "relative",
-    margin: "0 250px 0 40px",
-    height: "250px",
+    [theme.breakpoints.up("sm")]: {
+      display: "flex",
+      position: "relative",
+      margin: "0 250px 0 40px",
+      height: "250px",
+    },
+    [theme.breakpoints.down("sm")]: {
+      display: "flex",
+      position: "relative",
+      margin: "10px",
+      height: "fit-content",
+    },
   },
   box: {
-    width: "700px",
+    [theme.breakpoints.up("sm")]: {
+      width: "700px",
+    },
+    [theme.breakpoints.down("sm")]: {
+      width: "300px",
+    },
   },
   details: {
     display: "flex",
@@ -20,15 +33,19 @@ export default makeStyles(() => ({
     flex: "1 1 auto",
   },
   cover: {
-    width: "250px",
+    [theme.breakpoints.up("sm")]: {
+      width: "250px",
+    },
   },
   desc: {
     padding: "16px",
     textAlign: "justify",
   },
   btn: {
-    position: "absolute",
-    right: "8px",
+    [theme.breakpoints.up("sm")]: {
+      position: "absolute",
+      right: "0px",
+    },
   },
   ranking: {
     color: "#3949ab",
@@ -38,7 +55,20 @@ export default makeStyles(() => ({
   position: {
     display: "flex",
     flexDirection: "row",
-    left: "auto",
-    right: "auto",
+    [theme.breakpoints.up("sm")]: {
+      margin: "20px 180px ",
+    },
+  },
+  expTitle: {
+    [theme.breakpoints.up("sm")]: {
+      fontWeight: "bold",
+      fontSize: "24px",
+      color: "#333996",
+    },
+    [theme.breakpoints.down("sm")]: {
+      fontWeight: "bold",
+      fontSize: "22px",
+      color: "#333996",
+    },
   },
 }));

@@ -48,8 +48,10 @@ export const getFavEvents = (page) => async (dispatch) => {
 
 export const getEventTable = (user) => async (dispatch) => {
   try {
+    dispatch({ type: START_LOADING });
     const { data } = await api.fetchEventTable(user);
     dispatch({ type: FETCH_EVENT_TABLE, payload: data });
+    dispatch({ type: END_LOADING });
   } catch (error) {
     console.log(error.response);
   }

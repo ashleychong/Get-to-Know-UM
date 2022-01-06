@@ -10,6 +10,10 @@ export default makeStyles((theme) => ({
     },
   },
   userInfo: {
+    [theme.breakpoints.down("sm")]: {
+      marginBottom: "10px",
+      marginLeft: "5px",
+    },
     display: "flex",
     alignItems: "center",
     [theme.breakpoints.up("md")]: {
@@ -29,15 +33,27 @@ export default makeStyles((theme) => ({
     },
   },
   ratingBox: {
+    [theme.breakpoints.down("sm")]: {
+      display: "flex",
+      flexDirection: "column",
+      paddingBottom: "0.4rem",
+      padding: "8px",
+    },
     display: "flex",
     paddingBottom: "0.4rem",
-    alignItems: "flex-end",
   },
   reviewDate: {
+    [theme.breakpoints.down("sm")]: {
+      paddingLeft: "5px",
+    },
     paddingLeft: "10px",
     fontWeight: "400",
   },
   reviewDesc: {
+    [theme.breakpoints.down("sm")]: {
+      textAlign: "justify",
+      padding: "8px",
+    },
     lineHeight: "1.5",
   },
   actions: {

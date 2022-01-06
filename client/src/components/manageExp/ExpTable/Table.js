@@ -9,6 +9,7 @@ import {
   InputAdornment,
   Chip,
   Avatar,
+  CircularProgress,
 } from "@material-ui/core";
 import useStyles from "./style";
 import { useDispatch, useSelector } from "react-redux";
@@ -25,7 +26,7 @@ const ExpTable = (props) => {
   const { editInPopup } = props;
   const classes = useStyles();
   const user = JSON.parse(localStorage.getItem("profile"));
-  const exps = useSelector((state) => state.exps);
+  const { exps, isLoading } = useSelector((state) => state.exps);
   const [confirmDialog, setConfirmDialog] = useState({
     isOpen: false,
     title: "",
@@ -50,7 +51,7 @@ const ExpTable = (props) => {
     dispatch(getExpTable(user.result.role));
   }, []);
 
-  if (!exps.length) return "No experience";
+  if (!exps.length && !isLoading) return "No experience";
 
   const handleSearch = (e) => {
     let target = e.target;
@@ -73,7 +74,9 @@ const ExpTable = (props) => {
     dispatch(deleteExp(id));
   };
 
-  return (
+  return isLoading ? (
+    <CircularProgress />
+  ) : (
     <>
       <Paper className={classes.paper}>
         <Toolbar>

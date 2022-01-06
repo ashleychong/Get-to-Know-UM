@@ -110,8 +110,7 @@ const features1 = [
   },
   {
     title: "Leisure",
-    description:
-      "Remember to spend some time to do the leisure activities. All works and no play makes Jack a dull boy.",
+    description: "Remember to spend some time to do the leisure activities.",
     icon: "https://cdn-icons-png.flaticon.com/512/3271/3271106.png",
     link: "/leisure",
   },
@@ -126,8 +125,7 @@ const features2 = [
   },
   {
     title: "Course",
-    description:
-      "Know more about the courses offer by UM and leave a review if you already took the course.",
+    description: "Know more about the courses offer by UM and leave a review.",
     icon: "https://cdn-icons-png.flaticon.com/512/2000/2000920.png",
     link: "/courses",
   },
@@ -135,7 +133,7 @@ const features2 = [
     title: "Calculator",
     description: "Calculate your grade point average and plan your result.",
     icon: "https://cdn-icons-png.flaticon.com/512/2374/2374370.png",
-    link: "/calculator",
+    link: "/gpa",
   },
 ];
 

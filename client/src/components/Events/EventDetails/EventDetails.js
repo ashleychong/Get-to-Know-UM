@@ -46,7 +46,7 @@ const EventDetails = () => {
   return (
     <>
       <div style={{ marginBottom: "20px" }}></div>
-      <Paper style={{ padding: "20px", margin: "0 10vw" }}>
+      <Paper className={classes.paper}>
         <div className={classes.section}>
           <div className={classes.header}>
             <div className={classes.imageSection}>

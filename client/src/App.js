@@ -1,6 +1,5 @@
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import {
-  Container,
   createTheme,
   ThemeProvider,
   CssBaseline,
@@ -95,7 +94,7 @@ function App() {
               <Route path="/admin/forumReports" exact component={ForumReportsHome} />
               <Route path="/forum/:topicId" exact component={TopicDetails} />
               <Route path="/notFound" component={NotFound} />
-              <Route path="*" exact component={() => <Redirect to="/notFound" />} /> 
+              <Route path="*" exact component={() => <Redirect to="/notFound" />} />
             </Switch>
           ) : (
             <Switch>
@@ -104,7 +103,7 @@ function App() {
               <Route path="/auth" exact component={() => (!user ? <Auth /> : <Redirect to="/home" />)} />
               <Route path="/passwordResetRequest" component={RequestResetPassword} />
               <Route path="/passwordReset" component={VerifyResetPasswordLink} />
-              <Route path="/passwordResetError" component={ResetPasswordError} />  
+              <Route path="/passwordResetError" component={ResetPasswordError} />
               <Route path="/profile" exact component={UserProfile} />
               <Route path="/forum" exact component={Forum} />
               <Route path="/forum/search" exact component={Forum} />
@@ -131,10 +130,10 @@ function App() {
               <Route path="/club/search" exact component={ClubHomePage} />
               <Route path="/club/:clubId" exact component={ClubDetails} />
               <Route path="/notFound" component={NotFound} />
-              <Route path="*" exact component={() => <Redirect to="/notFound" />} />  
+              <Route path="*" exact component={() => <Redirect to="/notFound" />} />
             </Switch>
           )}
-          <Route path="/" exact component={() => isAdmin ? ( <AdminCourseHome /> ) : ( <Redirect to="/home" /> )}/>
+          <Route path="/" exact component={() => isAdmin ? <AdminCourseHome /> : <Redirect to="/home" />} />
         </>
       </ThemeProvider>
     </BrowserRouter>

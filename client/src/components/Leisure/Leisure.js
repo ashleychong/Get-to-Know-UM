@@ -27,7 +27,7 @@ const Leisure = () => {
       </Typography>
       <div style={{ margin: "0 10vw" }}>
         <ImageList sx={{ width: 400, height: 400 }}>
-          <ImageListItem style={{ padding: "20px" }}>
+          <ImageListItem className={classes.list} style={{ padding: "20px" }}>
             <img
               src="https://www.easyuni.com/media/institution/photo/2015/11/19/UMMALAYSIA.jpg.600x400_q85.jpg"
               loading="lazy"

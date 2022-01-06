@@ -9,11 +9,12 @@ export default makeStyles((theme) => ({
       minHeight: "100%",
       overflow: "auto",
     },
-    marginTop: "30px",
-    margin: "auto",
-    width: "330px",
-    minHeight: "100%",
-    overflow: "auto",
+    [theme.breakpoints.down("sm")]: {
+      marginTop: "30px",
+      margin: "auto",
+      minHeight: "100%",
+      overflow: "auto",
+    },
   },
   course: {
     margin: "10px 20px ",

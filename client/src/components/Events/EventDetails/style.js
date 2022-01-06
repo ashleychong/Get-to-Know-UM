@@ -59,4 +59,13 @@ export default makeStyles((theme) => ({
     fontWeight: "600",
     fontSize: "20px",
   },
+  paper: {
+    [theme.breakpoints.down("sm")]: {
+      padding: "20px",
+    },
+    [theme.breakpoints.up("sm")]: {
+      padding: "20px",
+      margin: "0 10vw",
+    },
+  },
 }));
