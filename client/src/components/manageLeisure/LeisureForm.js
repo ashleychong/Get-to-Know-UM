@@ -127,6 +127,7 @@ const LeisureForm = ({ currentId, setCurrentId, setOpenPopup }) => {
           <Custom.Input
             name="fee"
             label="Fee"
+            type="number"
             value={values.fee}
             onChange={handleInputChange}
             error={errors.fee}

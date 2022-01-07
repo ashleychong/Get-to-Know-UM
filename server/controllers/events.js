@@ -184,10 +184,38 @@ export const getEventsByDateRange = async (req, res) => {
 };
 
 export const addEvent = async (req, res) => {
-  const event = req.body;
+  const {
+    title,
+    tags,
+    about,
+    startDate,
+    endDate,
+    venue,
+    contact,
+    organizer,
+    img,
+    fav,
+    audience,
+    fee,
+  } = req.body;
+  const existingEvent = await EventMessage.findOne({ title });
 
+  if (existingEvent) {
+    return res.status(400).send("Event is already exist.");
+  }
   const newEvent = new EventMessage({
-    ...event,
+    title,
+    tags,
+    about,
+    startDate,
+    endDate,
+    venue,
+    contact,
+    organizer,
+    img,
+    fav,
+    audience,
+    fee,
   });
 
   try {

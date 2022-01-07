@@ -77,9 +77,7 @@ const EventTable = (props) => {
     dispatch(deleteEvent(id));
   };
 
-  return isLoading ? (
-    <CircularProgress />
-  ) : (
+  return (
     <>
       <Paper className={classes.paper}>
         <Toolbar>

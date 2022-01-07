@@ -65,12 +65,9 @@ const EventForm = ({ currentId, setCurrentId, setOpenPopup }) => {
       temp.organizer = fieldValues.organizer ? "" : "This field is required.";
     if ("audience" in fieldValues)
       temp.audience = fieldValues.audience ? "" : "This field is required.";
-    if ("fee" in fieldValues) {
+    if ("fee" in fieldValues)
       temp.fee = fieldValues.fee ? "" : "This field is required.";
-      temp.fee = /^\d*\.?\d*$/.test(fieldValues.fee)
-        ? ""
-        : "Please input numbers only.";
-    }
+
     setErrors({
       ...temp,
     });
@@ -129,7 +126,7 @@ const EventForm = ({ currentId, setCurrentId, setOpenPopup }) => {
             onChange={handleInputChange}
             error={errors.about}
             multiline
-            minRows={5}
+            minrows={5}
             maxRows={10}
             required
           />
@@ -199,6 +196,7 @@ const EventForm = ({ currentId, setCurrentId, setOpenPopup }) => {
           <Custom.Input
             name="fee"
             label="Fee"
+            type="number"
             value={values.fee}
             onChange={handleInputChange}
             error={errors.fee}

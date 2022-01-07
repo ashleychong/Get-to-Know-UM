@@ -117,9 +117,11 @@ export default makeStyles((theme) => ({
       fontWeight: "400",
       marginLeft: "10px",
     },
-    color: "#27899E",
-    fontWeight: "400",
-    marginTop: "63px",
+    [theme.breakpoints.down("sm")]: {
+      color: "#27899E",
+      fontWeight: "400",
+      marginTop: "30px",
+    },
   },
   card2: {
     [theme.breakpoints.up("sm")]: {
