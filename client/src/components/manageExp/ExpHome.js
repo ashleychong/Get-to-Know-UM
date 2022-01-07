@@ -19,26 +19,24 @@ const ExpHome = () => {
     setOpenPopup(true);
   };
 
-  if (user?.result?.role === "admin") {
-    return (
-      <>
-        <CssBaseline />
-        <Layout pageHeaderTitle="Experience">
-          <>
-            <div className={classes.pageContent}>
-              <ExpTable editInPopup={editInPopup} />
-            </div>
-            <ExpPopup
-              currentId={currentId}
-              setCurrentId={setCurrentId}
-              openPopup={openPopup}
-              setOpenPopup={setOpenPopup}
-            />
-          </>
-        </Layout>
-      </>
-    );
-  }
+  return (
+    <>
+      <CssBaseline />
+      <Layout pageHeaderTitle="Experience">
+        <>
+          <div className={classes.pageContent}>
+            <ExpTable editInPopup={editInPopup} />
+          </div>
+          <ExpPopup
+            currentId={currentId}
+            setCurrentId={setCurrentId}
+            openPopup={openPopup}
+            setOpenPopup={setOpenPopup}
+          />
+        </>
+      </Layout>
+    </>
+  );
 };
 
 export default ExpHome;

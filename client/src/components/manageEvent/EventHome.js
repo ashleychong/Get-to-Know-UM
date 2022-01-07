@@ -22,44 +22,42 @@ const EventHome = () => {
     setOpenPopup(true);
   };
 
-  if (user?.result?.role === "admin") {
-    return (
-      <>
-        <CssBaseline />
-        <Layout pageHeaderTitle="Events">
-          <>
-            <div className={classes.pageContent}>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "flex-end",
-                  marginBottom: "6vh",
+  return (
+    <>
+      <CssBaseline />
+      <Layout pageHeaderTitle="Events">
+        <>
+          <div className={classes.pageContent}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "flex-end",
+                marginBottom: "6vh",
+              }}
+            >
+              <Button
+                color="primary"
+                variant="contained"
+                startIcon={<AddIcon />}
+                onClick={() => {
+                  setOpenPopup(true);
                 }}
               >
-                <Button
-                  color="primary"
-                  variant="contained"
-                  startIcon={<AddIcon />}
-                  onClick={() => {
-                    setOpenPopup(true);
-                  }}
-                >
-                  Create a new event
-                </Button>
-              </div>
-              <EventTable editInPopup={editInPopup} />
+                Create a new event
+              </Button>
             </div>
-            <EventPopup
-              currentId={currentId}
-              setCurrentId={setCurrentId}
-              openPopup={openPopup}
-              setOpenPopup={setOpenPopup}
-            />
-          </>
-        </Layout>
-      </>
-    );
-  }
+            <EventTable editInPopup={editInPopup} />
+          </div>
+          <EventPopup
+            currentId={currentId}
+            setCurrentId={setCurrentId}
+            openPopup={openPopup}
+            setOpenPopup={setOpenPopup}
+          />
+        </>
+      </Layout>
+    </>
+  );
 };
 
 export default EventHome;

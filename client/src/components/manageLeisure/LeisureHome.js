@@ -22,44 +22,42 @@ const LeisureHome = () => {
     setOpenPopup(true);
   };
 
-  if (user?.result?.role === "admin") {
-    return (
-      <>
-        <CssBaseline />
-        <Layout pageHeaderTitle="Leisure">
-          <>
-            <div className={classes.pageContent}>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "flex-end",
-                  marginBottom: "6vh",
+  return (
+    <>
+      <CssBaseline />
+      <Layout pageHeaderTitle="Leisure">
+        <>
+          <div className={classes.pageContent}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "flex-end",
+                marginBottom: "6vh",
+              }}
+            >
+              <Button
+                color="primary"
+                variant="contained"
+                startIcon={<AddIcon />}
+                onClick={() => {
+                  setOpenPopup(true);
                 }}
               >
-                <Button
-                  color="primary"
-                  variant="contained"
-                  startIcon={<AddIcon />}
-                  onClick={() => {
-                    setOpenPopup(true);
-                  }}
-                >
-                  Create a new leisure
-                </Button>
-              </div>
-              <LeisureTable editInPopup={editInPopup} />
+                Create a new leisure
+              </Button>
             </div>
-            <LeisurePopup
-              currentId={currentId}
-              setCurrentId={setCurrentId}
-              openPopup={openPopup}
-              setOpenPopup={setOpenPopup}
-            />
-          </>
-        </Layout>
-      </>
-    );
-  }
+            <LeisureTable editInPopup={editInPopup} />
+          </div>
+          <LeisurePopup
+            currentId={currentId}
+            setCurrentId={setCurrentId}
+            openPopup={openPopup}
+            setOpenPopup={setOpenPopup}
+          />
+        </>
+      </Layout>
+    </>
+  );
 };
 
 export default LeisureHome;

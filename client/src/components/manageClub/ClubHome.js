@@ -23,46 +23,44 @@ const ClubHome = () => {
     dispatch(getClubs());
   }, [dispatch]);
 
-  if (user?.result?.role === "admin") {
-    return (
-      <>
-        <CssBaseline />
-        <Layout pageHeaderTitle="Clubs">
-          <>
-            <div className={classes.pageContent}>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "flex-end",
-                  marginBottom: "6vh",
-                }}
-              >
-                {user?.result?.role === "admin" && (
-                  <Button
-                    color="primary"
-                    variant="contained"
-                    startIcon={<AddIcon />}
-                    onClick={() => {
-                      setOpenPopup(true);
-                    }}
-                  >
-                    Create club
-                  </Button>
-                )}
-              </div>
-              <ClubTable editInPopup={editInPopup} />
+  return (
+    <>
+      <CssBaseline />
+      <Layout pageHeaderTitle="Clubs">
+        <>
+          <div className={classes.pageContent}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "flex-end",
+                marginBottom: "6vh",
+              }}
+            >
+              {user?.result?.role === "admin" && (
+                <Button
+                  color="primary"
+                  variant="contained"
+                  startIcon={<AddIcon />}
+                  onClick={() => {
+                    setOpenPopup(true);
+                  }}
+                >
+                  Create club
+                </Button>
+              )}
             </div>
-            <ClubPopup
-              currentId={currentId}
-              setCurrentId={setCurrentId}
-              openPopup={openPopup}
-              setOpenPopup={setOpenPopup}
-            />
-          </>
-        </Layout>
-      </>
-    );
-  }
+            <ClubTable editInPopup={editInPopup} />
+          </div>
+          <ClubPopup
+            currentId={currentId}
+            setCurrentId={setCurrentId}
+            openPopup={openPopup}
+            setOpenPopup={setOpenPopup}
+          />
+        </>
+      </Layout>
+    </>
+  );
 };
 
 export default ClubHome;
