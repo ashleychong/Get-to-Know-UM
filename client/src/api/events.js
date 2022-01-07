@@ -1,8 +1,9 @@
 //axios for making api requests
 import axios from "axios";
+import { serverURL } from "./index";
 
 //point to backend url
-const API = axios.create({ baseURL: "http://localhost:5000" });
+const API = axios.create({ baseURL: serverURL });
 
 API.interceptors.request.use((req) => {
   if (localStorage.getItem("profile")) {

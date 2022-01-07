@@ -33,7 +33,7 @@ export const useForm = (initialValues, validateOnChange = false, validate = {}) 
     // directly specify the name "tags" to access the values
     setValues({
       ...values,
-      tags: value,
+      searchTags: value,
     });
   };
 

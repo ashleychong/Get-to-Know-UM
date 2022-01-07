@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
   cardMedia: {
     // height: 0,
     paddingTop: "50%",
-    backgroundColor: "rgba(0, 0, 0, 0.2)",
+    backgroundColor: "rgba(0, 0, 0, 0.3)",
     backgroundBlendMode: "darken",
   },
   right: {

@@ -44,6 +44,10 @@ app.use("/food", foodRoutes);
 app.use("/cafe", cafeRoutes);
 app.use("/cafeReviews", cafeReviewRoutes);
 
+app.get("/", (req, res) => {
+  res.send("Hello to Get to Know UM API");
+});
+
 const PORT = process.env.PORT || 5000;
 const CONNECTION_URL = process.env.ATLAS_URI;
 

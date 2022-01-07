@@ -4,9 +4,9 @@ import {
   Toolbar,
   CssBaseline,
   Grid,
-  Typography,
   InputAdornment,
-  TextField,
+  useMediaQuery,
+  useTheme,
 } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
@@ -24,19 +24,24 @@ function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
 
+const initialValues = {
+  search: "",
+  searchTags: [],
+};
+
 const Forum = () => {
   const classes = useStyles();
   const { tags: tagOptions } = useSelector((state) => state.topics);
   const [openPopup, setOpenPopup] = useState(false);
   const [currentId, setCurrentId] = useState(0);
-  const [search, setSearch] = useState("");
   const dispatch = useDispatch();
   const history = useHistory();
   const query = useQuery();
   const page = query.get("page") || 1;
   const searchQuery = query.get("searchQuery");
   const tagsQuery = query.get("tags");
-  const [searchTags, setSearchTags] = useState([]);
+  const theme = useTheme();
+  const downXs = useMediaQuery(theme.breakpoints.down("xs"));
 
   useEffect(() => {
     dispatch(getTopicTags());
@@ -48,21 +53,21 @@ const Forum = () => {
       dispatch(getTopicsBySearch({ search: searchQuery, tags: tagsQuery }));
     } else {
       // console.log("no search query");
-      dispatch(getTopics());
+      dispatch(getTopics(page));
     }
   }, [dispatch]);
 
-  const handleSearchTags = (event, value) => {
-    setSearchTags(value);
-  };
+  const { values, setValues, handleInputChange, handleAutocompleteInputChange, resetForm } = Custom.useForm(initialValues);
 
   const searchTopic = () => {
-    if (search.trim() || searchTags.length) {
-      // console.log(searchTags);
-      dispatch(getTopicsBySearch({ search, tags: searchTags.join(",") }));
+    if (values.search.trim() || values.searchTags.length) {
+      const search = values.search;
+      const tags = values.searchTags.join(",");
+      
+      dispatch(getTopicsBySearch({ search, tags }));
       
       history.push(
-        `/forum/search?searchQuery=${search || "none"}&tags=${searchTags.join(",")}`
+        `/forum/search?searchQuery=${search || "none"}&tags=${tags}`
       );
     } else {
       history.push("/forum");
@@ -73,6 +78,11 @@ const Forum = () => {
     if (e.keyCode === 13) {
       searchTopic();
     }
+  };
+
+  const clearSearch = () => {
+    resetForm();
+    history.push("/forum");
   };
 
   const editInPopup = (topic) => {
@@ -98,14 +108,14 @@ const Forum = () => {
           </div>
           <Paper className={classes.topicsContent}>
             <Toolbar>
-              <Grid container className={classes.searchRow}>
-                <Grid item xs={12} md={8}>
+              <Grid container spacing={2} className={classes.searchRow}>
+                <Grid item xs={12} sm={6} lg={5}>
                   <Custom.Input
                     fullWidth
                     label="Search by title"
                     name="search"
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
+                    value={values.search}
+                    onChange={handleInputChange}
                     onKeyDown={handleKeyPress}
                     // InputProps={{
                     //   endAdornment: (
@@ -118,18 +128,21 @@ const Forum = () => {
                     // }}
                   />
                 </Grid>
-                <Grid item xs={12} md={4}>
-                  <div style={{ textAlign: "center",  }}>
-                    <Custom.Button
-                      text="Search"
-                      fullWidth
-                      variant="contained"
-                      onClick={() => {
-                        searchTopic();
-                      }}
-                      className={classes.searchButton}
-                    />
-                  </div>
+                <Grid item xs={12} lg={3} className={classes.filterContainer}>
+                  <Custom.Button
+                    text="Search"
+                    variant="contained"
+                    size="medium"
+                    fullWidth={downXs}
+                    onClick={searchTopic}
+                  />
+                  <Custom.Button
+                    text="Clear search"
+                    variant="outlined"
+                    size="medium"
+                    fullWidth={downXs}
+                    onClick={clearSearch}
+                  />
                 </Grid>
               </Grid>
             </Toolbar>

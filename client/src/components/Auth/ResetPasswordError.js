@@ -61,7 +61,7 @@ const ResetPasswordError = () => (
             startIcon={<ArrowBackIcon fontSize="small" />}
             sx={{ mt: 3 }}
             variant="contained"
-            text="Go back to sign in"
+            text="Go back to the home page"
           />
         </Box>
       </Container>

@@ -36,7 +36,7 @@ const CoursesHome = () => {
     if (searchQuery || faculty) {
       dispatch(getCoursesBySearch({ search: searchQuery, faculty }));
     } else {
-      dispatch(getCoursesByPage());
+      dispatch(getCoursesByPage(page));
     }
   }, [dispatch]);
 
@@ -52,9 +52,15 @@ const CoursesHome = () => {
     }
   };
 
+  const handleKeyPress = (e) => {
+    if (e.keyCode === 13) {
+      searchCourse();
+    }
+  };
+
   const clearFilter = () => {
     resetForm();
-    dispatch(getCoursesByPage());
+    history.push("/courses");
   }
 
   return (
@@ -71,15 +77,6 @@ const CoursesHome = () => {
       </PageHeader>
       <div className={classes.pageContent}>
         <Grid container spacing={2} className={classes.searchContainer}>
-          <Grid item xs={12} sm={6} lg={4}>
-            <Custom.Input
-              fullWidth
-              label="Course title or course code"
-              name="search"
-              value={values.search}
-              onChange={handleInputChange}
-            />
-          </Grid>
           <Grid item xs={12} sm={6} lg={5}>
             <Custom.DropDown
               name="faculty"
@@ -89,20 +86,28 @@ const CoursesHome = () => {
               isFaculty
             />
           </Grid>
+          <Grid item xs={12} sm={6} lg={4}>
+            <Custom.Input
+              fullWidth
+              label="Course title or course code"
+              name="search"
+              value={values.search}
+              onChange={handleInputChange}
+              onKeyDown={handleKeyPress}
+            />
+          </Grid>
           <Grid item xs={12} lg={3} className={classes.filterContainer}>
             <Custom.Button
               text="Apply filter"
               variant="contained"
               fullWidth={downXs}
               onClick={searchCourse}
-              className={classes.searchButton}
             />
             <Custom.Button
               text="Clear filter"
               variant="outlined"
               fullWidth={downXs}
               onClick={clearFilter}
-              className={classes.searchButton}
             />
           </Grid>
         </Grid>

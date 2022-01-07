@@ -1,6 +1,7 @@
 import axios from "axios";
+import { serverURL } from "./index";
 
-const url = "http://localhost:5000/club";
+const url = `${serverURL}/club`;
 
 export const fetchClubs = (page) => axios.get(`${url}?page=${page}`);
 export const fetchClub = (id) => axios.get(`${url}/detail/${id}`);

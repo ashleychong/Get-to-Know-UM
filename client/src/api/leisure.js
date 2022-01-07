@@ -1,7 +1,8 @@
 import axios from "axios";
+import { serverURL } from "./index";
 
 //point to backend url
-const url = "http://localhost:5000/leisure";
+const url = `${serverURL}/leisure`;
 
 export const fetchLeisures = () => axios.get(url);
 export const createLeisures = (newLeisure) => axios.post(url, newLeisure);

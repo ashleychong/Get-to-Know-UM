@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const api = axios.create({ baseURL: "http://localhost:5000" });
+export const serverURL = "http://localhost:5000";
+const api = axios.create({ baseURL: serverURL });
 
 api.interceptors.request.use((req) => {
   if (localStorage.getItem("profile")) {
@@ -42,12 +43,6 @@ export const updatePost = (topicId, postId, updatedPost) =>
   api.patch(`/topics/topic/${topicId}/post/${postId}`, updatedPost);
 export const deletePost = (topicId, postId) =>
   api.delete(`/topics/topic/${topicId}/post/${postId}`);
-
-// export const fetchCourses = () => api.get("/courses");
-// export const fetchCourse = (id) => api.get(`/courses/${id}`);
-// export const createCourse = (newCourse) => api.post("/courses", newCourse);
-// export const updateCourse = (id, updatedCourse) => api.patch(`/courses/${id}`, updatedCourse);
-// export const deleteCourse = (id) => api.delete(`/courses/${id}`);
 
 export const fetchFoodNominations = () => api.get("/foodNominations");
 export const fetchApprovedFoodNominations = (page) =>

@@ -24,7 +24,7 @@ export default function CafeHome() {
       <CssBaseline />
       <PageHeader title="Cafes" />
       <div className={classes.root}>
-        <Grid container alignItems="stretch" spacing={3}>
+        <Grid container alignItems="stretch" spacing={4}>
           <CafeCards />
         </Grid>
         <div className={classes.pagination}>

@@ -37,6 +37,12 @@ export default makeStyles((theme) => ({
       marginLeft: "15px",
     },
   },
+  filterContainer: {
+    display: "flex",
+    [theme.breakpoints.down("xs")]: {
+      justifyContent: "center",
+    },
+  },
   searchButton: {
     [theme.breakpoints.down("md")]: {
       margin: "10px 0",
@@ -59,7 +65,6 @@ export default makeStyles((theme) => ({
       // margin: theme.spacing(5),
       padding: theme.spacing(3),
     },
-
     // [theme.breakpoints.down("sm")]: {
     //   margin: theme.spacing(3),
     //   padding: theme.spacing(3),

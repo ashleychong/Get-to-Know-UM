@@ -17,7 +17,7 @@ const Courses = () => {
   return isLoading ? (
     <CircularProgress />
   ) : (
-    <Grid container alignItems="stretch" spacing={3}>
+    <Grid container alignItems="stretch" spacing={4}>
       {courses?.map((course) => (
         <Course key={course._id} course={course} />
       ))}
