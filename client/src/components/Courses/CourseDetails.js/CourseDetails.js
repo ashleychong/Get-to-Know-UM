@@ -17,7 +17,6 @@ import { useDispatch, useSelector } from "react-redux";
 
 import useStyles from "./CourseDetailsStyles";
 import ReviewPopup from "./ReviewPopup";
-import Review from "./Review";
 import Reviews from "./Reviews";
 import { getCourse } from "../../../actions/courses";
 import { getCourseReviews } from "../../../actions/courseReviews";
@@ -33,11 +32,12 @@ const CourseDetails = () => {
 
   useEffect(() => {
     dispatch(getCourse(courseId, history));
+    dispatch(getCourseReviews(courseId));
   }, [dispatch]);
 
-  useEffect(() => {
-    dispatch(getCourseReviews(courseId));
-  }, [course]);
+  // useEffect(() => {
+  //   dispatch(getCourseReviews(courseId));
+  // }, [course]);
 
   const editInPopup = (review) => {
     setCurrentReviewId(review._id);

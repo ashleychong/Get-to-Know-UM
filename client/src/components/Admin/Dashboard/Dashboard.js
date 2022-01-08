@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  CssBaseline,
   Grid,
   Typography,
   Card,
@@ -22,14 +23,14 @@ import {
   LocalDiningOutlined,
   ForumOutlined,
 } from "@material-ui/icons";
-import { getAllFood } from "../../../actions/food";
+import { getFoodNominations } from "../../../actions/foodNominations";
 import { getCourses } from "../../../actions/courses";
 import { getClubs } from "../../../actions/clubs";
 import { getEvents } from "../../../actions/events";
 import { getAllCafes } from "../../../actions/cafe";
 import { getExps } from "../../../actions/experience";
 import { getLeisures } from "../../../actions/leisure";
-import { getTopics } from "../../../actions/topics";
+import { getPendingForumReports } from "../../../actions/forumReports";
 
 export default function Dashboard() {
   const dispatch = useDispatch();
@@ -39,16 +40,19 @@ export default function Dashboard() {
   const { clubs } = useSelector((state) => state.clubs);
   const { cafes } = useSelector((state) => state.cafes);
   const { courses } = useSelector((state) => state.courses);
-  const { foodList } = useSelector((state) => state.food);
-  const { topics } = useSelector((state) => state.topics);
+  const { foodNominations } = useSelector((state) => state.foodNominations);
+  const pendingFoodList = foodNominations.filter(
+    (foodNomination) => foodNomination?.status === "pending"
+  );
+  const { pendingReports } = useSelector((state) => state.forumReports);
   const classes = useStyles();
 
   const itemsList = [
     {
-      text: "Topic",
+      text: "Pending Forum Reports",
       icon: <ForumOutlined />,
       color: "#bdbdbd",
-      no: topics.length,
+      no: pendingReports.length,
     },
     {
       text: "Cafe",
@@ -57,10 +61,10 @@ export default function Dashboard() {
       no: cafes.length,
     },
     {
-      text: "Food",
+      text: "Pending Food Nominations",
       icon: <FastfoodOutlined />,
       color: "#e91e63",
-      no: foodList.length,
+      no: pendingFoodList.length,
     },
     {
       text: "Club",
@@ -95,63 +99,80 @@ export default function Dashboard() {
   ];
 
   useEffect(() => {
-    dispatch(getAllFood());
+    dispatch(getFoodNominations());
     dispatch(getClubs());
     dispatch(getCourses());
     dispatch(getEvents());
     dispatch(getAllCafes());
     dispatch(getExps());
     dispatch(getLeisures());
-    dispatch(getTopics());
+    dispatch(getPendingForumReports());
   }, []);
 
   return (
     <>
+      <CssBaseline />
       <Layout pageHeaderTitle="Dashboard">
         <Box className={classes.box}>
           <Grid
             container
             spacing={5}
-            alignItems="flex-end"
-            style={{ margin: "20px" }}
+            alignItems="stretch"
           >
             {itemsList.map((item) => (
-              <Grid item key={item.text} xs={12} md={3}>
-                <Card>
-                  <CardContent>
+              <Grid item key={item.text} xs={12} sm={6} md={4}>
+                <Card style={{ height: "100%" }}>
+                  <CardContent style={{ height: "100%" }}>
                     <div
                       style={{
                         display: "flex",
-                        flexDirection: "row",
-                        position: "relative",
+                        flexDirection: "column",
+                        justifyContent: "space-between",
+                        height: "100%",
                       }}
                     >
-                      <Typography
-                        style={{ fontSize: "14px", fontWeight: "bold" }}
-                        color="textSecondary"
-                        gutterBottom
-                        variant="overline"
-                      >
-                        {item.text}
-                      </Typography>
-                      <Avatar
+                      <div
                         style={{
-                          backgroundColor: item.color,
-                          position: "absolute",
-                          top: "0px",
-                          right: "0px",
-                        }}
-                        sx={{
-                          height: 56,
-                          width: 56,
+                          display: "flex",
+                          justifyContent: "space-between",
+                          marginBottom: "1.5rem",
                         }}
                       >
-                        {item.icon}
-                      </Avatar>
+                        <Grid container>
+                          <Grid item xs={10} md={9}>
+                            <Typography
+                              style={{
+                                fontSize: "16px",
+                                fontWeight: "bold",
+                                lineHeight: "1.8",
+                              }}
+                              color="textSecondary"
+                              gutterBottom
+                              variant="overline"
+                            >
+                              {item.text}
+                            </Typography>
+                          </Grid>
+                          <Grid item xs={2} md={3}>
+                            <Avatar
+                              style={{
+                                backgroundColor: item.color,
+                                margin: "auto",
+                              }}
+                              sx={{
+                                height: 56,
+                                width: 56,
+                              }}
+                            >
+                              {item.icon}
+                            </Avatar>
+                          </Grid>
+                        </Grid>
+                      </div>
+                      <Typography color="textPrimary" variant="h4">
+                        {item.no}
+                      </Typography>
                     </div>
-                    <Typography color="textPrimary" variant="h4">
-                      {item.no}
-                    </Typography>
                   </CardContent>
                 </Card>
               </Grid>

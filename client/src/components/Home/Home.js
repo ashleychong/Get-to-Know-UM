@@ -114,9 +114,6 @@ const features1 = [
     icon: "https://cdn-icons-png.flaticon.com/512/3271/3271106.png",
     link: "/leisure",
   },
-];
-
-const features2 = [
   {
     title: "Food",
     description: "Sharing is caring. Share the best food in UM with UM folks.",
@@ -171,57 +168,19 @@ export default function Blog() {
               fontFamily: "Segoe UI",
               fontWeight: "bold",
               textAlign: "center",
-              marginBottom: "15px",
+              marginBottom: "3rem",
             }}
           >
             Our Best Features
           </Typography>
           <Grid container spacing={5} alignItems="flex-end" style={{}}>
             {features1.map((feature) => (
-              <Grid item key={feature.title} xs={12} md={3}>
-                <ButtonBase onClick={() => history.push(feature.link)}>
-                  <Card style={{ borderRadius: "15px" }}>
-                    <CardContent style={{ padding: "20px" }}>
-                      <Typography
-                        variant="h5"
-                        style={{
-                          color: "#1565c0",
-                          fontWeight: "bold",
-                          marginBottom: "5px",
-                        }}
-                      >
-                        {feature.title}
-                      </Typography>
-                      <Box style={{ height: "80px" }}>
-                        <Typography
-                          variant="subtitle1"
-                          style={{ lineHeight: "1.4", textAlign: "justify" }}
-                        >
-                          {feature.description}
-                        </Typography>
-                      </Box>
-                      <CardMedia
-                        component="img"
-                        style={{
-                          height: "60px",
-                          width: "60px",
-                          objectFit: "cover",
-                          margin: "auto",
-                        }}
-                        image={feature.icon}
-                        alt={feature.title}
-                      />
-                    </CardContent>
-                  </Card>
-                </ButtonBase>
-              </Grid>
-            ))}
-          </Grid>
-          <Grid container spacing={5} alignItems="flex-end">
-            {features2.map((feature) => (
-              <Grid item key={feature.title} xs={12} md={3}>
-                <ButtonBase onClick={() => history.push(feature.link)}>
-                  <Card style={{ borderRadius: "15px" }}>
+              <Grid item key={feature.title} xs={12} sm={6} md={4}>
+                <ButtonBase
+                  onClick={() => history.push(feature.link)}
+                  style={{ borderRadius: "15px", width: "100%" }}
+                >
+                  <Card style={{ borderRadius: "15px", width: "100%" }}>
                     <CardContent style={{ padding: "20px" }}>
                       <Typography
                         variant="h5"

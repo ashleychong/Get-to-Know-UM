@@ -125,6 +125,8 @@ const ReviewForm = ({
         })
       );
     } else {
+      // console.log("update review");
+      // console.log(values);
       dispatch(
         updateCourseReview(courseId, currentReviewId, {
           ...values,

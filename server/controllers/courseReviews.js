@@ -39,7 +39,10 @@ export const createCourseReview = async (req, res) => {
 
 export const updateCourseReview = async (req, res) => {
   const { courseId, reviewId } = req.params;
+
   const {
+    year,
+    semester,
     title,
     description,
     overallRating,
@@ -54,6 +57,8 @@ export const updateCourseReview = async (req, res) => {
   const updatedCourseReview = await CourseReview.findByIdAndUpdate(
     reviewId,
     {
+      year,
+      semester,
       title,
       description,
       overallRating,

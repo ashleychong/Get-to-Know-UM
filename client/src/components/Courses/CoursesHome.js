@@ -77,7 +77,7 @@ const CoursesHome = () => {
       </PageHeader>
       <div className={classes.pageContent}>
         <Grid container spacing={2} className={classes.searchContainer}>
-          <Grid item xs={12} sm={6} lg={5}>
+          <Grid item xs={12} sm={6} lg={4}>
             <Custom.DropDown
               name="faculty"
               label="Faculty"
@@ -96,7 +96,7 @@ const CoursesHome = () => {
               onKeyDown={handleKeyPress}
             />
           </Grid>
-          <Grid item xs={12} lg={3} className={classes.filterContainer}>
+          <Grid item xs={12} lg={4} className={classes.filterContainer}>
             <Custom.Button
               text="Apply filter"
               variant="contained"

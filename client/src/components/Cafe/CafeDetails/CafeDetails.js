@@ -29,6 +29,7 @@ const CafeDetails = () => {
 
   useEffect(() => {
     dispatch(getCafe(cafeId, history));
+    // console.log("dispatch get cafe details");
   }, [dispatch]);
 
   useEffect(() => {
@@ -75,7 +76,7 @@ const CafeDetails = () => {
                   />
                 </Box>
                 <Box className="avgRating" ml={1}>
-                  {cafe?.avgRating?.toFixed(1)}
+                  {cafe?.avgRating?.toFixed(1) || "N/A"}
                 </Box>
               </Box>
               <Divider />
