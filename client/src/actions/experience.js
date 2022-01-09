@@ -32,8 +32,10 @@ export const getExpTable = (user) => async (dispatch) => {
 
 export const createExp = (exp) => async (dispatch) => {
   try {
+    dispatch({ type: START_LOADING });
     const { data } = await api.createExp(exp);
     dispatch({ type: CREATE, payload: data });
+    dispatch({ type: END_LOADING });
   } catch (error) {
     console.log(error.message);
   }

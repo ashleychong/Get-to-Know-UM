@@ -3,8 +3,6 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AddIcon from "@material-ui/icons/Add";
 import useStyles from "./styles";
-import PageHeader from "../PageHeader";
-import { getCourses } from "../../actions/courses";
 import LeisurePopup from "./LeisurePopup";
 import Layout from "../Admin/Layout/Layout";
 import LeisureTable from "./LeisureTable/Table";

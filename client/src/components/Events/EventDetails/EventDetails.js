@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Paper,
   Typography,
@@ -7,6 +7,7 @@ import {
   Card,
   Box,
   CardContent,
+  CircularProgress,
 } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useHistory } from "react-router";
@@ -21,16 +22,21 @@ const EventDetails = () => {
   const classes = useStyles();
   const history = useHistory();
   const { id } = useParams();
-
-  useEffect(() => {
-    if (event) {
-      dispatch(getEventsByTag({ search: event?.tags }));
-    }
-  }, [event]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     dispatch(getEvent(id));
   }, [id]);
+
+  useEffect(() => {
+    setLoading(true);
+    if (event) {
+      dispatch(getEventsByTag({ search: event?.tags }));
+    }
+    setTimeout(() => {
+      setLoading(false);
+    }, 1500);
+  }, [event]);
 
   if (!event) return null;
 
@@ -40,10 +46,11 @@ const EventDetails = () => {
     .filter(({ _id }) => _id !== event._id)
     .slice(0, 6);
 
-  const reLength = recommendedEvents.length;
   const today = new Date().toISOString();
-
-  return (
+  const reLength = recommendedEvents.length;
+  return loading ? (
+    <CircularProgress style={{ margin: "20px" }} />
+  ) : (
     <>
       <div style={{ marginBottom: "20px" }}></div>
       <Paper className={classes.paper}>

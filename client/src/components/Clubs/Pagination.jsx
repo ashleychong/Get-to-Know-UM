@@ -7,7 +7,7 @@ import useStyles from "./style";
 import { getClubs } from '../../actions/clubs';
 
 const Paginate = ({ page }) => {
-  const { numberOfPages } = useSelector((state) => state.events);
+  const { numberOfPages } = useSelector((state) => state.clubs);
   const dispatch = useDispatch();
   const classes = useStyles();
 
@@ -19,15 +19,13 @@ const Paginate = ({ page }) => {
 
   return (
     <Pagination 
-      hidePrevButton 
-      hideNextButton
       count={numberOfPages}
       page={Number(page) || 1}
       variant="outlined"
       shape="rounded"
       color="primary"
       renderItem={(item) => (
-        <PaginationItem {...item} component={Link} to={`/event?page=${item.page}`} />
+        <PaginationItem {...item} component={Link} to={`/club?page=${item.page}`} />
       )}
     />
   );

@@ -76,7 +76,7 @@ const ExperienceRank = () => {
   };
 
   return (
-    <>
+    <div className={classes.root}>
       <Typography className={classes.title}>
         Must Do Things For UM Students
       </Typography>
@@ -90,7 +90,7 @@ const ExperienceRank = () => {
       >
         Share Experience
       </Button>
-
+      <div className={classes.space}></div>
       {[]
         .concat(exps)
         .sort((a, b) => (a.likes.length > b.likes.length ? -1 : 1))
@@ -260,7 +260,8 @@ const ExperienceRank = () => {
           <Button onClick={handleCloseForSuccessShare}>Okay</Button>
         </DialogActions>
       </Dialog>
-    </>
+      <div style={{ margin: "20px" }}></div>
+    </div>
   );
 };
 

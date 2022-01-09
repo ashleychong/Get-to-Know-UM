@@ -63,6 +63,7 @@ export const getEvent = (id) => async (dispatch) => {
     const { data } = await api.fetchEvent(id);
     // console.log(data);
     dispatch({ type: FETCH_EVENT, payload: { event: data } });
+    dispatch({ type: END_LOADING });
   } catch (error) {
     console.log(error.message);
   }

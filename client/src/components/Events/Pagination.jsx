@@ -31,8 +31,6 @@ const Paginate = ({ page,date }) => {
 
   return (
     <Pagination 
-      hidePrevButton 
-      hideNextButton
       count={numberOfPages}
       page={Number(page) || 1}
       variant="outlined"

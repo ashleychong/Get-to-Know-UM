@@ -51,9 +51,6 @@ const ClubForm = ({ currentId, setCurrentId, setOpenPopup }) => {
     if ("event" in fieldValues)
       temp.event = fieldValues.event ? "" : "This field is required.";
     if ("contact" in fieldValues) {
-      temp.contact = /^\d+$/.test(fieldValues.contact)
-        ? ""
-        : "Please input numbers only.";
       temp.contact =
         fieldValues.contact.length < 9
           ? "Minimum 9 numbers required."
@@ -139,7 +136,6 @@ const ClubForm = ({ currentId, setCurrentId, setOpenPopup }) => {
           value={values.contact}
           onChange={handleInputChange}
           error={errors.contact}
-          helperText="e.g. 012XXXXXXX / 05XXXXXXX / 1300XXXXXX"
           required
         />
         <Custom.Input

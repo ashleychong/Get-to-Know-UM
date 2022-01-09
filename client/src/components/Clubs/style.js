@@ -4,7 +4,7 @@ export default makeStyles((theme) => ({
   pagination: {
     justifyContent: "center",
     display: "flex",
-    margin: "10px 0",
+    margin: "20px 0",
   },
   container: {
     [theme.breakpoints.down("sm")]: {

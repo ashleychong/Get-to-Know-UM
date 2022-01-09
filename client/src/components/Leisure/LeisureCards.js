@@ -10,9 +10,13 @@ const LeisureCards = () => {
     return "No listed Leisure";
   }
 
-  return leisures.map((leisure) => (
-    <LeisureCard key={leisure._id} leisure={leisure} />
-  ));
+  return isLoading ? (
+    <CircularProgress />
+  ) : (
+    leisures.map((leisure) => (
+      <LeisureCard key={leisure._id} leisure={leisure} />
+    ))
+  );
 };
 
 export default LeisureCards;

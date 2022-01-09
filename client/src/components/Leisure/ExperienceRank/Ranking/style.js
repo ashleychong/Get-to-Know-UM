@@ -4,7 +4,6 @@ export default makeStyles((theme) => ({
   title: {
     justifyContent: "space-between",
     alignItems: "center",
-    margin: "2em 1.5em 0 1.5em",
     [theme.breakpoints.up("sm")]: {
       fontWeight: "bold",
       fontSize: "26px",
@@ -12,11 +11,16 @@ export default makeStyles((theme) => ({
     [theme.breakpoints.down("sm")]: {
       fontWeight: "bold",
       fontSize: "24px",
+      margin: "1em",
     },
   },
+
   root: {
-    margin: "20px 30px",
+    [theme.breakpoints.up("sm")]: {
+      margin: "4vh 7vh",
+    },
   },
+
   submitButton: {
     [theme.breakpoints.up("sm")]: {
       float: "right",
@@ -43,5 +47,11 @@ export default makeStyles((theme) => ({
   },
   dialogTitle: {
     paddingRight: "0px",
+  },
+  space: {
+    [theme.breakpoints.up("sm")]: {
+      marginTop: "50px",
+    },
+    [theme.breakpoints.down("sm")]: {},
   },
 }));

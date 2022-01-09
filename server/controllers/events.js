@@ -120,7 +120,13 @@ export const getThisMonthEvents = async (req, res) => {
     const LIMIT = 6;
     const startIndex = (Number(page) - 1) * LIMIT;
     const thismonth = (new Date().getMonth() + 1).toString();
-    const month = "-" + thismonth + "-";
+    var month = "";
+    if (thismonth <= 9) {
+      month = "-0" + thismonth + "-";
+    } else {
+      month = "-" + thismonth + "-";
+    }
+    console.log(month);
     const total = await EventMessage.countDocuments({
       endDate: { $gt: new Date() },
     });
@@ -134,7 +140,7 @@ export const getThisMonthEvents = async (req, res) => {
       .sort({ startDate: 1 })
       .limit(LIMIT)
       .skip(startIndex);
-
+    console.log(events);
     res.json({
       data: events,
       currentPage: Number(page),

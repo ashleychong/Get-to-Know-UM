@@ -33,8 +33,10 @@ export const getLeisureTable = (user) => async (dispatch) => {
 
 export const createLeisure = (leisure) => async (dispatch) => {
   try {
+    dispatch({ type: START_LOADING });
     const { data } = await api.createLeisures(leisure);
     dispatch({ type: CREATE_LEISURE, payload: data });
+    dispatch({ type: END_LOADING });
   } catch (error) {
     console.log(error.message);
   }

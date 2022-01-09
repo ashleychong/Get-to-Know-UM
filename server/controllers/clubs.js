@@ -13,7 +13,7 @@ export const getClubList = async (req, res) => {
     const startIndex = (Number(page) - 1) * LIMIT; // get the starting index of every page
     const total = await ClubMessage.countDocuments({});
     const clubs = await ClubMessage.find()
-      .sort({ _id: -1 })
+      .sort({ _id: 1 })
       .limit(LIMIT)
       .skip(startIndex);
 

@@ -56,7 +56,7 @@ export default makeStyles((theme) => ({
     display: "flex",
     flexDirection: "row",
     [theme.breakpoints.up("sm")]: {
-      margin: "20px 180px ",
+      margin: "20px 50px 20px 150px ",
     },
   },
   expTitle: {
