@@ -136,6 +136,8 @@ const ClubForm = ({ currentId, setCurrentId, setOpenPopup }) => {
           value={values.contact}
           onChange={handleInputChange}
           error={errors.contact}
+          type="number"
+          helperText="e.g. 012XXXXXXX / 05XXXXXXX / 1300XXXXXX"
           required
         />
         <Custom.Input
