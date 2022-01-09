@@ -57,7 +57,7 @@ const ResetPasswordError = () => (
           </Box>
           <Custom.Button
             component={Link}
-            to="/home"
+            to="/"
             color="primary"
             startIcon={<ArrowBackIcon fontSize="small" />}
             sx={{ mt: 3 }}

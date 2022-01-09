@@ -39,7 +39,9 @@ const Post = ({ editInPopup, topicId, post }) => {
             <Avatar className={classes.userAvatar} src={author?.image}>
               {author?.name?.charAt(0)}
             </Avatar>
-            <Typography align="center" variant="subtitle2">{author?.name}</Typography>
+            <Typography align="center" variant="subtitle2">
+              {author?.name}
+            </Typography>
           </Box>
         </Grid>
         <Grid item xs={12} sm={10}>
@@ -64,6 +66,7 @@ const Post = ({ editInPopup, topicId, post }) => {
                   <>
                     <IconButton
                       aria-label="edit"
+                      color="primary"
                       className={classes.iconButton}
                       onClick={(e) => {
                         e.stopPropagation();
@@ -74,6 +77,7 @@ const Post = ({ editInPopup, topicId, post }) => {
                     </IconButton>
                     <IconButton
                       aria-label="delete"
+                      color="secondary"
                       className={classes.iconButton}
                       onClick={() => dispatch(deletePost(topicId, post._id))}
                     >

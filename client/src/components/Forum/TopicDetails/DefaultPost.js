@@ -72,6 +72,7 @@ const DefaultPost = ({ topic }) => {
                   <>
                     <IconButton
                       aria-label="edit"
+                      color="primary"
                       className={classes.iconButton}
                       onClick={(e) => {
                         e.stopPropagation();
@@ -82,6 +83,7 @@ const DefaultPost = ({ topic }) => {
                     </IconButton>
                     <IconButton
                       aria-label="delete"
+                      color="secondary"
                       className={classes.iconButton}
                       onClick={handleDeleteTopic}
                     >

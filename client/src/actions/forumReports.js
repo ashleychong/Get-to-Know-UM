@@ -17,6 +17,7 @@ import {
   UPDATE_TOPIC_REPORTER_LIST,
   UPDATE_POST_REPORTER_LIST,
 } from "../constants/actionTypes.js";
+import { ADMIN_END_LOADING } from "../constants/actionTypes";
 
 export const getPendingForumReports = () => async (dispatch) => {
   try {
@@ -27,6 +28,8 @@ export const getPendingForumReports = () => async (dispatch) => {
     dispatch({ type: FETCH_PENDING_FORUM_REPORTS, payload: data });
 
     dispatch({ type: END_LOADING });
+    dispatch({ type: ADMIN_END_LOADING });
+
   } catch (error) {
     console.log(error);
   }

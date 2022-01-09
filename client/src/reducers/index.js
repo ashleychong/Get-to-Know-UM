@@ -12,6 +12,7 @@ import umCourses from "./gpa";
 import leisures from "./leisure";
 import cafes from "./cafe";
 import forumReports from "./forumReports";
+import adminDashboard from "./adminDashboard";
 
 export const reducers = combineReducers({
   auth,
@@ -26,4 +27,5 @@ export const reducers = combineReducers({
   cafes,
   umCourses,
   leisures,
+  adminDashboard,
 });

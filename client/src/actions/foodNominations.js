@@ -12,10 +12,13 @@ import {
   DECLINE_FOOD_NOMINATION,
   VOTE_FOOD_NOMINATION,
 } from "../constants/foodNominationActionTypes";
+import { ADMIN_START_LOADING } from "../constants/actionTypes";
+
 
 export const getFoodNominations = () => async (dispatch) => {
   try {
     dispatch({ type: START_LOADING });
+    dispatch({ type: ADMIN_START_LOADING });
 
     const { data } = await api.fetchFoodNominations();
     
