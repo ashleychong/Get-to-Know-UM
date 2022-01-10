@@ -13,6 +13,7 @@ import {
   MenuItem,
   InputLabel,
   FormControl,
+  CircularProgress,
 } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import { useDispatch, useSelector } from "react-redux";
@@ -22,7 +23,7 @@ import FileBase from "react-file-base64";
 import ExperienceCard from "../ExperienceCard/ExperienceCard";
 
 const ExperienceRank = () => {
-  const { exps } = useSelector((state) => state.exps);
+  const { exps, isLoading } = useSelector((state) => state.exps);
   const user = JSON.parse(localStorage.getItem("profile"));
   useEffect(() => {
     dispatch(getExps());
@@ -75,7 +76,9 @@ const ExperienceRank = () => {
     });
   };
 
-  return (
+  return isLoading ? (
+    <CircularProgress style={{ margin: "20px" }} />
+  ) : (
     <div className={classes.root}>
       <Typography className={classes.title}>
         Must Do Things For UM Students

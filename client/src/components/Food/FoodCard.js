@@ -1,19 +1,14 @@
 import React, { useState } from "react";
 import { useTheme, useMediaQuery } from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
-import {
-  Button,
-  Typography,
-  Grid,
-  Avatar,
-  Box,
-} from "@material-ui/core/";
+import { Button, Typography, Grid, Avatar, Box } from "@material-ui/core/";
 import { useDispatch } from "react-redux";
 
 import { voteFoodNomination } from "../../actions/foodNominations";
 import SignInPopup from "./SignInPopup";
-import useStyles from "./FoodCardStyles";
+
 import Custom from "../Custom/Custom";
+import useStyles from "./foodCardStyles";
 
 export default function FoodCard(props) {
   const { food, index } = props;
@@ -30,15 +25,12 @@ export default function FoodCard(props) {
   const handleVote = async () => {
     if (!user?.result?.name) {
       setOpenPopup(true);
-    }
-    else {
+    } else {
       if (hasVoted) {
         setVotes(food.votes.filter((id) => id !== userId));
         dispatch(voteFoodNomination(food._id));
         // console.log("Unvote");
-
-       }
-      else {
+      } else {
         dispatch(voteFoodNomination(food._id));
         // console.log("Vote");
         setVotes([...food.votes, userId]);
