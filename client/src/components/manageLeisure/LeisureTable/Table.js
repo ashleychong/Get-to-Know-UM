@@ -10,6 +10,7 @@ import {
   Chip,
   Avatar,
   CircularProgress,
+  Typography,
 } from "@material-ui/core";
 import useStyles from "./style";
 import { useDispatch, useSelector } from "react-redux";
@@ -51,7 +52,14 @@ const LeisureTable = (props) => {
     dispatch(getLeisureTable(user.result.role));
   }, []);
 
-  if (!leisures.length && !isLoading) return "No leisures";
+  if (!leisures.length && !isLoading)
+    return (
+      <Typography
+        style={{ textAlign: "center", fontSize: "20px", marginTop: "10px" }}
+      >
+        No leisure found.
+      </Typography>
+    );
 
   const handleSearch = (e) => {
     let target = e.target;

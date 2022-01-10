@@ -1,11 +1,18 @@
 import React from "react";
-import { Grid, CircularProgress, Paper } from "@material-ui/core";
+import { Grid, CircularProgress, Typography } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import Event from "./Event/Event";
 
 const Events = ({ setCurrentId }) => {
   const { events, isLoading } = useSelector((state) => state.events);
-  if (!events?.length && !isLoading) return "No events";
+  if (!events?.length && !isLoading)
+    return (
+      <Typography
+        style={{ textAlign: "center", fontSize: "20px", marginTop: "10px" }}
+      >
+        No event found.
+      </Typography>
+    );
   console.log(events);
 
   return isLoading ? (

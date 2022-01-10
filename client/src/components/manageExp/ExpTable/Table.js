@@ -9,6 +9,7 @@ import {
   InputAdornment,
   Chip,
   Avatar,
+  Typography,
   CircularProgress,
 } from "@material-ui/core";
 import useStyles from "./style";
@@ -51,7 +52,14 @@ const ExpTable = (props) => {
     dispatch(getExpTable(user.result.role));
   }, []);
 
-  if (!exps.length && !isLoading) return "No experience";
+  if (!exps.length && !isLoading)
+    return (
+      <Typography
+        style={{ textAlign: "center", fontSize: "20px", marginTop: "10px" }}
+      >
+        No experience found.
+      </Typography>
+    );
 
   const handleSearch = (e) => {
     let target = e.target;

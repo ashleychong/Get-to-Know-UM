@@ -9,6 +9,7 @@ import {
   InputAdornment,
   Chip,
   Avatar,
+  Typography,
   CircularProgress,
 } from "@material-ui/core";
 import useStyles from "./style";
@@ -54,7 +55,14 @@ const EventTable = (props) => {
     dispatch(getEventTable(user.result.role));
   }, []);
 
-  if (!events.length && !isLoading) return "No events";
+  if (!events.length && !isLoading)
+    return (
+      <Typography
+        style={{ textAlign: "center", fontSize: "20px", marginTop: "10px" }}
+      >
+        No event found.
+      </Typography>
+    );
 
   const handleSearch = (e) => {
     let target = e.target;

@@ -9,6 +9,8 @@ import {
   InputAdornment,
   Chip,
   Avatar,
+  CircularProgress,
+  Typography,
 } from "@material-ui/core";
 import useStyles from "./style";
 import { useDispatch, useSelector } from "react-redux";
@@ -57,7 +59,12 @@ const ClubTable = (props) => {
     dispatch(getClubTable(user.result.role));
   }, [dispatch]);
 
-  if (!clubs.length && !isLoading) return "No clubs";
+  if (!clubs.length && !isLoading)
+    return (
+      <Typography style={{ textAlign: "center", fontSize: "20px" }}>
+        No club found.
+      </Typography>
+    );
 
   const handleSearch = (e) => {
     let target = e.target;

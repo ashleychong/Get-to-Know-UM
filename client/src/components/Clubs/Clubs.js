@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, CircularProgress, Paper } from "@material-ui/core";
+import { Grid, CircularProgress, Typography } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import Club from "./Club/Club";
 import useStyles from "./style";
@@ -7,7 +7,14 @@ const Clubs = (setCurrentId) => {
   const classes = useStyles();
   const { clubs, isLoading } = useSelector((state) => state.clubs);
   console.log(clubs);
-  if (!clubs.length && !isLoading) return "No clubs";
+  if (!clubs.length && !isLoading)
+    return (
+      <Typography
+        style={{ textAlign: "center", fontSize: "20px", marginTop: "10px" }}
+      >
+        No club found.
+      </Typography>
+    );
 
   return isLoading ? (
     <CircularProgress />
