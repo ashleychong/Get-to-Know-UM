@@ -20,6 +20,7 @@ import Input from "../../Custom/Input";
 import { getAllCafes, deleteCafe } from "../../../actions/cafe";
 import useTable from "../../Custom/useTable";
 import CafePopup from "./CafePopup";
+import Custom from "../../Custom/Custom";
 
 const CafeTable = () => {
   const dispatch = useDispatch();
@@ -27,6 +28,11 @@ const CafeTable = () => {
   const [openPopup, setOpenPopup] = useState(false);
   const [currentCafeId, setCurrentCafeId] = useState(0);
   const { cafes, isLoading } = useSelector((state) => state.cafes);
+  const [confirmDialog, setConfirmDialog] = useState({
+    isOpen: false,
+    title: "",
+    subTitle: "",
+  });
 
   useEffect(() => {
     dispatch(getAllCafes());
@@ -52,6 +58,14 @@ const CafeTable = () => {
 
   const { TblContainer, TblHead, TblPagination, recordsAfterPagingAndSorting } =
     useTable(cafes, headCells, filterFn);
+
+  const confirmRemove = (id) => {
+    setConfirmDialog({
+      ...confirmDialog,
+      isOpen: false,
+    });
+    dispatch(deleteCafe(id));
+  };
 
   if (!cafes?.length && !isLoading) {
     return (
@@ -123,7 +137,16 @@ const CafeTable = () => {
                     <IconButton
                       size="small"
                       color="secondary"
-                      onClick={() => dispatch(deleteCafe(cafe?._id))}
+                      onClick={() => {
+                        setConfirmDialog({
+                          isOpen: true,
+                          title: "Are you sure to delete this record?",
+                          subTitle: "You can't undo this operation",
+                          onConfirm: () => {
+                            confirmRemove(cafe?._id);
+                          },
+                        });
+                      }}
                     >
                       <Delete fontSize="small" />
                     </IconButton>
@@ -140,6 +163,10 @@ const CafeTable = () => {
         setCurrentCafeId={setCurrentCafeId}
         openPopup={openPopup}
         setOpenPopup={setOpenPopup}
+      />
+      <Custom.ConfirmDialog
+        confirmDialog={confirmDialog}
+        setConfirmDialog={setConfirmDialog}
       />
     </>
   );

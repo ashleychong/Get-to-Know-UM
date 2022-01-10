@@ -14,11 +14,25 @@ import moment from "moment";
 
 import useStyles from "./ReviewStyles";
 import { deleteCourseReview } from "../../../actions/courseReviews";
+import Custom from "../../Custom/Custom";
 
 const Review = ({ editInPopup, courseId, review }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const [confirmDialog, setConfirmDialog] = useState({
+    isOpen: false,
+    title: "",
+    subTitle: "",
+  });
   const user = JSON.parse(localStorage.getItem("profile"));
+
+  const confirmRemove = () => {
+    setConfirmDialog({
+      ...confirmDialog,
+      isOpen: false,
+    });
+    dispatch(deleteCourseReview(courseId, review._id));
+  };
 
   return (
     <>
@@ -108,9 +122,16 @@ const Review = ({ editInPopup, courseId, review }) => {
                 aria-label="delete"
                 color="secondary"
                 className={classes.iconButton}
-                onClick={() =>
-                  dispatch(deleteCourseReview(courseId, review._id))
-                }
+                onClick={() => {
+                  setConfirmDialog({
+                    isOpen: true,
+                    title: "Are you sure to delete this review?",
+                    subTitle: "You can't undo this operation",
+                    onConfirm: () => {
+                      confirmRemove();
+                    },
+                  });
+                }}
               >
                 <DeleteIcon />
               </IconButton>
@@ -118,6 +139,10 @@ const Review = ({ editInPopup, courseId, review }) => {
           </div>
         )}
       </div>
+      <Custom.ConfirmDialog
+        confirmDialog={confirmDialog}
+        setConfirmDialog={setConfirmDialog}
+      />
     </>
   );
 };

@@ -17,18 +17,32 @@ import moment from "moment";
 import { deletePost } from "./../../../actions/posts";
 import useStyles from "./postStyles";
 import ReportPopup from "./ReportPopup";
+import Custom from "../../Custom/Custom";
 
 const Post = ({ editInPopup, topicId, post }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [openPopup, setOpenPopup] = useState(false);
   const [reportedContent, setReportedContent] = useState({});
+  const [confirmDialog, setConfirmDialog] = useState({
+    isOpen: false,
+    title: "",
+    subTitle: "",
+  });
   const user = JSON.parse(localStorage.getItem("profile"));
   const author = post?.userData[0];
 
   const openReportPopup = () => {
     setReportedContent(post);
     setOpenPopup(true);
+  };
+
+  const confirmRemove = () => {
+    setConfirmDialog({
+      ...confirmDialog,
+      isOpen: false,
+    });
+    dispatch(deletePost(topicId, post._id));
   };
 
   return (
@@ -79,7 +93,16 @@ const Post = ({ editInPopup, topicId, post }) => {
                       aria-label="delete"
                       color="secondary"
                       className={classes.iconButton}
-                      onClick={() => dispatch(deletePost(topicId, post._id))}
+                      onClick={() => {
+                        setConfirmDialog({
+                          isOpen: true,
+                          title: "Are you sure to delete this comment?",
+                          subTitle: "You can't undo this operation",
+                          onConfirm: () => {
+                            confirmRemove();
+                          },
+                        });
+                      }}
                     >
                       <DeleteIcon />
                     </IconButton>
@@ -108,6 +131,10 @@ const Post = ({ editInPopup, topicId, post }) => {
         reportedContent={reportedContent}
         setReportedContent={setReportedContent}
         contentType="post"
+      />
+      <Custom.ConfirmDialog
+        confirmDialog={confirmDialog}
+        setConfirmDialog={setConfirmDialog}
       />
     </>
   );

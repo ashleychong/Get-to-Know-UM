@@ -16,13 +16,27 @@ import moment from "moment";
 
 import useStyles from "./ReviewStyles";
 import { deleteCafeReview } from "../../../actions/cafeReviews";
+import Custom from "../../Custom/Custom";
 
 const Review = ({ editInPopup, cafeId, review }) => {
   const theme = useTheme();
   const classes = useStyles();
   const dispatch = useDispatch();
   const user = JSON.parse(localStorage.getItem("profile"));
+  const [confirmDialog, setConfirmDialog] = useState({
+    isOpen: false,
+    title: "",
+    subTitle: "",
+  });
   const author = review?.userData[0];
+
+  const confirmRemove = () => {
+    setConfirmDialog({
+      ...confirmDialog,
+      isOpen: false,
+    });
+    dispatch(deleteCafeReview(cafeId, review._id));
+  };
 
   return (
     <>
@@ -53,6 +67,7 @@ const Review = ({ editInPopup, cafeId, review }) => {
               <Box className={classes.actions}>
                 <IconButton
                   aria-label="edit"
+                  color="primary"
                   className={classes.iconButton}
                   onClick={(e) => {
                     e.stopPropagation();
@@ -63,8 +78,18 @@ const Review = ({ editInPopup, cafeId, review }) => {
                 </IconButton>
                 <IconButton
                   aria-label="delete"
+                  color="secondary"
                   className={classes.iconButton}
-                  onClick={() => dispatch(deleteCafeReview(cafeId, review._id))}
+                  onClick={() => {
+                    setConfirmDialog({
+                      isOpen: true,
+                      title: "Are you sure to delete this review?",
+                      subTitle: "You can't undo this operation",
+                      onConfirm: () => {
+                        confirmRemove();
+                      },
+                    });
+                  }}
                 >
                   <DeleteIcon />
                 </IconButton>
@@ -73,6 +98,10 @@ const Review = ({ editInPopup, cafeId, review }) => {
           )}
         </Grid>
       </Grid>
+      <Custom.ConfirmDialog
+        confirmDialog={confirmDialog}
+        setConfirmDialog={setConfirmDialog}
+      />
     </>
   );
 };

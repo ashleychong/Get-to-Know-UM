@@ -22,11 +22,19 @@ import {
 import useStyles from "./TableStyles";
 import Input from "../../Custom/Input";
 import useTable from "../../Custom/useTable";
+import Custom from "../../Custom/Custom";
 
 const ReviewedForumReportsTable = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
-  const { reviewedReports, isLoading } = useSelector((state) => state.forumReports);
+  const { reviewedReports, isLoading } = useSelector(
+    (state) => state.forumReports
+  );
+  const [confirmDialog, setConfirmDialog] = useState({
+    isOpen: false,
+    title: "",
+    subTitle: "",
+  });
 
   useEffect(() => {
     dispatch(getReviewedForumReports());
@@ -35,8 +43,8 @@ const ReviewedForumReportsTable = () => {
   const headCells = [
     { id: "number", label: "No.", disableSorting: "true" },
     { id: "content", label: "Content", disableSorting: "true" },
-    { id: "reviewRemark", label: "Review Remarks", disableSorting: "true" },
-    { id: "reviewedOn", label: "Reviewed on", disableSorting: "true" },
+    { id: "reviewRemark", label: "Review Remarks" },
+    { id: "reviewDate", label: "Reviewed on" },
     { id: "actions", label: "Actions", disableSorting: "true" },
   ];
 
@@ -48,6 +56,14 @@ const ReviewedForumReportsTable = () => {
 
   const { TblContainer, TblHead, TblPagination, recordsAfterPagingAndSorting } =
     useTable(reviewedReports, headCells, filterFn);
+
+  const confirmRemove = (id) => {
+    setConfirmDialog({
+      ...confirmDialog,
+      isOpen: false,
+    });
+    dispatch(deleteForumReport(id));
+  };
 
   if (!reviewedReports?.length && !isLoading) {
     return (
@@ -109,9 +125,7 @@ const ReviewedForumReportsTable = () => {
                   </Typography>
                 </TableCell>
                 <TableCell width="20%">
-                  <Typography
-                    variant="body2"
-                  >
+                  <Typography variant="body2">
                     {report?.reviewRemark}
                   </Typography>
                 </TableCell>
@@ -122,7 +136,16 @@ const ReviewedForumReportsTable = () => {
                   <IconButton
                     size="small"
                     color="secondary"
-                    onClick={() => dispatch(deleteForumReport(report?._id))}
+                    onClick={() => {
+                      setConfirmDialog({
+                        isOpen: true,
+                        title: "Are you sure to delete this record?",
+                        subTitle: "You can't undo this operation",
+                        onConfirm: () => {
+                          confirmRemove(report?._id);
+                        },
+                      });
+                    }}
                   >
                     <Delete fontSize="small" />
                   </IconButton>
@@ -133,6 +156,10 @@ const ReviewedForumReportsTable = () => {
         </TblContainer>
         <TblPagination />
       </Paper>
+      <Custom.ConfirmDialog
+        confirmDialog={confirmDialog}
+        setConfirmDialog={setConfirmDialog}
+      />
     </>
   );
 };

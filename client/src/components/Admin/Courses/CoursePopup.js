@@ -37,7 +37,7 @@ const CoursePopup = ({
       classes={{ paper: classes.dialogWrapper }}
     >
       <DialogTitle className={classes.dialogTitle}>
-        <div style={{ display: "flex" }}>
+        <div style={{ display: "flex", alignItems: "center" }}>
           <Typography variant="h6" component="div" style={{ flexGrow: 1 }}>
             {currentCourseId ? "Edit course" : "Create a new course"}
           </Typography>
