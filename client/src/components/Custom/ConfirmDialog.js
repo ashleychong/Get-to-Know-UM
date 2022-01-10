@@ -11,6 +11,7 @@ import {
 } from "@material-ui/core";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import CloseIcon from "@material-ui/icons/Close";
+import Custom from "./Custom";
 
 const useStyles = makeStyles((theme) => ({
   dialog: {
@@ -21,6 +22,8 @@ const useStyles = makeStyles((theme) => ({
   },
   dialogContent: {
     textAlign: "center",
+    marginTop: "0.5rem",
+    marginBottom: "0.7rem",
   },
   dialogAction: {
     justifyContent: "center",
@@ -46,6 +49,16 @@ export default function ConfirmDialog(props) {
   return (
     <Dialog open={confirmDialog.isOpen} classes={{ paper: classes.dialog }}>
       <DialogTitle className={classes.dialogTitle}>
+        <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: "0.5rem" }}>
+          <Custom.ActionButton
+            color="secondary"
+            onClick={() =>
+              setConfirmDialog({ ...confirmDialog, isOpen: false })
+            }
+          >
+            <CloseIcon />
+          </Custom.ActionButton>
+        </div>
         <IconButton disableRipple className={classes.titleIcon}>
           <DeleteForeverIcon />
         </IconButton>
@@ -55,20 +68,18 @@ export default function ConfirmDialog(props) {
         <Typography variant="subtitle2">{confirmDialog.subTitle}</Typography>
       </DialogContent>
       <DialogActions className={classes.dialogAction}>
-        <Button
+        <Custom.Button
           variant="contained"
           color="secondary"
           onClick={confirmDialog.onConfirm}
-        >
-          Yes
-        </Button>
-        <Button
+          text="Yes"
+        />
+        <Custom.Button
           variant="outlined"
           color="primary"
           onClick={() => setConfirmDialog({ ...confirmDialog, isOpen: false })}
-        >
-          No
-        </Button>
+          text="No"
+        />
       </DialogActions>
     </Dialog>
   );

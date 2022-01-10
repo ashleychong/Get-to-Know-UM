@@ -8,6 +8,7 @@ import DropDown from "./Dropdown";
 import RatingInput from "./RatingInput";
 import SearchBar from "./SearchBar";
 import ErrorLabelText from "./ErrorLabelText";
+import ConfirmDialog from "./ConfirmDialog";
 
 const Custom = {
   Input,
@@ -21,6 +22,7 @@ const Custom = {
   RatingInput,
   SearchBar,
   ErrorLabelText,
+  ConfirmDialog,
 };
 
 export default Custom;

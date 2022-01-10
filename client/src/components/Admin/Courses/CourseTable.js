@@ -20,6 +20,7 @@ import Input from "../../Custom/Input";
 import { getCourses, deleteCourse } from "../../../actions/courses";
 import useTable from "../../Custom/useTable";
 import CoursePopup from "./CoursePopup";
+import Custom from "../../Custom/Custom";
 
 const CourseTable = () => {
   const dispatch = useDispatch();
@@ -27,6 +28,11 @@ const CourseTable = () => {
   const [openPopup, setOpenPopup] = useState(false);
   const [currentCourseId, setCurrentCourseId] = useState(0);
   const { courses, isLoading } = useSelector((state) => state.courses);
+  const [confirmDialog, setConfirmDialog] = useState({
+    isOpen: false,
+    title: "",
+    subTitle: "",
+  });
 
   useEffect(() => {
     dispatch(getCourses());
@@ -55,12 +61,18 @@ const CourseTable = () => {
   const { TblContainer, TblHead, TblPagination, recordsAfterPagingAndSorting } =
     useTable(courses, headCells, filterFn);
 
+  const confirmRemove = (id) => {
+    setConfirmDialog({
+      ...confirmDialog,
+      isOpen: false,
+    });
+    dispatch(deleteCourse(id));
+  };
+
   if (!courses?.length && !isLoading) {
     return (
       <Box mx={2} my={3}>
-        <Typography>
-          No courses yet.
-        </Typography>
+        <Typography>No courses yet.</Typography>
       </Box>
     );
   }
@@ -80,7 +92,9 @@ const CourseTable = () => {
     });
   };
 
-  return isLoading ? (<CircularProgress />): (
+  return isLoading ? (
+    <CircularProgress />
+  ) : (
     <>
       <Paper className={classes.paper}>
         <Toolbar>
@@ -129,7 +143,16 @@ const CourseTable = () => {
                     <IconButton
                       size="small"
                       color="secondary"
-                      onClick={() => dispatch(deleteCourse(course?._id))}
+                      onClick={() => {
+                        setConfirmDialog({
+                          isOpen: true,
+                          title: "Are you sure to delete this record?",
+                          subTitle: "You can't undo this operation",
+                          onConfirm: () => {
+                            confirmRemove(course?._id);
+                          },
+                        });
+                      }}
                     >
                       <Delete fontSize="small" />
                     </IconButton>
@@ -146,6 +169,10 @@ const CourseTable = () => {
         setCurrentCourseId={setCurrentCourseId}
         openPopup={openPopup}
         setOpenPopup={setOpenPopup}
+      />
+      <Custom.ConfirmDialog
+        confirmDialog={confirmDialog}
+        setConfirmDialog={setConfirmDialog}
       />
     </>
   );

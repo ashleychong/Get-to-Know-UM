@@ -13,14 +13,21 @@ import { deleteTopic } from './../../../actions/topics';
 const Topic = ({ topic, editInPopup }) => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
   const user = JSON.parse(localStorage.getItem("profile"));
   const classes = useStyles();
+  const [confirmDialog, setConfirmDialog] = useState({
+    isOpen: false,
+    title: "",
+    subTitle: "",
+  });
 
-  // const openTopic = (e) => {
-  //   // dispatch(getPost(post._id, history));
-  //   history.push(`/forum/${topic._id}`);
-  // };
+  const confirmRemove = (id) => {
+    setConfirmDialog({
+      ...confirmDialog,
+      isOpen: false,
+    });
+    dispatch(deleteTopic(id));
+  };
 
   return (
     <div>
@@ -57,7 +64,16 @@ const Topic = ({ topic, editInPopup }) => {
                 <Button
                   size="small"
                   color="secondary"
-                  onClick={() => dispatch(deleteTopic(topic._id))}
+                  onClick={() => {
+                    setConfirmDialog({
+                      isOpen: true,
+                      title: "Are you sure to delete this topic?",
+                      subTitle: "You can't undo this operation",
+                      onConfirm: () => {
+                        confirmRemove(topic?._id);
+                      },
+                    });
+                  }}
                 >
                   <DeleteIcon fontSize="small" />
                 </Button>
@@ -66,6 +82,10 @@ const Topic = ({ topic, editInPopup }) => {
           </Grid>
         </Grid>
       </div>
+      <Custom.ConfirmDialog
+        confirmDialog={confirmDialog}
+        setConfirmDialog={setConfirmDialog}
+      />
     </div>
   );
 };

@@ -26,6 +26,7 @@ import {
 } from "../../../actions/foodNominations";
 import useTable from "../../Custom/useTable";
 import EditFoodPopup from "./EditFoodPopup";
+import Custom from "../../Custom/Custom";
 
 const FoodNominationTable = () => {
   const dispatch = useDispatch();
@@ -35,6 +36,11 @@ const FoodNominationTable = () => {
   const { foodNominations, isLoading } = useSelector(
     (state) => state.foodNominations
   );
+  const [confirmDialog, setConfirmDialog] = useState({
+    isOpen: false,
+    title: "",
+    subTitle: "",
+  });
 
   useEffect(() => {
     dispatch(getFoodNominations());
@@ -47,10 +53,10 @@ const FoodNominationTable = () => {
 
   const headCells = [
     { id: "number", label: "No.", disableSorting: "true" },
-    { id: "food", label: "Food" },
+    { id: "foodName", label: "Food" },
     { id: "image", label: "Image", disableSorting: "true" },
     { id: "approvalStatus", label: "Approval Status", disableSorting: "true" },
-    { id: "date", label: "Date", disableSorting: "true" },
+    { id: "createdAt", label: "Date" },
     { id: "actions", label: "Actions", disableSorting: "true" },
   ];
 
@@ -62,6 +68,14 @@ const FoodNominationTable = () => {
 
   const { TblContainer, TblHead, TblPagination, recordsAfterPagingAndSorting } =
     useTable(foodNominations, headCells, filterFn);
+
+  const confirmRemove = (id) => {
+    setConfirmDialog({
+      ...confirmDialog,
+      isOpen: false,
+    });
+    dispatch(deleteFoodNomination(id));
+  };
 
   if (!foodNominations?.length && !isLoading) {
     return (
@@ -161,9 +175,16 @@ const FoodNominationTable = () => {
                       <IconButton
                         size="small"
                         color="secondary"
-                        onClick={() =>
-                          dispatch(deleteFoodNomination(foodNomination?._id))
-                        }
+                        onClick={() => {
+                          setConfirmDialog({
+                            isOpen: true,
+                            title: "Are you sure to delete this record?",
+                            subTitle: "You can't undo this operation",
+                            onConfirm: () => {
+                              confirmRemove(foodNomination?._id);
+                            },
+                          });
+                        }}
                       >
                         <Delete fontSize="small" />
                       </IconButton>
@@ -173,9 +194,16 @@ const FoodNominationTable = () => {
                     <IconButton
                       size="small"
                       color="secondary"
-                      onClick={() =>
-                        dispatch(deleteFoodNomination(foodNomination?._id))
-                      }
+                      onClick={() => {
+                        setConfirmDialog({
+                          isOpen: true,
+                          title: "Are you sure to delete this record?",
+                          subTitle: "You can't undo this operation",
+                          onConfirm: () => {
+                            confirmRemove(foodNomination?._id);
+                          },
+                        });
+                      }}
                     >
                       <Delete />
                     </IconButton>
@@ -192,6 +220,10 @@ const FoodNominationTable = () => {
         setCurrentFoodNominationId={setCurrentFoodNominationId}
         openPopup={openPopup}
         setOpenPopup={setOpenPopup}
+      />
+      <Custom.ConfirmDialog
+        confirmDialog={confirmDialog}
+        setConfirmDialog={setConfirmDialog}
       />
     </Box>
   );

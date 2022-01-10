@@ -69,7 +69,7 @@ export const createCafe = async (req, res) => {
 };
 export const updateCafe = async (req, res) => {
   const { id } = req.params;
-  const { title, description, avgRating, image } = req.body;
+  const { title, description, image, lat, long } = req.body;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).send(`No cafe with id: ${id}`);
@@ -77,7 +77,7 @@ export const updateCafe = async (req, res) => {
 
   const updatedCafe = await Cafe.findByIdAndUpdate(
     id,
-    { title, description, image },
+    { title, description, image, lat, long },
     { new: true }
   );
   res.json(updatedCafe);

@@ -11,6 +11,7 @@ import useStyles from "./postStyles";
 import { deleteTopic } from './../../../actions/topics';
 import ReportPopup from "./ReportPopup";
 import EditTopicPopup from "../PopUp";
+import Custom from "../../Custom/Custom";
 
 const DefaultPost = ({ topic }) => {
   const classes = useStyles();
@@ -20,6 +21,11 @@ const DefaultPost = ({ topic }) => {
   const [currentId, setCurrentId] = useState(0);
   const [openReportPopup, setOpenReportPopup] = useState(false);
   const [reportedContent, setReportedContent] = useState({});
+  const [confirmDialog, setConfirmDialog] = useState({
+    isOpen: false,
+    title: "",
+    subTitle: "",
+  });
   const user = JSON.parse(localStorage.getItem("profile"));
   const author = topic?.userData[0];
     
@@ -36,6 +42,14 @@ const DefaultPost = ({ topic }) => {
   const handleDeleteTopic = () => {
     dispatch(deleteTopic(topic._id, history));
   }
+
+  const confirmRemove = () => {
+    setConfirmDialog({
+      ...confirmDialog,
+      isOpen: false,
+    });
+    handleDeleteTopic();
+  };
 
   return (
     <>
@@ -85,7 +99,16 @@ const DefaultPost = ({ topic }) => {
                       aria-label="delete"
                       color="secondary"
                       className={classes.iconButton}
-                      onClick={handleDeleteTopic}
+                      onClick={() => {
+                        setConfirmDialog({
+                          isOpen: true,
+                          title: "Are you sure to delete this topic?",
+                          subTitle: "You can't undo this operation",
+                          onConfirm: () => {
+                            confirmRemove();
+                          },
+                        });
+                      }}
                     >
                       <DeleteIcon />
                     </IconButton>
@@ -120,6 +143,10 @@ const DefaultPost = ({ topic }) => {
         reportedContent={reportedContent}
         setReportedContent={setReportedContent}
         contentType="topic"
+      />
+      <Custom.ConfirmDialog
+        confirmDialog={confirmDialog}
+        setConfirmDialog={setConfirmDialog}
       />
     </>
   );
