@@ -8,7 +8,7 @@ import { voteFoodNomination } from "../../actions/foodNominations";
 import SignInPopup from "./SignInPopup";
 
 import Custom from "../Custom/Custom";
-import useStyles from "./foodCardStyles";
+import useStyles from "./FoodCardStyles";
 
 export default function FoodCard(props) {
   const { food, index } = props;
