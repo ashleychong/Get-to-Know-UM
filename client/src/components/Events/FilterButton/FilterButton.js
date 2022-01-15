@@ -6,6 +6,7 @@ import SendIcon from "@material-ui/icons/Send";
 import { useDispatch, useSelector } from "react-redux";
 import { getEventsByDateRange } from "../../../actions/events";
 import ClearIcon from "@material-ui/icons/Clear";
+
 const initialValues = {
   from: "",
   to: "",
@@ -99,11 +100,28 @@ const FilterButton = () => {
             }}
           />
           <div>
-            <Button type="submit">
-              <SendIcon style={{ color: "#3f51b5", margin: "10px 0" }} />
+            <Button
+              type="submit"
+              style={{
+                backgroundColor: "#3f51b5",
+                color: "white",
+                margin: "10px 0",
+                textTransform: "none",
+              }}
+              variant="contained"
+            >
+              Filter
             </Button>
-            <Button onClick={clear} style={{ color: "", margin: "10px 0" }}>
-              <ClearIcon />
+            <Button
+              onClick={clear}
+              variant="outlined"
+              style={{
+                color: "",
+                margin: "10px 0 10px 10px",
+                textTransform: "none",
+              }}
+            >
+              Clear Filter
             </Button>
           </div>
         </form>

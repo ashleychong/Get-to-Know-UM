@@ -5,6 +5,7 @@ import {
   ImageListItem,
   ImageListItemBar,
   IconButton,
+  ButtonBase,
 } from "@material-ui/core";
 import InfoIcon from "@material-ui/icons/Info";
 import useStyles from "./style";
@@ -29,12 +30,14 @@ const Leisure = () => {
         <ImageList sx={{ width: 400, height: 400 }}>
           <ImageListItem className={classes.list} style={{ padding: "20px" }}>
             <img
+              onClick={navigateInUM}
               src="https://www.easyuni.com/media/institution/photo/2015/11/19/UMMALAYSIA.jpg.600x400_q85.jpg"
               loading="lazy"
             />
             <ImageListItemBar
               title="Things to do in UM"
               subtitle="#inUM"
+              onClick={navigateInUM}
               actionIcon={
                 <IconButton
                   sx={{ color: "rgba(255, 255, 255, 0.54)" }}
@@ -47,12 +50,14 @@ const Leisure = () => {
           </ImageListItem>
           <ImageListItem style={{ padding: "20px" }}>
             <img
+              onClick={navigateNearUM}
               src="https://asianinstitute.com.my/sitepad-data/uploads//1-4.jpg"
               loading="lazy"
             />
             <ImageListItemBar
               title="Things to do near UM"
               subtitle="#nearUM"
+              onClick={navigateNearUM}
               actionIcon={
                 <IconButton
                   sx={{ color: "rgba(255, 255, 255, 0.54)" }}
@@ -72,10 +77,12 @@ const Leisure = () => {
         <ImageList>
           <ImageListItem style={{ width: "100%", padding: "20px" }}>
             <img
+              onClick={navigateRanking}
               src="https://innovationcloud.com/pub/blog/16085586899987_innovation_cloud_-_customer_experience.png"
               loading="lazy"
             />
             <ImageListItemBar
+              onClick={navigateRanking}
               title="Must Do Things for UM Students"
               subtitle="#experienceSharing"
               actionIcon={

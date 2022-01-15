@@ -113,7 +113,11 @@ const ClubDetails = () => {
                   <Tab label="Event" value="2" />
                   <Tab label="Contact" value="3" />
                   <Tab label="Review" value="4" />
-                  <Tab label="Registration" value="5" />
+                  <Tab
+                    label="Registration"
+                    value="5"
+                    disabled={club.clublink ? false : true}
+                  />
                 </TabList>
               </Box>
               <TabPanel value="1">
