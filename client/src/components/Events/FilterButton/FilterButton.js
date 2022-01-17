@@ -30,6 +30,7 @@ const FilterButton = () => {
   };
   const clear = () => {
     setDate(initialValues);
+    history.push(`/event`);
   };
   return (
     <>
