@@ -51,13 +51,15 @@ const ClubForm = ({ currentId, setCurrentId, setOpenPopup }) => {
     if ("event" in fieldValues)
       temp.event = fieldValues.event ? "" : "This field is required.";
     if ("contact" in fieldValues) {
-      temp.contact =
-        fieldValues.contact.length < 9
-          ? "Minimum 9 numbers required."
-          : (temp.contact =
-              fieldValues.contact.length > 12
-                ? "Please enter valid phone number with maximum 11 digits."
-                : "");
+      temp.contact = /[a-zA-Z]/.test(fieldValues.contact)
+        ? "Enter numbers only"
+        : fieldValues.contact.length < 9
+        ? "Minimum 9 numbers required."
+        : fieldValues.contact.length > 11
+        ? "Please enter valid phone number with maximum 11 digits."
+        : /^(\(?\+?[0-9]*\)?)?[0-9_\- \(\)]*$/.test(fieldValues.contact)
+        ? ""
+        : "Enter numbers only";
     }
     if ("email" in fieldValues)
       temp.email = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(
@@ -85,15 +87,22 @@ const ClubForm = ({ currentId, setCurrentId, setOpenPopup }) => {
     setCurrentId(null);
     setValues(initialValues);
   };
+  const isEmpty = Object.values(errors).every((x) => x === null || x === "");
+  console.log(isEmpty);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!currentId) {
-      dispatch(createClub({ ...values }));
+    if (isEmpty == false) {
+      setOpenPopup(true);
     } else {
-      dispatch(updateClub(currentId, { ...values }));
+      if (!currentId) {
+        dispatch(createClub({ ...values }));
+      } else {
+        dispatch(updateClub(currentId, { ...values }));
+      }
+
+      clear();
     }
-    clear();
   };
 
   return (
@@ -136,7 +145,6 @@ const ClubForm = ({ currentId, setCurrentId, setOpenPopup }) => {
           value={values.contact}
           onChange={handleInputChange}
           error={errors.contact}
-          type="number"
           helperText="e.g. 012XXXXXXX / 05XXXXXXX / 1300XXXXXX"
           required
         />

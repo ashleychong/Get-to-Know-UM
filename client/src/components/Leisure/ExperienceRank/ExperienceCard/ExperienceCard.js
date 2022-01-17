@@ -8,6 +8,7 @@ import {
   Button,
   Grid,
   Box,
+  Avatar,
 } from "@material-ui/core";
 
 import RoomIcon from "@material-ui/icons/Room";
@@ -71,9 +72,9 @@ const ExperienceCard = (props) => {
     <>
       <div className={classes.position}>
         {index > 3 ? (
-          <Typography className={classes.ranking} variant="h4">
+          <Avatar className={classes.ranking} variant="h4">
             {index}
-          </Typography>
+          </Avatar>
         ) : index == 1 ? (
           <img
             style={{ height: "50px", width: "60px ", margin: "auto" }}

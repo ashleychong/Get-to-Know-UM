@@ -48,9 +48,16 @@ export default makeStyles((theme) => ({
     },
   },
   ranking: {
-    color: "#3949ab",
+    color: "white",
+    backgroundColor: "#3949ab",
     fontWeight: "bold",
+    fontSize: "22px",
     margin: "auto",
+    width: "50px",
+    height: "50px",
+    [theme.breakpoints.up("sm")]: {
+      marginRight: "3px",
+    },
   },
   position: {
     display: "flex",
