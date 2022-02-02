@@ -113,11 +113,7 @@ const ClubDetails = () => {
                   <Tab label="Event" value="2" />
                   <Tab label="Contact" value="3" />
                   <Tab label="Review" value="4" />
-                  <Tab
-                    label="Registration"
-                    value="5"
-                    disabled={club.clublink ? false : true}
-                  />
+                  <Tab label="Registration" value="5" />
                 </TabList>
               </Box>
               <TabPanel value="1">
@@ -253,7 +249,7 @@ const ClubDetails = () => {
                 </Card>
               </TabPanel>
               <TabPanel value="5">
-                {club.clublink && (
+                {!!club.clublink ? (
                   <div>
                     <Typography className={classes.details}>
                       If you are interested, please join us :
@@ -300,6 +296,10 @@ const ClubDetails = () => {
                       </Dialog>
                     </div>
                   </div>
+                ) : (
+                  <Typography style={{ textAlign: "center" }}>
+                    Registration not available.
+                  </Typography>
                 )}
               </TabPanel>
             </TabContext>
