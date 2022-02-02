@@ -64,7 +64,7 @@ const PlanCal = () => {
       </Typography>
       <Custom.Form className={classes.cal}>
         <div className={classes.text}>
-          <Typography className={classes.title2}>Cumulative GPA</Typography>
+          <Typography className={classes.title2}>Current GPA</Typography>
           <Custom.Input
             required
             name="curGPA"
@@ -77,7 +77,7 @@ const PlanCal = () => {
             value={values.curGPA}
             onChange={handleInputChange}
             error={values.curGPA > 4 ? "Pls input GPA <= 4.00" : errors.curGPA}
-            helperText="*Your current Cumulative GPA"
+            helperText="*Your current GPA"
           />
         </div>
         <div className={classes.text}>
