@@ -40,6 +40,7 @@ const Forum = () => {
   const page = query.get("page") || 1;
   const searchQuery = query.get("searchQuery");
   const tagsQuery = query.get("tags");
+  const [searchTags, setSearchTags] = useState([]);
   const theme = useTheme();
   const downXs = useMediaQuery(theme.breakpoints.down("xs"));
 
@@ -56,6 +57,10 @@ const Forum = () => {
       dispatch(getTopics(page));
     }
   }, [dispatch]);
+
+  const handleSearchTags = (event, value) => {
+    setSearchTags(value);
+  };
 
   const { values, setValues, handleInputChange, handleAutocompleteInputChange, resetForm } = Custom.useForm(initialValues);
 
@@ -126,6 +131,15 @@ const Forum = () => {
                     //     </InputAdornment>
                     //   ),
                     // }}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6} lg={4}>
+                  <Custom.AutocompleteInput
+                    limitTags={2}
+                    value={values.searchTags}
+                    onChange={handleAutocompleteInputChange}
+                    options={tagOptions}
+                    label="Search by tags"
                   />
                 </Grid>
                 <Grid item xs={12} lg={3} className={classes.filterContainer}>

@@ -66,6 +66,7 @@ export default function FeaturedPost(props) {
           <CardMedia
             className={classes.cardMedia}
             image={course.image || reading}
+            title={course.title}
           />
           <div className={classes.cardDetails}>
             <CardContent>

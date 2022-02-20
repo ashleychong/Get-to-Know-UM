@@ -9,6 +9,7 @@ import RatingInput from "./RatingInput";
 import SearchBar from "./SearchBar";
 import ErrorLabelText from "./ErrorLabelText";
 import ConfirmDialog from "./ConfirmDialog";
+import AutocompleteInput from './AutocompleteInput';
 
 const Custom = {
   Input,
@@ -23,6 +24,7 @@ const Custom = {
   SearchBar,
   ErrorLabelText,
   ConfirmDialog,
+  AutocompleteInput,
 };
 
 export default Custom;

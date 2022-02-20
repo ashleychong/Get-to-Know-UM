@@ -4,8 +4,6 @@ import {
   Card,
   CardMedia,
   CardContent,
-  CardActions,
-  Button,
   Typography,
   ButtonBase,
 } from "@material-ui/core";
@@ -30,9 +28,6 @@ const CafeCard = ({ imgSrc, imgAlt, title, desc, pagePath }) => {
           <Typography component="h3" variant="h5" gutterBottom color="primary">
             {title}
           </Typography>
-          {/* <Typography variant="body2" color="textSecondary">
-            {desc}
-          </Typography> */}
         </CardContent>
       </ButtonBase>
     </Card>

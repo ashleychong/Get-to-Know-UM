@@ -44,7 +44,7 @@ const Form = ({ currentId, setCurrentId, setOpenPopup }) => {
       return Object.values(temp).every((x) => x === "");
   };
 
-  const { values, setValues, errors, setErrors, handleInputChange, handleAutocompleteInputChange, resetForm } =
+  const { values, setValues, errors, setErrors, handleInputChange, handleAutocompleteInputEditChange, resetForm } =
     Custom.useForm(initialValues, true, validate);
   
   const clear = () => {
@@ -90,19 +90,27 @@ const Form = ({ currentId, setCurrentId, setOpenPopup }) => {
           />
         </Grid>
         <Grid item xs={12}>
-        <Custom.Input
-          label="Message"
-          name="message"
-          value={values.message}
-          onChange={handleInputChange}
-          error={errors.message}
-          multiline
-          rows={3}
-          rowsMax={10}
-          required
-        />
+          <Custom.Input
+            label="Message"
+            name="message"
+            value={values.message}
+            onChange={handleInputChange}
+            error={errors.message}
+            multiline
+            rows={3}
+            rowsMax={10}
+            required
+          />
         </Grid>
-        <div style={{paddingTop: "20px"}}>
+        <Grid item xs={12}>
+          <Custom.AutocompleteInput
+            value={values.tags}
+            onChange={handleAutocompleteInputEditChange}
+            options={tags}
+            label="Add tags"
+          />
+        </Grid>
+        <div style={{ paddingTop: "20px" }}>
           <Custom.Button type="submit" text="Submit" />
           <Custom.Button text="Reset" color="default" onClick={resetForm} />
         </div>

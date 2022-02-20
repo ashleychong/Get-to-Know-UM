@@ -8,6 +8,7 @@ import moment from "moment";
 import Custom from "../../Custom/Custom";
 
 import useStyles from "./styles";
+import TagChip from "./Tag";
 import { deleteTopic } from './../../../actions/topics';
 
 const Topic = ({ topic, editInPopup }) => {
@@ -40,6 +41,15 @@ const Topic = ({ topic, editInPopup }) => {
         >
           {topic.title}
         </Typography>
+        <Box my={1}>
+          <Grid container spacing={1}>
+            {topic?.tags?.map((tag, i) => (
+              <Grid item key={i}>
+                <TagChip tag={tag} />
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
         <Grid container alignItems="center">
           <Grid>
             <Typography variant="subtitle1" component="div">

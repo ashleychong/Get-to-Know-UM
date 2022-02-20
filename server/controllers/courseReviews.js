@@ -104,16 +104,25 @@ const updateCourseRating = async (courseId) => {
 
   // console.log(result);
 
-  const avgOverallRating = Math.round(result[0].avgOverallRating * 10) / 10;
-  const avgDeliveryRating = Math.round(result[0].avgDeliveryRating * 10) / 10;
-  const avgDifficultyRating =
-    Math.round(result[0].avgDifficultyRating * 10) / 10;
-  const avgEnjoymentRating = Math.round(result[0].avgEnjoymentRating * 10) / 10;
+  var avgOverallRating,
+    avgDeliveryRating,
+    avgDifficultyRating,
+    avgEnjoymentRating;
 
-  // console.log(avgOverallRating);
-  // console.log(avgDeliveryRating);
-  // console.log(avgDifficultyRating);
-  // console.log(avgEnjoymentRating);
+  if (result.length) {
+    avgOverallRating = Math.round(result[0].avgOverallRating * 10) / 10;
+    avgDeliveryRating = Math.round(result[0].avgDeliveryRating * 10) / 10;
+    avgDifficultyRating = Math.round(result[0].avgDifficultyRating * 10) / 10;
+    avgEnjoymentRating = Math.round(result[0].avgEnjoymentRating * 10) / 10;
+
+    // console.log(avgOverallRating);
+    // console.log(avgDeliveryRating);
+    // console.log(avgDifficultyRating);
+    // console.log(avgEnjoymentRating);
+  }
+  else {
+    avgOverallRating = avgDeliveryRating = avgDifficultyRating = avgEnjoymentRating = 0;
+  }
 
   const updatedCourse = await Course.findByIdAndUpdate(
     courseId,

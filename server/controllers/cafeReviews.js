@@ -178,8 +178,14 @@ const updateCafeRating = async (cafeId) => {
 
   // console.log(result);
 
-  let avgRating = result[0].average;
-  avgRating = Math.round(avgRating * 10) / 10;
+  let avgRating;
+
+  if (result.length) {
+    avgRating = Math.round(result[0].average * 10) / 10;
+  }
+  else {
+    avgRating = 0;
+  }
 
   // console.log(avgRating);
 

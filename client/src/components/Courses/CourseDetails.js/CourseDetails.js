@@ -16,6 +16,7 @@ import MenuBookOutlinedIcon from "@material-ui/icons/MenuBookOutlined";
 import { useDispatch, useSelector } from "react-redux";
 
 import useStyles from "./CourseDetailsStyles";
+import Custom from "../../Custom/Custom";
 import ReviewPopup from "./ReviewPopup";
 import Reviews from "./Reviews";
 import { getCourse } from "../../../actions/courses";
@@ -27,17 +28,27 @@ const CourseDetails = () => {
   const { courseId } = useParams();
   const history = useHistory();
   const { course, isLoading } = useSelector((state) => state.courses);
+  const reviews = useSelector((state) => state.courses.reviews[courseId]);
   const [openPopup, setOpenPopup] = useState(false);
+  const [reviewed, setReviewed] = useState(false);
   const [currentReviewId, setCurrentReviewId] = useState(0);
+  const user = JSON.parse(localStorage.getItem("profile"));
 
   useEffect(() => {
     dispatch(getCourse(courseId, history));
     dispatch(getCourseReviews(courseId));
   }, [dispatch]);
 
-  // useEffect(() => {
-  //   dispatch(getCourseReviews(courseId));
-  // }, [course]);
+  useEffect(() => {
+    const hasReviewed = reviews?.some(
+      (review) => review?.userId === user?.result?._id
+    );
+    if (hasReviewed) {
+      setReviewed(true);
+    } else {
+      setReviewed(false);
+    }
+  }, [reviews]);
 
   const editInPopup = (review) => {
     setCurrentReviewId(review._id);
@@ -135,16 +146,30 @@ const CourseDetails = () => {
               <Typography className={classes.titleText} variant="h4">
                 Reviews
               </Typography>
-              <Button
-                variant="contained"
-                color="primary"
-                size="small"
-                onClick={() => {
-                  setOpenPopup(true);
-                }}
-              >
-                Write a review
-              </Button>
+              {reviewed ? (
+                <Custom.Button
+                  disabled
+                  variant="outlined"
+                  color="primary"
+                  size="small"
+                  text="REVIEWED"
+                  style={{
+                    color: "#333996",
+                    border: "1px solid rgba(51, 57, 150, 0.5)",
+                  }}
+                />
+              ) : (
+                <Button
+                  variant="contained"
+                  color="primary"
+                  size="small"
+                  onClick={() => {
+                    setOpenPopup(true);
+                  }}
+                >
+                  Write a review
+                </Button>
+              )}
             </div>
             {/* <Review /> */}
             <Reviews editInPopup={editInPopup} courseId={courseId} />

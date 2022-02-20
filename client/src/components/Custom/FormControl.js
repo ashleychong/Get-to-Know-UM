@@ -37,6 +37,13 @@ export const useForm = (initialValues, validateOnChange = false, validate = {}) 
     });
   };
 
+  const handleAutocompleteInputEditChange = (event, value) => {
+    setValues({
+      ...values,
+      tags: value,
+    });
+  };
+
   const resetForm = () => {
     setValues(initialValues);
     setErrors({});
@@ -50,6 +57,7 @@ export const useForm = (initialValues, validateOnChange = false, validate = {}) 
     handleInputChange,
     handleRatingInputChange,
     handleAutocompleteInputChange,
+    handleAutocompleteInputEditChange,
     resetForm,
   };
 };
